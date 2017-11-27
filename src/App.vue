@@ -26,9 +26,20 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: #f9fcfc;
 }
 
 li {
   list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+a:hover {
+  color: #0094ff;
+}
+a:active {
+  color: #0094ff;
 }
 </style>
