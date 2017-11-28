@@ -3,23 +3,26 @@
       <div class="reg">
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="110px" class="demo-ruleForm">
               <el-form-item prop="resource">
-                <div class="tatelt">
+                <!-- <div class="tatelt">
                   请选择注册类型
-                </div>
+                </div> -->
                   <ul class="audio">
                     <li class="audio-n" @click="bdtwo1" ref="list1">
-                      <img src="../../assets/11.png" alt="">
+                      <!-- <img src="../../assets/11.png" alt=""> -->
+                     <i class="el-icon-goods"></i>  农户
                     </li>
                      <li class="audio-n" @click="bdtwo2" ref="list2">
-                      <img src="../../assets/22.png" alt="">
+                      <!-- <img src="../../assets/22.png" alt=""> -->
+                     <i class="el-icon-goods"></i>  值保队员
                     </li>
                      <li class="audio-n" @click="bdtwo3" ref="list3">
-                      <img src="../../assets/33.png" alt="">
+                      <!-- <img src="../../assets/33.png" alt=""> -->
+                     <i class="el-icon-goods"></i> 值保商
                     </li>
                   </ul>
               </el-form-item>
                <el-form-item label="用户名" class="names">
-                   <el-input  placeholder="手机号/邮箱"></el-input>
+                   <el-input  placeholder="手机号/邮箱" v-model="ruleForm.name" ref="keydw"></el-input>
               </el-form-item>
 
                <el-form-item label="密码" prop="pass" class="names">
@@ -54,14 +57,15 @@
 }
 .reg {
   width: 540px;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.5);
   position: absolute;
   padding: 50px 0;
-  height: 390px;
+  height: 460px;
   top: 50%;
   margin-top: -245px;
   left: 50%;
   margin-left: -270px;
+  border-radius: 10px;
 }
 .shortt {
   width: 360px;
@@ -85,20 +89,19 @@
 }
 .audio {
   margin: 0;
-  width: 370px;
-  height: 80px;
+  width: 400px;
+  height: 40px;
   padding: 0;
+  border-bottom: 2px solid #0094ff;
+  margin-left: -20px;
+  margin-bottom: 22px;
 }
 .audio-n {
   float: left;
-  width: 80px;
-  height: 80px;
-  margin-right: 30px;
-  margin-left: 12px;
+  width: 120px;
+  height: 40px;
   box-sizing: border-box;
-}
-.audio-n img {
-  margin: 0;
+  text-align: center;
 }
 .tatelt {
   width: 110px;
@@ -107,12 +110,20 @@
   top: 20px;
 }
 .active {
-  border: 1px solid#000;
   background-color: #0094ff;
 }
 .zhuces {
-  width: 100px;
+  width: 110px;
   position: absolute;
+}
+.el-form-item__error {
+  margin-top: -10px;
+}
+.el-input__suffix {
+  margin-top: -8px;
+}
+.el-form-item {
+  margin-bottom: 8px;
 }
 </style>
 
@@ -143,7 +154,8 @@ export default {
         resource: "",
         pass: "",
         checkPass: "",
-        id: 0
+        id: 0,
+        name: ""
       },
       rules: {
         pass: [{ validator: validatePass, trigger: "blur" }],
@@ -175,7 +187,30 @@ export default {
     },
     enroll: function() {
       console.log(this.ruleForm.id);
+    },
+    downkey: function() {
+      var str = /^[A-Za-z]+$/;
+
+      if (this.ruleForm.name.indexOf(str) > 0) {
+        this.Trim(this.ruleForm.name, "g");
+      } else {
+        if (this.ruleForm.name.length == 3 || this.ruleForm.name.length == 8) {
+          this.ruleForm.name += " ";
+        }
+      }
+    },
+    Trim: function(str, is_global) {
+      var result;
+      result = str.replace(/(^\s+)|(\s+$)/g, "");
+      if (is_global.toLowerCase() == "g") {
+        result = result.replace(/\s/g, "");
+      }
+      this.ruleForm.name = result;
+      return this.ruleForm.name;
     }
+  },
+  beforeUpdate() {
+    this.downkey();
   }
 };
 </script>

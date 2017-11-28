@@ -52,6 +52,7 @@
   background-color: #d5dde4;
   position: fixed;
   box-sizing: border-box;
+  z-index: 2;
 }
 .corent {
   width: 1200px;
@@ -69,11 +70,14 @@
   top: 23px;
   border-radius: 10px;
 }
-.searchInpt {
+.search .searchInpt {
   width: 142px;
   height: 22px;
   border: 0;
   border-radius: 10px;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
 }
 .personal {
   width: 170px;
@@ -116,7 +120,7 @@
 .el-icon-search {
   position: absolute;
   right: 5px;
-  top: 5px;
+  top: 3px;
 }
 .shu {
   width: 1px;
@@ -128,7 +132,7 @@
 }
 .min-logon {
   width: 340px;
-  height: 60px;
+  height: 70px;
   padding: 5px 120px;
 }
 .tab-centers {

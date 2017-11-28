@@ -5,7 +5,7 @@
     </div>
     <div class="loginto">
        <ul ref="ul">
-       <li>
+       <li class="dl">
     <el-form status-icon  label-width="100px" class="demo-ruleForm">
       <el-form-item label="用户名" prop="name">
         <el-input placeholder="账号/手机号/邮箱"></el-input>
@@ -25,7 +25,7 @@
       <el-button type="info" plain class="zhuce" @click="register">注册账号</el-button>
     </el-form>
    </li>
-   <li>
+   <li class="dl">
    <img src="../../assets/二维码.png"  alt="">
    </li>
    </ul>
@@ -56,7 +56,7 @@
 }
 .loginto {
   width: 480px;
-  height: 282px;
+  /* height: 282px; */
   overflow: hidden;
   position: relative;
   top: 50%;
@@ -74,6 +74,7 @@
   color: red;
   font-size: 10px;
   position: absolute;
+  top: 40px;
 }
 ul {
   width: 840px;
@@ -81,18 +82,18 @@ ul {
   padding: 0;
   margin: 0;
 }
-li {
+.dl {
   width: 420px;
   height: 282px;
   float: left;
   position: relative;
 }
-li img {
+.dl img {
   margin-left: 76px;
 }
 .el-form {
-  width: 400px;
-  padding: 0 10px;
+  width: 410px;
+  /* padding: 0 10px; */
 }
 .short {
   width: 280px;
@@ -124,6 +125,9 @@ li img {
   position: absolute;
   top: -1px;
   right: -2px;
+}
+.el-form-item {
+  margin-bottom: 8px;
 }
 </style>
 

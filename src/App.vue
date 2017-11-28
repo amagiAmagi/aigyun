@@ -39,7 +39,4 @@ a {
 a:hover {
   color: #0094ff;
 }
-a:active {
-  color: #0094ff;
-}
 </style>
