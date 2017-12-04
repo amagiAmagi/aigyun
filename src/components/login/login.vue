@@ -8,7 +8,7 @@
        <li class="dl">
     <el-form status-icon  label-width="100px" class="demo-ruleForm">
       <el-form-item label="用户名" prop="name">
-        <el-input placeholder="账号/手机号/邮箱"></el-input>
+        <el-input placeholder="账号/手机号/邮箱" v-model="name"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="pass" class="short">
         <el-input type="password" placeholder="密码" auto-complete="off" v-model="pswd"></el-input>
@@ -126,8 +126,14 @@ ul {
   top: -1px;
   right: -2px;
 }
+.el-form .el-form-item {
+  margin-bottom: 8px;
+}
 .el-form-item {
-  margin-bottom: 18px;
+  margin-bottom: 8px;
+}
+.el-form-item__content {
+  margin-bottom: 10px;
 }
 </style>
 
@@ -139,7 +145,8 @@ export default {
       message: Math.floor(Math.random() * 10000),
       num: 0,
       pand: false,
-      pswd: ""
+      pswd: "",
+      name: ""
     };
   },
   created() {},
@@ -168,10 +175,53 @@ export default {
       var val = this.$refs.short.$el.childNodes[1].value;
       if (val == this.message) {
         this.pand = false;
-        if (this.pswd == 1) {
-          location.href = "#/peasant";
+        // if (this.pswd == 1) {
+        //   location.href = "#/peasant";
+        // } else {
+        //   location.href = "#/business";
+        // }
+        if (this.name.indexOf("@") > 0) {
+          this.$http
+            .post(
+              "http://10.10.3.32:8080/AigyunWeb/Login",
+              {
+                phone_num: "",
+                email_addr: this.name,
+                password: this.pswd
+              },
+              {
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded"
+                }
+              }
+            )
+            .then(function(res) {
+              console.log(res);
+            })
+            .catch(function(err) {
+              console.log(err);
+            });
         } else {
-          location.href = "#/business";
+          this.$http
+            .post(
+              "http://10.10.3.32:8080/AigyunWeb/Login",
+              {
+                phone_num: this.name,
+                email_addr: "",
+                password: this.pswd
+              },
+              {
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded"
+                }
+              }
+            )
+            .then(function(res) {
+              console.log(res);
+            })
+            .catch(function(err) {
+              console.log(err);
+            });
         }
       } else {
         this.pand = true;

@@ -83,7 +83,7 @@
 }
 .stlsp-li {
   height: 30px;
-  padding: 20px 0;
+  padding: 18px 20px 20px 0;
   border-bottom: 1px solid #ccc;
   position: relative;
 }
@@ -102,27 +102,27 @@
   font-size: 14px;
   text-align: center;
 }
-.el-step__title {
+.el-step .el-step__title {
   font-size: 14px;
   line-height: 18px;
   margin-left: -10px;
 }
-.el-step__head.is-success {
+.el-step .el-step__head.is-success {
   color: #0094ff;
   border-color: #0094ff;
 }
-.el-step__title.is-success {
+.el-step .el-step__title.is-success {
   color: #0094ff;
 }
 .zsfj {
   position: absolute;
   left: 160px;
-  top: 4px;
+  top: 0px;
 }
-.el-step__title.is-process {
+.el-step .el-step__title.is-process {
   color: #b4bccc;
 }
-.el-step__head.is-process {
+.el-step .el-step__head.is-process {
   color: #b4bccc;
   border-color: #b4bccc;
 }

@@ -6,15 +6,15 @@
                 <!-- <div class="tatelt">
                   请选择注册类型
                 </div> -->
+                <span v-show="ruleForm.role" class="role">*&nbsp;请选择注册类型</span>
                   <ul class="audio">
                     <li class="audio-n" @click="bdtwo1" ref="list1">
                       <!-- <img src="../../assets/11.png" alt=""> -->
                      <i class="el-icon-goods"></i>  农户
                     </li>
-                     <li class="audio-n" @click="bdtwo2" ref="list2">
-                      <!-- <img src="../../assets/22.png" alt=""> -->
+                     <!-- <li class="audio-n" @click="bdtwo2" ref="list2">
                      <i class="el-icon-goods"></i>  值保队员
-                    </li>
+                    </li> -->
                      <li class="audio-n" @click="bdtwo3" ref="list3">
                       <!-- <img src="../../assets/33.png" alt=""> -->
                      <i class="el-icon-goods"></i> 值保商
@@ -92,11 +92,10 @@
   padding: 0;
   border-bottom: 2px solid #0094ff;
   margin-left: -20px;
-  margin-bottom: 22px;
 }
 .audio-n {
   float: left;
-  width: 120px;
+  width: 200px;
   height: 40px;
   box-sizing: border-box;
   text-align: center;
@@ -115,11 +114,17 @@
   position: absolute;
 }
 
-.el-form-item {
+.el-form .el-form-item {
   margin-bottom: 8px;
 }
 .el-form-item__content {
   margin-bottom: 10px;
+}
+.role {
+  position: absolute;
+  left: -70px;
+  top: -30px;
+  color: #f40;
 }
 </style>
 
@@ -151,7 +156,8 @@ export default {
         pass: "",
         checkPass: "",
         id: 0,
-        name: ""
+        name: "",
+        role: false
       },
       rules: {
         pass: [{ validator: validatePass, trigger: "blur" }],
@@ -165,24 +171,73 @@ export default {
     },
     bdtwo1: function() {
       this.$refs.list1.className = "audio-n active";
-      this.$refs.list2.className = "audio-n";
       this.$refs.list3.className = "audio-n";
       this.ruleForm.id = 1;
-    },
-    bdtwo2: function() {
-      this.$refs.list2.className = "audio-n active";
-      this.$refs.list1.className = "audio-n";
-      this.$refs.list3.className = "audio-n";
-      this.ruleForm.id = 2;
+      this.ruleForm.role = false;
     },
     bdtwo3: function() {
       this.$refs.list3.className = "audio-n active";
-      this.$refs.list2.className = "audio-n";
       this.$refs.list1.className = "audio-n";
       this.ruleForm.id = 3;
+      this.ruleForm.role = false;
     },
     enroll: function() {
-      console.log(this.ruleForm.id);
+      if (this.ruleForm.id == 0) {
+        this.ruleForm.role = true;
+      } else {
+        this.ruleForm.role = false;
+        if (this.ruleForm.name.indexOf("@") > 0) {
+          if (this.ruleForm.pass == this.ruleForm.checkPass) {
+            this.$http
+              .post(
+                "http://10.10.3.32:8080/AigyunWeb/SignUp",
+                {
+                  role: this.ruleForm.id,
+                  phone_num: "",
+                  emall_addr: this.ruleForm.name,
+                  password: this.ruleForm.pass
+                },
+                {
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                  }
+                }
+              )
+              .then(function(res) {
+                console.log(res);
+              })
+              .catch(function(err) {
+                console.log(err);
+              });
+          }
+        } else {
+          if (this.ruleForm.pass == this.ruleForm.checkPass) {
+            var string1 = this.ruleForm.name.replace(/\s/g, "");
+            console.log(string1);
+            this.$http
+              .post(
+                "http://10.10.3.32:8080/AigyunWeb/SignUp",
+                {
+                  role: this.ruleForm.id,
+                  phone_num: string1,
+                  password: this.ruleForm.pass,
+                  emall_addr: ""
+                },
+                {
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                  }
+                }
+              )
+              .then(function(res) {
+                console.log(res);
+              })
+              .catch(function(err) {
+                console.log(err);
+              });
+          }
+        }
+      }
     },
     downkey: function() {
       var str = "@";

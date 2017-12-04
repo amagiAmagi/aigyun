@@ -144,10 +144,10 @@
   padding-left: 14px;
   /* background-color: red; */
 }
-.subTab {
+.tab-centers .subTab {
   float: left;
-  line-height: 66px;
-  height: 66px;
+  line-height: 60px;
+  height: 60px;
   width: 20%;
   text-align: center;
   position: relative;

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <button>发送</button>
+</body>
+<script>
+  var but = document.querySelector('button');
+
+  but.onclick = function () {
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('post', "http://10.10.3.32:8080/AigyunWeb/WebApp");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.onload = function (res) {
+
+      if (xhr.readyState == 4 || xhr.status == 200) {
+        console.log(res);
+      }
+    };
+
+    xhr.send();
+  }
+
+</script>
+
+</html>
