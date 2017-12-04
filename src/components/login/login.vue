@@ -63,7 +63,7 @@
   left: 50%;
   /* margin-left: -210px; */
   margin-top: -200px;
-  padding: 59px 0 9px 0;
+  padding: 59px 0 0px 0;
   background-color: #fff;
   border-radius: 10px;
 }
@@ -103,15 +103,15 @@ ul {
 .zhuce {
   position: absolute;
   right: 10px;
-  top: 62px;
+  top: 58px;
   width: 102px;
 }
 .auth {
-  top: 124px;
+  top: 116px;
   font-size: 16px;
 }
 .zhuce {
-  top: 186px;
+  top: 174px;
 }
 .shorts {
   width: 180px;
@@ -127,7 +127,7 @@ ul {
   right: -2px;
 }
 .el-form-item {
-  margin-bottom: 8px;
+  margin-bottom: 18px;
 }
 </style>
 

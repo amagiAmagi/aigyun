@@ -16,7 +16,6 @@ import fullCalendar from "vue-fullcalendar";
 import echarts from "echarts";
 Vue.prototype.$echarts = echarts;
 Vue.component("full-calendar", fullCalendar);
-import "./assets/mui/css/mui.min.css";
 
 Vue.config.productionTip = false;
 

@@ -75,7 +75,7 @@
   height: 100%;
 }
 .left {
-  width: 340px;
+  width: 312px;
   background-color: #4c5e70;
   padding: 22px 14px;
   position: fixed;
@@ -133,8 +133,8 @@
   height: 100%;
 }
 .ztlc li {
-  width: 202px;
-  height: 286px;
+  width: 166px;
+  height: 256px;
   border-radius: 10px;
   box-shadow: 0 0 2px 2px #ccc;
   padding: 17px 18px;

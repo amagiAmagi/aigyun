@@ -51,7 +51,7 @@
   height: 100%;
 }
 .left {
-  width: 340px;
+  width: 312px;
   background-color: #4c5e70;
   padding: 22px 14px;
   position: fixed;

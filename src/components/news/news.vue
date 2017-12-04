@@ -43,7 +43,7 @@
 						<img class="mui-media-object mui-pull-left"  src="../../assets/图层 13.png">
 						<div class="mui-media-body">
 							爱极云是一个集农户在线定制飞防业务
-              <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>\
+              <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
               <span>2017-11-28</span>
 						</div>
 					</a>
@@ -77,7 +77,8 @@
 }
 .mui-media-body {
   height: 80px;
-  padding: 15px 0;
+  padding: 15px 0 15px 100px;
+  margin-top: -90px;
 }
 .mui-media-body span {
   float: right;
@@ -85,21 +86,30 @@
 }
 .mui-ellipsis {
   margin-top: 15px;
+  font-size: 14px;
 }
 .gkxnxw {
   box-shadow: 0 0 2px 2px #ccc;
   height: 408px;
   margin-top: 22px;
+  border-radius: 10px;
 }
 .mui-media {
   height: 102px;
+  border-bottom: 1px solid #ccc;
+}
+.mui-media:last-child {
+  border-bottom: 0;
 }
 .mui-media a {
   height: 102px;
+  width: 100%;
 }
 .mui-table-view .mui-media-object {
   line-height: 80px;
   max-width: 80px;
   height: 80px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 </style>

@@ -58,7 +58,7 @@
   background-color: rgba(255, 255, 255, 0.5);
   position: absolute;
   padding: 50px 0;
-  height: 460px;
+  height: 360px;
   top: 50%;
   margin-top: -245px;
   left: 50%;
@@ -114,14 +114,12 @@
   width: 110px;
   position: absolute;
 }
-.el-form-item__error {
-  margin-top: -10px;
-}
-.el-input__suffix {
-  margin-top: -8px;
-}
+
 .el-form-item {
   margin-bottom: 8px;
+}
+.el-form-item__content {
+  margin-bottom: 10px;
 }
 </style>
 

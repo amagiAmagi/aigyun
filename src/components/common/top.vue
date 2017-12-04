@@ -141,6 +141,7 @@
   top: -70px;
   height: 70px;
   left: 340px;
+  padding-left: 14px;
   /* background-color: red; */
 }
 .subTab {

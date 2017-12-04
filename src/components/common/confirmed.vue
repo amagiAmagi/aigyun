@@ -68,6 +68,7 @@
   box-shadow: 0 0 2px 2px #ccc;
   border-radius: 10px;
   padding: 0 10px;
+  margin-top: 20px;
 }
 .confirmed-top {
   height: 40px;
@@ -81,10 +82,13 @@
   height: 210px;
 }
 .stlsp-li {
-  height: 70px;
+  height: 30px;
   padding: 20px 0;
   border-bottom: 1px solid #ccc;
   position: relative;
+}
+.stlsp-li:last-child {
+  border: 0;
 }
 .stlsp-ul {
   margin: 0;
