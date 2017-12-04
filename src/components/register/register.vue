@@ -22,7 +22,7 @@
                   </ul>
               </el-form-item>
                <el-form-item label="用户名" class="names">
-                   <el-input  placeholder="手机号/邮箱" v-model="ruleForm.name" ref="keydw"></el-input>
+                   <el-input  placeholder="手机号/邮箱" v-model="ruleForm.name" :maxlength="ruleForm.number"></el-input>
               </el-form-item>
 
                <el-form-item label="密码" prop="pass" class="names">
@@ -31,7 +31,6 @@
   <el-form-item label="确认密码" prop="checkPass" class="names">
     <el-input type="password" v-model="ruleForm.checkPass" auto-complete="off"></el-input>
   </el-form-item>
-
    <el-form-item label="验证码" prop="name" class="shortt">
         <el-input placeholder="验证码" ref="short"></el-input>
                 <el-button type="success" class="auths" ref="auth" >获取验证码</el-button>
@@ -40,7 +39,6 @@
            <el-button type="primary" class="shortss" @click="enroll">注册账号</el-button>
            <el-button type="info" plain class="zhuces" @click="login">返回登录</el-button>
         </el-form-item>
-
         </el-form>
       </div>
     </div>
@@ -189,13 +187,13 @@ export default {
       console.log(this.ruleForm.id);
     },
     downkey: function() {
-      var str = /^[A-Za-z]+$/;
-
+      var str = "@";
+      this.getadd();
       if (this.ruleForm.name.indexOf(str) > 0) {
         this.Trim(this.ruleForm.name, "g");
       } else {
-        if (this.ruleForm.name.length == 3 || this.ruleForm.name.length == 8) {
-          this.ruleForm.name += " ";
+        if (parseInt(this.ruleForm.name[0]) != 1) {
+          this.Trim(this.ruleForm.name, "g");
         }
       }
     },
@@ -207,10 +205,23 @@ export default {
       }
       this.ruleForm.name = result;
       return this.ruleForm.name;
+    },
+    getadd: function() {
+      if (this.ruleForm.name.length == 3 || this.ruleForm.name.length == 8) {
+        this.ruleForm.name += " ";
+      }
     }
   },
   beforeUpdate() {
-    this.downkey();
+    if (/^1[3|4|5|8|9|7]/.test(this.ruleForm.name)) {
+      this.downkey();
+    }
+    if (/[a-zA-Z]/.test(this.ruleForm.name)) {
+      this.Trim(this.ruleForm.name, "g");
+    }
+    if (this.ruleForm.name.length > 13) {
+      this.Trim(this.ruleForm.name, "g");
+    }
   }
 };
 </script>

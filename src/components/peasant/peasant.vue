@@ -1,5 +1,6 @@
 <template>
-  <div class="topbar">
+<div>
+   <div class="topbar">
    <div class="corent">
      <div class="min-logon">
        <img src="../../assets/小logo.gif" alt="">
@@ -8,16 +9,13 @@
             <!-- <router-link to="/business/busCenter">值保中心</router-link> -->
 
               <li class="subTab home activ" @click="sublist1" ref="sublist1">
-               <router-link to="/business/bushome"><i class="el-icon-delete"></i>值保商首页</router-link><span class="jiange">|</span>
+               <router-link to="/peasant/peasantHome "><i class="el-icon-delete"></i>农户首页</router-link><span class="jiange">|</span>
               </li>
                <li class="subTab" @click="sublist2" ref="sublist2">
                <router-link to="/business/busCenter"><i class="el-icon-delete"></i>值保中心</router-link><span class="jiange">|</span>
               </li>
                <li class="subTab" @click="sublist3" ref="sublist3">
-               <router-link to="/business/teamCenter"><i class="el-icon-delete"></i>团队中心</router-link><span class="jiange">|</span>
-              </li>
-               <li class="subTab" @click="sublist4" ref="sublist4">
-               <router-link to="/business/assetsCenter"><i class="el-icon-delete"></i>资产中心</router-link><span class="jiange">|</span>
+               <router-link to="/business/teamCenter"><i class="el-icon-delete"></i>地块中心</router-link><span class="jiange">|</span>
               </li>
                <li class="subTab" @click="sublist5" ref="sublist5">
                <router-link to="/business/StatsCentral"><i class="el-icon-delete"></i>统计中心</router-link>
@@ -43,9 +41,28 @@
       </div>
    </div>
   </div>
+  <router-view></router-view>
+</div>
 </template>
-
 <style>
+.centers {
+  width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+}
+.left {
+  width: 340px;
+  background-color: #4c5e70;
+  padding: 22px 14px;
+  position: fixed;
+  top: 70px;
+  height: 100%;
+}
+.conter {
+  padding-top: 70px;
+  margin-left: 340px;
+  padding-left: 14px;
+}
 .topbar {
   width: 100%;
   height: 70px;
@@ -171,12 +188,13 @@ a {
   display: inline-block;
 }
 /* .home {
-  text-align: left;
+  text-align: center;
 } */
 .router-link-active {
   color: #0094ff;
 }
 </style>
+
 <script>
 export default {
   data() {
@@ -185,40 +203,30 @@ export default {
   created() {},
   methods: {
     sublist1: function() {
-      this.$refs.sublist1.className = "subTab activ";
+      this.$refs.sublist1.className = "subTab home activ";
       this.$refs.sublist2.className = "subTab";
       this.$refs.sublist3.className = "subTab";
-      this.$refs.sublist4.className = "subTab";
       this.$refs.sublist5.className = "subTab";
     },
     sublist2: function() {
       this.$refs.sublist2.className = "subTab activ";
-      this.$refs.sublist1.className = "subTab";
+      this.$refs.sublist1.className = "subTab home";
       this.$refs.sublist3.className = "subTab";
-      this.$refs.sublist4.className = "subTab";
       this.$refs.sublist5.className = "subTab";
     },
     sublist3: function() {
       this.$refs.sublist3.className = "subTab activ";
-      this.$refs.sublist1.className = "subTab";
-      this.$refs.sublist4.className = "subTab";
-      this.$refs.sublist5.className = "subTab";
-      this.$refs.sublist2.className = "subTab";
-    },
-    sublist4: function() {
-      this.$refs.sublist4.className = "subTab activ";
-      this.$refs.sublist3.className = "subTab";
-      this.$refs.sublist1.className = "subTab";
+      this.$refs.sublist1.className = "subTab home";
       this.$refs.sublist5.className = "subTab";
       this.$refs.sublist2.className = "subTab";
     },
     sublist5: function() {
       this.$refs.sublist5.className = "subTab activ";
-      this.$refs.sublist4.className = "subTab";
       this.$refs.sublist3.className = "subTab";
-      this.$refs.sublist1.className = "subTab";
+      this.$refs.sublist1.className = "subTab home";
       this.$refs.sublist2.className = "subTab";
     }
   }
 };
 </script>
+

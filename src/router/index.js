@@ -8,6 +8,8 @@ import businessCenter from "../components/business/business-center/business-cent
 import teamCenter from "../components/business/teamCenter/teamCenter.vue";
 import assetsCenter from "../components/business/assetsCenter/assetsCenter.vue";
 import StatsCentral from "../components/business/StatsCentral/StatsCentral.vue";
+import peasant from "../components/peasant/peasant.vue";
+import peasantHome from "../components/peasant/peasant-home.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -32,6 +34,18 @@ export default new Router({
       children: [
         { path: "", component: businessleft },
         { path: "bushome", component: businessleft },
+        { path: "busCenter", component: businessCenter },
+        { path: "teamCenter", component: teamCenter },
+        { path: "assetsCenter", component: assetsCenter },
+        { path: "StatsCentral", component: StatsCentral }
+      ]
+    },
+    {
+      path: "/peasant",
+      component: peasant,
+      children: [
+        { path: "", component: peasantHome },
+        { path: "peasantHome", component: peasantHome },
         { path: "busCenter", component: businessCenter },
         { path: "teamCenter", component: teamCenter },
         { path: "assetsCenter", component: assetsCenter },

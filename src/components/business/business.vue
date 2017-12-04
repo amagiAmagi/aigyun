@@ -12,15 +12,11 @@
 }
 </style>
 
-
-
 <script>
 import top from "../common/top.vue";
-import day from "../day/day.vue";
 export default {
   components: {
-    top,
-    day
+    top
   }
 };
 </script>

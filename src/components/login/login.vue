@@ -11,7 +11,7 @@
         <el-input placeholder="账号/手机号/邮箱"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="pass" class="short">
-        <el-input type="password" placeholder="密码" auto-complete="off"></el-input>
+        <el-input type="password" placeholder="密码" auto-complete="off" v-model="pswd"></el-input>
       </el-form-item>
       <el-form-item label="验证码" prop="name" class="short">
         <el-input placeholder="验证码" ref="short"></el-input>
@@ -138,7 +138,8 @@ export default {
     return {
       message: Math.floor(Math.random() * 10000),
       num: 0,
-      pand: false
+      pand: false,
+      pswd: ""
     };
   },
   created() {},
@@ -167,8 +168,11 @@ export default {
       var val = this.$refs.short.$el.childNodes[1].value;
       if (val == this.message) {
         this.pand = false;
-        console.log(val);
-        location.href = "#/business";
+        if (this.pswd == 1) {
+          location.href = "#/peasant";
+        } else {
+          location.href = "#/business";
+        }
       } else {
         this.pand = true;
       }
