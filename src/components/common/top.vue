@@ -5,23 +5,34 @@
        <img src="../../assets/小logo.gif" alt="">
      </div>
       <div class="tab-centers">
-            <!-- <router-link to="/business/busCenter">值保中心</router-link> -->
-
-              <li class="subTab home activ" @click="sublist1" ref="sublist1">
-               <router-link to="/business/bushome"><i class="el-icon-delete"></i>值保商首页</router-link><span class="jiange">|</span>
-              </li>
-               <li class="subTab" @click="sublist2" ref="sublist2">
-               <router-link to="/business/busCenter"><i class="el-icon-delete"></i>值保中心</router-link><span class="jiange">|</span>
-              </li>
-               <li class="subTab" @click="sublist3" ref="sublist3">
-               <router-link to="/business/teamCenter"><i class="el-icon-delete"></i>团队中心</router-link><span class="jiange">|</span>
-              </li>
-               <li class="subTab" @click="sublist4" ref="sublist4">
-               <router-link to="/business/assetsCenter"><i class="el-icon-delete"></i>资产中心</router-link><span class="jiange">|</span>
-              </li>
-               <li class="subTab" @click="sublist5" ref="sublist5">
-               <router-link to="/business/StatsCentral"><i class="el-icon-delete"></i>统计中心</router-link>
-              </li>
+              <el-menu class="el-menu-demo" mode="horizontal">
+  <el-menu-item index="1"><router-link to="/business/bushome"><i class="el-icon-delete"></i>值保商首页</router-link></el-menu-item>
+  <el-submenu index="2">
+    <template slot="title"><router-link to="/business/busCenter"><i class="el-icon-delete"></i>值保中心</router-link></template>
+    <el-menu-item index="2-1"><router-link to="/business/busCenter/mybus">我的订单</router-link></el-menu-item>
+    <el-menu-item index="2-2"><router-link to="/business/busCenter/mybus">发布订单</router-link></el-menu-item>
+    <el-menu-item index="2-3"><router-link to="/business/busCenter/mybus">接单订单</router-link></el-menu-item>
+    <el-menu-item index="2-4"><router-link to="/business/busCenter/mybus">评价订单</router-link></el-menu-item>
+  </el-submenu>
+  <el-submenu index="3">
+    <template slot="title"><router-link to="/business/teamCenter"><i class="el-icon-delete"></i>团队中心</router-link></template>
+    <el-menu-item index="3-1"><router-link to="/business/busCenter/mybus">值保队员管理</router-link></el-menu-item>
+    <el-menu-item index="3-2"><router-link to="/business/busCenter/mybus">值保队管理</router-link></el-menu-item>
+  </el-submenu>
+  <el-submenu index="4">
+    <template slot="title"><router-link to="/business/assetsCenter"><i class="el-icon-delete"></i>资产中心</router-link></template>
+    <el-menu-item index="4-1"><router-link to="/business/busCenter/mybus">无人机管理</router-link></el-menu-item>
+    <el-menu-item index="4-2"><router-link to="/business/busCenter/mybus">无人机分配</router-link></el-menu-item>
+  </el-submenu>
+  <el-submenu index="5">
+    <template slot="title"><router-link to="/business/StatsCentral"><i class="el-icon-delete"></i>统计中心</router-link></template>
+    <el-menu-item index="5-1"><router-link to="/business/busCenter/mybus">作业统计</router-link></el-menu-item>
+    <el-menu-item index="5-2"><router-link to="/business/busCenter/mybus">值保队统计</router-link></el-menu-item>
+    <el-menu-item index="5-3"><router-link to="/business/busCenter/mybus">值保队员统计</router-link></el-menu-item>
+    <el-menu-item index="5-4"><router-link to="/business/busCenter/mybus">无人机统计</router-link></el-menu-item>
+    <el-menu-item index="5-5"><router-link to="/business/busCenter/mybus">实时飞行轨迹</router-link></el-menu-item>
+  </el-submenu>
+</el-menu>
 
       </div>
       <div class="search">
@@ -39,6 +50,9 @@
               <img src="../../assets/Down 2.png" alt="">
             </i>
             <img src="../../assets/头像.png" alt="">
+             <div class="xgzl">
+              <p @click="open">修改资料</p>
+            </div>
         </div>
       </div>
    </div>
@@ -46,6 +60,58 @@
 </template>
 
 <style>
+.xgzl {
+  position: absolute;
+  font-size: 12px;
+  width: 60px;
+  height: 80px;
+  top: 48px;
+  left: 14px;
+  background-color: #0094ff;
+  border-radius: 5px;
+  text-align: center;
+  display: none;
+  color: #fff;
+  padding-top: 10px;
+}
+.el-menu {
+  left: -14px;
+  top: -10px;
+  height: 70px;
+  background-color: #d5dde4;
+  color: #000;
+}
+.el-menu--horizontal .el-menu-item {
+  height: 70px;
+  line-height: 70px;
+  width: 20%;
+  padding: 0;
+}
+.el-menu--horizontal .el-submenu {
+  width: 20%;
+  padding: 0;
+}
+.el-menu--horizontal .el-submenu .el-submenu__title {
+  height: 70px;
+  line-height: 70px;
+  padding: 0;
+}
+.el-menu--horizontal .el-submenu > .el-menu {
+  top: 70px;
+  min-width: 0px;
+  width: 108px;
+  height: 180px;
+  overflow: hidden;
+}
+.el-menu--horizontal .el-menu-item:hover {
+  /* background-color: #0094ff; */
+}
+.el-menu--horizontal .el-submenu .el-submenu__title:hover {
+  /* background-color: #0094ff; */
+}
+.el-menu--horizontal .el-submenu > .el-menu:hover {
+  /* background-color: #0094ff; */
+}
 .topbar {
   width: 100%;
   height: 70px;
@@ -96,6 +162,7 @@
   position: absolute;
   right: 0;
   top: 0;
+  height: 70px;
 }
 .personal-right img {
   position: absolute;
@@ -144,39 +211,6 @@
   padding-left: 14px;
   /* background-color: red; */
 }
-.tab-centers .subTab {
-  float: left;
-  line-height: 60px;
-  height: 60px;
-  width: 20%;
-  text-align: center;
-  position: relative;
-  font-size: 14px;
-}
-.jiange {
-  position: absolute;
-  right: 0;
-  color: #000;
-}
-.subTab:hover {
-  box-sizing: border-box;
-  border-bottom: 3px solid #0094ff;
-  color: #0094ff;
-}
-.activ {
-  box-sizing: border-box;
-  border-bottom: 3px solid #0094ff;
-  color: #0094ff;
-}
-a {
-  display: inline-block;
-}
-/* .home {
-  text-align: left;
-} */
-.router-link-active {
-  color: #0094ff;
-}
 </style>
 <script>
 export default {
@@ -185,40 +219,16 @@ export default {
   },
   created() {},
   methods: {
-    sublist1: function() {
-      this.$refs.sublist1.className = "subTab activ";
-      this.$refs.sublist2.className = "subTab";
-      this.$refs.sublist3.className = "subTab";
-      this.$refs.sublist4.className = "subTab";
-      this.$refs.sublist5.className = "subTab";
-    },
-    sublist2: function() {
-      this.$refs.sublist2.className = "subTab activ";
-      this.$refs.sublist1.className = "subTab";
-      this.$refs.sublist3.className = "subTab";
-      this.$refs.sublist4.className = "subTab";
-      this.$refs.sublist5.className = "subTab";
-    },
-    sublist3: function() {
-      this.$refs.sublist3.className = "subTab activ";
-      this.$refs.sublist1.className = "subTab";
-      this.$refs.sublist4.className = "subTab";
-      this.$refs.sublist5.className = "subTab";
-      this.$refs.sublist2.className = "subTab";
-    },
-    sublist4: function() {
-      this.$refs.sublist4.className = "subTab activ";
-      this.$refs.sublist3.className = "subTab";
-      this.$refs.sublist1.className = "subTab";
-      this.$refs.sublist5.className = "subTab";
-      this.$refs.sublist2.className = "subTab";
-    },
-    sublist5: function() {
-      this.$refs.sublist5.className = "subTab activ";
-      this.$refs.sublist4.className = "subTab";
-      this.$refs.sublist3.className = "subTab";
-      this.$refs.sublist1.className = "subTab";
-      this.$refs.sublist2.className = "subTab";
+    open() {
+      this.$alert("这是一段内容", "标题名称", {
+        confirmButtonText: "确定",
+        callback: action => {
+          this.$message({
+            type: "info",
+            message: `action: ${action}`
+          });
+        }
+      });
     }
   }
 };

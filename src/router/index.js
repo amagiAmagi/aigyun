@@ -10,6 +10,17 @@ import assetsCenter from "../components/business/assetsCenter/assetsCenter.vue";
 import StatsCentral from "../components/business/StatsCentral/StatsCentral.vue";
 import peasant from "../components/peasant/peasant.vue";
 import peasantHome from "../components/peasant/peasant-home.vue";
+import peasantStats from "../components/peasant/StatsCentral/peasantStatsCentral.vue";
+import peasantBotany from "../components/peasant/botanyCenter/botanyCenter.vue";
+import peasantSoil from "../components/peasant/soilCenter/soilCenter.vue";
+import protect from "../components/protectPlayers/protectPlayers.vue";
+import protectHome from "../components/protectPlayers/protect-home.vue";
+import protectMoney from "../components/protectPlayers/assetsCenter/assetsCenter.vue";
+import protectBotany from "../components/protectPlayers/business-center/business-center.vue";
+import protectTeam from "../components/protectPlayers/teamCenter/teamCenter.vue";
+import protectStats from "../components/protectPlayers/StatsCentral/StatsCentral.vue";
+import mybus from "../components/business/business-center/mybus/mybus.vue";
+import publish from "../components/peasant/botanyCenter/publish/publish.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -34,7 +45,11 @@ export default new Router({
       children: [
         { path: "", component: businessleft },
         { path: "bushome", component: businessleft },
-        { path: "busCenter", component: businessCenter },
+        {
+          path: "busCenter",
+          component: businessCenter,
+          children: [{ path: "mybus", component: mybus }]
+        },
         { path: "teamCenter", component: teamCenter },
         { path: "assetsCenter", component: assetsCenter },
         { path: "StatsCentral", component: StatsCentral }
@@ -46,10 +61,25 @@ export default new Router({
       children: [
         { path: "", component: peasantHome },
         { path: "peasantHome", component: peasantHome },
-        { path: "busCenter", component: businessCenter },
-        { path: "teamCenter", component: teamCenter },
-        { path: "assetsCenter", component: assetsCenter },
-        { path: "StatsCentral", component: StatsCentral }
+        { path: "peasantStats", component: peasantStats },
+        {
+          path: "peasantBotany",
+          component: peasantBotany,
+          children: [{ path: "publish", component: publish }]
+        },
+        { path: "peasantSoil", component: peasantSoil }
+      ]
+    },
+    {
+      path: "/protect",
+      component: protect,
+      children: [
+        { path: "", component: protectHome },
+        { path: "peasantHome", component: protectHome },
+        { path: "protectMoney", component: protectMoney },
+        { path: "protectBotany", component: protectBotany },
+        { path: "protectTeam", component: protectTeam },
+        { path: "protectStats", component: protectStats }
       ]
     }
   ]

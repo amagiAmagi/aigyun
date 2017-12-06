@@ -22,7 +22,7 @@
                   </ul>
               </el-form-item>
                <el-form-item label="用户名" class="names">
-                   <el-input  placeholder="手机号/邮箱" v-model="ruleForm.name" :maxlength="ruleForm.number"></el-input>
+                   <el-input  placeholder="手机号/邮箱" v-model="ruleForm.name"></el-input>
               </el-form-item>
 
                <el-form-item label="密码" prop="pass" class="names">
@@ -33,7 +33,7 @@
   </el-form-item>
    <el-form-item label="验证码" prop="name" class="shortt">
         <el-input placeholder="验证码" ref="short"></el-input>
-                <el-button type="success" class="auths" ref="auth" >获取验证码</el-button>
+                <el-button type="success" class="auths" ref="auth"  @click="yanzheng">获取验证码</el-button>
       </el-form-item>
         <el-form-item>
            <el-button type="primary" class="shortss" @click="enroll">注册账号</el-button>
@@ -129,6 +129,7 @@
 </style>
 
 <script>
+import { Message } from "element-ui";
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
@@ -194,7 +195,7 @@ export default {
                 {
                   role: this.ruleForm.id,
                   phone_num: "",
-                  emall_addr: this.ruleForm.name,
+                  email_addr: this.ruleForm.name,
                   password: this.ruleForm.pass
                 },
                 {
@@ -204,7 +205,9 @@ export default {
                 }
               )
               .then(function(res) {
-                console.log(res);
+                if (res.data.code == 0) {
+                } else {
+                }
               })
               .catch(function(err) {
                 console.log(err);
@@ -213,7 +216,6 @@ export default {
         } else {
           if (this.ruleForm.pass == this.ruleForm.checkPass) {
             var string1 = this.ruleForm.name.replace(/\s/g, "");
-            console.log(string1);
             this.$http
               .post(
                 "http://10.10.3.32:8080/AigyunWeb/SignUp",
@@ -221,7 +223,7 @@ export default {
                   role: this.ruleForm.id,
                   phone_num: string1,
                   password: this.ruleForm.pass,
-                  emall_addr: ""
+                  email_addr: ""
                 },
                 {
                   headers: {
@@ -230,7 +232,9 @@ export default {
                 }
               )
               .then(function(res) {
-                console.log(res);
+                if (res.data.code == 0) {
+                } else {
+                }
               })
               .catch(function(err) {
                 console.log(err);
@@ -262,6 +266,61 @@ export default {
     getadd: function() {
       if (this.ruleForm.name.length == 3 || this.ruleForm.name.length == 8) {
         this.ruleForm.name += " ";
+      }
+    },
+    yanzheng: function() {
+      // SendVerifyCode
+      if (this.ruleForm.name.indexOf("@") > 0) {
+        if (this.ruleForm.pass == this.ruleForm.checkPass) {
+          this.$http
+            .post(
+              "http://10.10.3.32:8080/AigyunWeb/SendVerifyCode",
+              {
+                phone_num: "",
+                email_addr: this.ruleForm.name,
+                type: 0
+              },
+              {
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded"
+                }
+              }
+            )
+            .then(function(res) {
+              if (res.data.code == 0) {
+              } else {
+              }
+            })
+            .catch(function(err) {
+              console.log(err);
+            });
+        }
+      } else {
+        if (this.ruleForm.pass == this.ruleForm.checkPass) {
+          var string1 = this.ruleForm.name.replace(/\s/g, "");
+          this.$http
+            .post(
+              "http://10.10.3.32:8080/AigyunWeb/SendVerifyCode",
+              {
+                phone_num: string1,
+                type: 0,
+                email_addr: ""
+              },
+              {
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded"
+                }
+              }
+            )
+            .then(function(res) {
+              if (res.data.code == 0) {
+              } else {
+              }
+            })
+            .catch(function(err) {
+              console.log(err);
+            });
+        }
       }
     }
   },

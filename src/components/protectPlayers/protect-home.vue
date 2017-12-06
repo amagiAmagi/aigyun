@@ -1,7 +1,7 @@
 <template>
   <div class="centers">
     <div class="left">
-      <landMass></landMass>
+      <gsxx></gsxx>
       <day></day>
         <div class="tianqi">
           <iframe allowtransparency="true" frameborder="0" width="312" height="96" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=1&z=1&t=0&v=0&d=2&bd=0&k=&f=&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=59493&w=312&h=96&align=center"></iframe>
@@ -32,8 +32,8 @@ import statistics from "../statistics/statistics.vue";
 import news from "../news/news.vue";
 import hello from "../helloMiss/hello.vue";
 import weather from "../day/weather.vue";
-import landMass from "../landMass/landmass.vue";
 import confirmed from "../common/confirmed.vue";
+import gsxx from "../common/gsxx.vue";
 export default {
   components: {
     day,
@@ -41,8 +41,8 @@ export default {
     news,
     hello,
     weather,
-    landMass,
-    confirmed
+    confirmed,
+    gsxx
   }
 };
 </script>

@@ -16,11 +16,13 @@
     "axios": "^0.17.1",
     "echarts": "^3.8.5",
     "element-ui": "^2.0.5",
+    "v-distpicker": "^1.0.13",
     "vue": "^2.5.2",
     "vue-axios": "^2.0.2",
     "vue-event-calendar": "^1.5.1",
     "vue-fullcalendar": "^1.0.9",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -6,21 +6,22 @@
        <img src="../../assets/小logo.gif" alt="">
      </div>
       <div class="tab-centers">
-            <!-- <router-link to="/business/busCenter">值保中心</router-link> -->
-
-              <li class="subTab home activ" @click="sublist1" ref="sublist1">
-               <router-link to="/peasant/peasantHome "><i class="el-icon-delete"></i>农户首页</router-link><span class="jiange">|</span>
-              </li>
-               <li class="subTab" @click="sublist2" ref="sublist2">
-               <router-link to="/business/busCenter"><i class="el-icon-delete"></i>值保中心</router-link><span class="jiange">|</span>
-              </li>
-               <li class="subTab" @click="sublist3" ref="sublist3">
-               <router-link to="/business/teamCenter"><i class="el-icon-delete"></i>地块中心</router-link><span class="jiange">|</span>
-              </li>
-               <li class="subTab" @click="sublist5" ref="sublist5">
-               <router-link to="/business/StatsCentral"><i class="el-icon-delete"></i>统计中心</router-link>
-              </li>
-
+         <el-menu class="el-menu-demo" mode="horizontal">
+           <el-menu-item index="1"><router-link to="/peasant/peasantHome"><i class="el-icon-delete"></i>农户首页<span class="jiange">|</span></router-link></el-menu-item>
+           <el-submenu index="2">
+             <template slot="title"><router-link to="/peasant/peasantBotany"><i class="el-icon-delete"></i>值保中心<span class="jiange">|</span></router-link></template>
+             <el-menu-item index="2-1"><router-link to="/business/busCenter/mybus">我的订单</router-link></el-menu-item>
+             <el-menu-item index="2-2"><router-link to="/peasant/peasantBotany/publish">发布订单</router-link></el-menu-item>
+             <el-menu-item index="2-3"><router-link to="/business/busCenter/mybus">接单订单</router-link></el-menu-item>
+             <el-menu-item index="2-4"><router-link to="/business/busCenter/mybus">评价订单</router-link></el-menu-item>
+           </el-submenu>
+           <el-menu-item index="3"><router-link to="/peasant/peasantSoil"><i class="el-icon-delete"></i>地块中心<span class="jiange">|</span></router-link></el-menu-item>
+           <el-submenu index="4">
+             <template slot="title"> <router-link to="/peasant/peasantStats"><i class="el-icon-delete"></i>统计中心</router-link></template>
+             <el-menu-item index="4-1"><router-link to="/business/busCenter/mybus">无人机管理</router-link></el-menu-item>
+             <el-menu-item index="4-2"><router-link to="/business/busCenter/mybus">无人机分配</router-link></el-menu-item>
+           </el-submenu>
+         </el-menu>
       </div>
       <div class="search">
           <input type="text" class="searchInpt">
@@ -37,7 +38,11 @@
               <img src="../../assets/Down 2.png" alt="">
             </i>
             <img src="../../assets/头像.png" alt="">
+            <div class="xgzl">
+                <p @click="open">修改资料</p>
+            </div>
         </div>
+
       </div>
    </div>
   </div>
@@ -45,6 +50,11 @@
 </div>
 </template>
 <style>
+.jiange {
+  position: absolute;
+  right: 0;
+  color: #000;
+}
 .centers {
   width: 1200px;
   margin: 0 auto;
@@ -113,6 +123,10 @@
   position: absolute;
   right: 0;
   top: 0;
+  height: 70px;
+}
+.personal-right:hover .xgzl {
+  display: block;
 }
 .personal-right img {
   position: absolute;
@@ -160,38 +174,59 @@
   left: 340px;
   /* background-color: red; */
 }
-.subTab {
-  float: left;
-  line-height: 60px;
-  height: 60px;
-  width: 20%;
-  text-align: center;
-  position: relative;
-  font-size: 14px;
-}
-.jiange {
-  position: absolute;
-  right: 0;
+a {
   color: #000;
 }
-.subTab:hover {
-  box-sizing: border-box;
-  border-bottom: 3px solid #0094ff;
-  color: #0094ff;
-}
-.activ {
-  box-sizing: border-box;
-  border-bottom: 3px solid #0094ff;
-  color: #0094ff;
-}
-a {
-  display: inline-block;
-}
-/* .home {
+.xgzl {
+  position: absolute;
+  font-size: 12px;
+  width: 60px;
+  height: 80px;
+  top: 48px;
+  left: 14px;
+  background-color: #0094ff;
+  border-radius: 5px;
   text-align: center;
-} */
-.router-link-active {
-  color: #0094ff;
+  display: none;
+  color: #fff;
+  padding-top: 10px;
+}
+.el-menu {
+  /* left: -14px; */
+  top: -10px;
+  height: 70px;
+  background-color: #d5dde4;
+  color: #000;
+}
+.el-menu--horizontal .el-menu-item {
+  height: 70px;
+  line-height: 70px;
+  width: 120px;
+  padding: 0;
+}
+.el-menu--horizontal .el-submenu {
+  width: 120px;
+  padding: 0;
+}
+.el-menu--horizontal .el-submenu .el-submenu__title {
+  height: 70px;
+  line-height: 70px;
+  padding: 0;
+}
+.el-menu--horizontal .el-submenu > .el-menu {
+  top: 70px;
+  min-width: 0px;
+  width: 98px;
+  overflow: hidden;
+  height: 148px;
+  padding-left: 10px;
+}
+.el-menu--horizontal .el-menu-item:hover {
+  background-color: transparent;
+}
+.el-menu--horizontal .el-submenu .el-submenu__title:hover {
+  background-color: transparent;
+  /* border-bottom: 2px solid #0094ff; */
 }
 </style>
 
@@ -202,29 +237,16 @@ export default {
   },
   created() {},
   methods: {
-    sublist1: function() {
-      this.$refs.sublist1.className = "subTab home activ";
-      this.$refs.sublist2.className = "subTab";
-      this.$refs.sublist3.className = "subTab";
-      this.$refs.sublist5.className = "subTab";
-    },
-    sublist2: function() {
-      this.$refs.sublist2.className = "subTab activ";
-      this.$refs.sublist1.className = "subTab home";
-      this.$refs.sublist3.className = "subTab";
-      this.$refs.sublist5.className = "subTab";
-    },
-    sublist3: function() {
-      this.$refs.sublist3.className = "subTab activ";
-      this.$refs.sublist1.className = "subTab home";
-      this.$refs.sublist5.className = "subTab";
-      this.$refs.sublist2.className = "subTab";
-    },
-    sublist5: function() {
-      this.$refs.sublist5.className = "subTab activ";
-      this.$refs.sublist3.className = "subTab";
-      this.$refs.sublist1.className = "subTab home";
-      this.$refs.sublist2.className = "subTab";
+    open() {
+      this.$alert("这是一段内容", "标题名称", {
+        confirmButtonText: "确定",
+        callback: action => {
+          this.$message({
+            type: "info",
+            message: `action: ${action}`
+          });
+        }
+      });
     }
   }
 };

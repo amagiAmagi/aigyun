@@ -18,10 +18,10 @@
         <p class="pand" v-show="pand">* 验证码不正确</p>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" class="shorts"  @click="loginTo">登录</el-button>
+        <el-button type="primary" class="shorts"  @click="loginTo" v-loading="loading" >登录</el-button>
       </el-form-item>
       <el-button type="danger" class="forget">忘记密码？</el-button>
-      <el-button type="success" class="auth" ref="auth" @click="authTo">{{message}}</el-button>
+      <el-button type="success" class="auth" ref="auth" @click="authTo">{{map}}</el-button>
       <el-button type="info" plain class="zhuce" @click="register">注册账号</el-button>
     </el-form>
    </li>
@@ -139,24 +139,28 @@ ul {
 
  <script>
 // import $ from 'jquery'
+import store from "../../../store/store.js";
 export default {
   data() {
     return {
-      message: Math.floor(Math.random() * 10000),
+      map: Math.floor(Math.random() * 10000),
       num: 0,
       pand: false,
       pswd: "",
-      name: ""
+      name: "",
+      loading: false
     };
   },
-  created() {},
+  created() {
+    this.hashchange();
+  },
   methods: {
     //获取验证码
     authTo: function() {
-      this.message = Math.floor(Math.random() * 10000);
-      this.message = this.message < 1000 ? this.message * 10 : this.message;
-      this.message = this.message < 1000 ? this.message + "0" : this.message;
-      this.$refs.auth.$el.innerText = this.message;
+      this.map = Math.floor(Math.random() * 10000);
+      this.map = this.map < 1000 ? this.map * 10 : this.map;
+      this.map = this.map < 1000 ? this.map + "0" : this.map;
+      this.$refs.auth.$el.innerText = this.map;
     },
     //注册
     register: function() {
@@ -173,14 +177,11 @@ export default {
     },
     loginTo: function() {
       var val = this.$refs.short.$el.childNodes[1].value;
-      if (val == this.message) {
+      if (val == this.map) {
         this.pand = false;
-        // if (this.pswd == 1) {
-        //   location.href = "#/peasant";
-        // } else {
-        //   location.href = "#/business";
-        // }
+        this.loading = true;
         if (this.name.indexOf("@") > 0) {
+          this.loading = false;
           this.$http
             .post(
               "http://10.10.3.32:8080/AigyunWeb/Login",
@@ -196,17 +197,31 @@ export default {
               }
             )
             .then(function(res) {
-              console.log(res);
+              console.log(res.data);
+              if (res.data.code == 0) {
+                if (res.data.attachment.role == 1) {
+                  location.href = "#/peasant";
+                }
+                if (res.data.attachment.role == 2) {
+                  location.href = "/business";
+                }
+                if (res.data.attachment.role == 3) {
+                  location.href = "#/protect";
+                }
+              } else {
+              }
             })
             .catch(function(err) {
               console.log(err);
             });
         } else {
+          this.loading = false;
+          var string1 = this.name.replace(/\s/g, "");
           this.$http
             .post(
               "http://10.10.3.32:8080/AigyunWeb/Login",
               {
-                phone_num: this.name,
+                phone_num: string1,
                 email_addr: "",
                 password: this.pswd
               },
@@ -217,7 +232,21 @@ export default {
               }
             )
             .then(function(res) {
-              console.log(res);
+              console.log(res.data);
+
+              console.log(window.history.go);
+              if (res.data.code == 0) {
+                if (res.data.attachment.role == 1) {
+                  location.href = "#/peasant";
+                }
+                if (res.data.attachment.role == 2) {
+                  location.href = "/business";
+                }
+                if (res.data.attachment.role == 3) {
+                  location.href = "#/protect";
+                }
+              } else {
+              }
             })
             .catch(function(err) {
               console.log(err);
@@ -225,7 +254,48 @@ export default {
         }
       } else {
         this.pand = true;
+        this.loading = false;
       }
+    },
+    downkey: function() {
+      var str = "@";
+      this.getadd();
+      if (this.name.indexOf(str) > 0) {
+        this.Trim(this.name, "g");
+      } else {
+        if (parseInt(this.name[0]) != 1) {
+          this.Trim(this.name, "g");
+        }
+      }
+    },
+    Trim: function(str, is_global) {
+      var result;
+      result = str.replace(/(^\s+)|(\s+$)/g, "");
+      if (is_global.toLowerCase() == "g") {
+        result = result.replace(/\s/g, "");
+      }
+      this.name = result;
+      return this.name;
+    },
+    getadd: function() {
+      if (this.name.length == 3 || this.name.length == 8) {
+        this.name += " ";
+      }
+    },
+    hashchange: function() {
+      window.history.pushState("forward", null, "");
+      window.history.forward(1);
+    }
+  },
+  beforeUpdate() {
+    if (/^1[3|4|5|8|9|7]/.test(this.name)) {
+      this.downkey();
+    }
+    if (/[a-zA-Z]/.test(this.name)) {
+      this.Trim(this.name, "g");
+    }
+    if (this.name.length > 13) {
+      this.Trim(this.name, "g");
     }
   }
 };

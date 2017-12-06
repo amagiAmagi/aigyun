@@ -1,6 +1,8 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from "vue";
+import Vuex from "vuex";
+Vue.use(Vuex);
 import App from "./App";
 import router from "./router";
 import ElementUI from "element-ui";
@@ -16,6 +18,7 @@ import fullCalendar from "vue-fullcalendar";
 import echarts from "echarts";
 Vue.prototype.$echarts = echarts;
 Vue.component("full-calendar", fullCalendar);
+import store from "../store/store.js";
 
 Vue.config.productionTip = false;
 
@@ -23,6 +26,7 @@ Vue.config.productionTip = false;
 new Vue({
   el: "#app",
   router,
+  store,
   template: "<App/>",
   components: { App }
 });
