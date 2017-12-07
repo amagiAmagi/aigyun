@@ -140,6 +140,7 @@ ul {
  <script>
 // import $ from 'jquery'
 import store from "../../../store/store.js";
+// import api from "../../../store/axios/api/api.js";
 export default {
   data() {
     return {

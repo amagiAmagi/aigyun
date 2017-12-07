@@ -10,8 +10,19 @@
 
         </div>
         <div class="jrbzby">
-           <p><span>今日</span>&nbsp;&nbsp;&nbsp;<span style="color: #0094ff">本周</span>&nbsp;&nbsp;&nbsp;<span>本月</span></p>
+           <p><span>日</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span style="color: #0094ff">周</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>月</span></p>
+           <!-- <el-date-picker
+      v-model="value7"
+      type="daterange"
+      align="right"
+      unlink-panels
+      range-separator="至"
+      start-placeholder="开始日期"
+      end-placeholder="结束日期"
+      :picker-options="pickerOptions2">
+    </el-date-picker> -->
         </div>
+
  </div>
 </template>
 <style>
@@ -27,6 +38,7 @@
 .zbszytj span {
   font-size: 20px;
   line-height: 56px;
+  text-align: center;
 }
 .zbckgd {
   float: right;
@@ -46,11 +58,15 @@
   width: 140px;
   position: relative;
   top: -400px;
-  left: 560px;
+  left: 650px;
 }
 .jrbzby p {
   margin: 0;
 }
+/* .el-range-editor.el-input__inner {
+  left: 130px;
+  top: -30px;
+} */
 </style>
 <script>
 // 引入基本模板
@@ -62,7 +78,40 @@ require("echarts/lib/component/tooltip");
 require("echarts/lib/component/title");
 export default {
   data() {
-    return {};
+    return {
+      pickerOptions2: {
+        shortcuts: [
+          {
+            text: "最近一周",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近一个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近三个月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit("pick", [start, end]);
+            }
+          }
+        ]
+      },
+      value7: ""
+    };
   },
   mounted() {
     this.drawLine();

@@ -19,7 +19,7 @@ import echarts from "echarts";
 Vue.prototype.$echarts = echarts;
 Vue.component("full-calendar", fullCalendar);
 import store from "../store/store.js";
-
+// import api from "../axios/api/api.js";
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
