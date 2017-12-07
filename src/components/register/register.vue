@@ -32,7 +32,7 @@
     <el-input type="password" v-model="ruleForm.checkPass" auto-complete="off"></el-input>
   </el-form-item>
    <el-form-item label="验证码" prop="name" class="shortt">
-        <el-input placeholder="验证码" ref="short"></el-input>
+        <el-input placeholder="验证码" ref="short" v-model="ruleForm.verify"></el-input>
                 <el-button type="success" class="auths" ref="auth"  @click="yanzheng">获取验证码</el-button>
       </el-form-item>
         <el-form-item>
@@ -158,7 +158,9 @@ export default {
         checkPass: "",
         id: 0,
         name: "",
-        role: false
+        role: false,
+        verify: "",
+        yanz: ""
       },
       rules: {
         pass: [{ validator: validatePass, trigger: "blur" }],
@@ -188,7 +190,10 @@ export default {
       } else {
         this.ruleForm.role = false;
         if (this.ruleForm.name.indexOf("@") > 0) {
-          if (this.ruleForm.pass == this.ruleForm.checkPass) {
+          if (
+            this.ruleForm.pass == this.ruleForm.checkPass &&
+            this.ruleForm.verify == this.ruleForm.yanz
+          ) {
             this.$http
               .post(
                 "http://10.10.3.32:8080/AigyunWeb/SignUp",
@@ -205,6 +210,7 @@ export default {
                 }
               )
               .then(function(res) {
+                console.log(res);
                 if (res.data.code == 0) {
                 } else {
                 }
@@ -232,6 +238,7 @@ export default {
                 }
               )
               .then(function(res) {
+                console.log(res);
                 if (res.data.code == 0) {
                 } else {
                 }
@@ -287,7 +294,9 @@ export default {
               }
             )
             .then(function(res) {
+              console.log(res);
               if (res.data.code == 0) {
+                this.ruleForm.yanz = res.data.attachment.verify_code;
               } else {
               }
             })
@@ -313,7 +322,9 @@ export default {
               }
             )
             .then(function(res) {
+              console.log(res);
               if (res.data.code == 0) {
+                this.ruleForm.yanz = res.data.attachment.verify_code;
               } else {
               }
             })

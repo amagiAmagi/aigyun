@@ -1,7 +1,60 @@
 <template>
   <div>
-    <div class="left"></div>
-    <div class="publish">
+    <div class="left">
+      <div class="demand">
+          <div class="demand-top">
+            <p>选择发布需求的地块</p>
+          </div>
+          <div class="souse">
+            <input type="text">
+            <i class="el-icon-search"></i>
+          </div>
+          <el-button type="primary" class="xzdk"><i class="el-icon-circle-plus-outline"></i>新增地块</el-button>
+      </div>
+      <div class="dklist">
+          <div class="information">
+              <img src="../../../../assets/5555.png" alt="">
+              <div class="information-right">
+                <h4>田地一号</h4>
+                <span>广东省深圳市南山区特发信息港A栋</span><br>
+                <span>120亩</span>|<span>水稻</span>
+              </div>
+          </div>
+          <div class="information">
+              <img src="../../../../assets/5555.png" alt="">
+              <div class="information-right">
+                <h4>田地一号</h4>
+                <span>广东省深圳市南山区特发信息港A栋</span><br>
+                <span>120亩</span>|<span>水稻</span>
+              </div>
+          </div>
+          <div class="information">
+              <img src="../../../../assets/5555.png" alt="">
+              <div class="information-right">
+                <h4>田地一号</h4>
+                <span>广东省深圳市南山区特发信息港A栋</span><br>
+                <span>120亩</span>|<span>水稻</span>
+              </div>
+          </div>
+          <div class="information">
+              <img src="../../../../assets/5555.png" alt="">
+              <div class="information-right">
+                <h4>田地一号</h4>
+                <span>广东省深圳市南山区特发信息港A栋</span><br>
+                <span>120亩</span>|<span>水稻</span>
+              </div>
+          </div>
+          <div class="information">
+              <img src="../../../../assets/5555.png" alt="">
+              <div class="information-right">
+                <h4>田地一号</h4>
+                <span>广东省深圳市南山区特发信息港A栋</span><br>
+                <span>120亩</span>|<span>水稻</span>
+              </div>
+          </div>
+      </div>
+    </div>
+<div class="publish">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
   <el-form-item label="农户姓名" prop="name">
     <el-input v-model="ruleForm.name"></el-input>
@@ -81,7 +134,7 @@
     <div style="height: 70px;line-height: 70px;text-align: center;font-size: 14px">
         Copyright@深圳高科新农技术有限公司 保留所有权利 粤ICP备66668888号
     </div>
-    </div>
+</div>
   </div>
 </template>
 
@@ -93,6 +146,75 @@
   position: fixed;
   top: 70px;
   height: 100%;
+}
+.information {
+  height: 112px;
+  margin-top: 15px;
+  border-radius: 10px;
+  background-color: #fff;
+}
+.information img {
+  display: inline-block;
+  width: 116px;
+  height: 86px;
+  margin-top: 14px;
+  margin-left: 10px;
+}
+.information-right {
+  display: inline-block;
+  width: 166px;
+  height: 112px;
+  margin-left: 10px;
+  margin-top: -20px;
+}
+.information-right h4 {
+  margin: 0;
+}
+.information-right span {
+  font-size: 14px;
+}
+.demand {
+  height: 200px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+}
+.demand-top {
+  padding: 0 10px;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+}
+.demand-top p {
+  margin: 0;
+  border-bottom: 1px solid #ccc;
+  font-weight: 700;
+}
+.souse {
+  height: 30px;
+  /* background-color: red; */
+  padding: 20px 46px;
+  position: relative;
+}
+.souse input {
+  height: 30px;
+  width: 200px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+.souse i {
+  position: absolute;
+  font-size: 30px;
+  right: 65px;
+  top: 32px;
+}
+.xzdk {
+  width: 120px;
+  height: 70px;
+  padding: 0;
+  font-size: 20px;
+  border-radius: 10px;
+  margin-left: 90px;
 }
 .zwzl {
   height: 45px;

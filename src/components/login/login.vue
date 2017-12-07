@@ -139,8 +139,8 @@ ul {
 
  <script>
 // import $ from 'jquery'
-import store from "../../../store/store.js";
-// import api from "../../../store/axios/api/api.js";
+import api from "../common/api.js";
+import post from "../../axios/post.js";
 export default {
   data() {
     return {
@@ -185,7 +185,7 @@ export default {
           this.loading = false;
           this.$http
             .post(
-              "http://10.10.3.32:8080/AigyunWeb/Login",
+              api.apihost + "Login",
               {
                 phone_num: "",
                 email_addr: this.name,
@@ -220,7 +220,7 @@ export default {
           var string1 = this.name.replace(/\s/g, "");
           this.$http
             .post(
-              "http://10.10.3.32:8080/AigyunWeb/Login",
+              api.apihost + "Login",
               {
                 phone_num: string1,
                 email_addr: "",
