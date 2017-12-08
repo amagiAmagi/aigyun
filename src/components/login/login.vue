@@ -141,6 +141,7 @@ ul {
 // import $ from 'jquery'
 import api from "../common/api.js";
 import post from "../../axios/post.js";
+// import login from "@api/getData";
 export default {
   data() {
     return {
@@ -178,11 +179,28 @@ export default {
     },
     loginTo: function() {
       var val = this.$refs.short.$el.childNodes[1].value;
+      var http = this.$http;
+      console.log(http);
       if (val == this.map) {
         this.pand = false;
         this.loading = true;
         if (this.name.indexOf("@") > 0) {
           this.loading = false;
+
+          // const res = await login({user_name: this.loginForm.username, password: this.loginForm.password})
+          // 	if (res.status == 1) {
+          // 		this.$message({
+          //                   type: 'success',
+          //                   message: '登录成功'
+          //               });
+          // 		this.$router.push('manage')
+          // 	}else{
+          // 		this.$message({
+          //                   type: 'error',
+          //                   message: res.message
+          //               });
+          // 	}
+
           this.$http
             .post(
               api.apihost + "Login",
@@ -234,11 +252,24 @@ export default {
             )
             .then(function(res) {
               console.log(res.data);
-
-              console.log(window.history.go);
               if (res.data.code == 0) {
                 if (res.data.attachment.role == 1) {
-                  location.href = "#/peasant";
+                  http
+                    .post(
+                      api.apihost + "GetUserIndexInfo",
+                      {
+                        reg_id: res.data.attachment.reg_id
+                      },
+                      {
+                        headers: {
+                          "Content-Type": "application/x-www-form-urlencoded"
+                        }
+                      }
+                    )
+                    .then(res => {
+                      console.log(res);
+                    });
+                  // location.href = "#/peasant";
                 }
                 if (res.data.attachment.role == 2) {
                   location.href = "/business";

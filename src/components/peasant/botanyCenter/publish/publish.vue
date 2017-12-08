@@ -9,7 +9,7 @@
             <input type="text">
             <i class="el-icon-search"></i>
           </div>
-          <el-button type="primary" class="xzdk"><i class="el-icon-circle-plus-outline"></i>新增地块</el-button>
+          <el-button type="primary" class="xzdk"  @click="dialogFormVisible = true"><i class="el-icon-circle-plus-outline"></i>新增地块</el-button>
       </div>
       <div class="dklist">
           <div class="information">
@@ -54,6 +54,65 @@
           </div>
       </div>
     </div>
+
+    <el-dialog title="新增地块" :visible.sync="dialogFormVisible">
+  <el-form :model="form">
+    <el-form-item label="地块名称" :label-width="formLabelWidth">
+      <el-input v-model="form.name"  style="width: 80%" placeholder="请输入地块名称"></el-input>
+    </el-form-item>
+    <el-form-item label="地块地址" :label-width="formLabelWidth">
+      <v-distpicker  @selected="onSelected"></v-distpicker>
+    </el-form-item>
+    <el-form-item label="详细地址" :label-width="formLabelWidth">
+    <el-input v-model="form.site" placeholder="请输入详细地址" style="width: 80%"></el-input>
+  </el-form-item>
+    <el-form-item label="作业面积" :label-width="formLabelWidth" >
+    <el-input v-model="form.area" style="width: 80%" placeholder="请输入作业面积"></el-input>
+  </el-form-item>
+   <el-form-item label="目标作物" :label-width="formLabelWidth" >
+      <el-select v-model="ruleForm.value" placeholder="作物种类"  @change="provinceChange">
+    <el-option
+      v-for="item in ruleForm.options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
+     </el-select>
+    <el-select placeholder="具体名称" v-model="ruleForm.city">
+        <el-option
+         v-for="item in ruleForm.cityOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+    </el-select>
+  </el-form-item>
+    <el-form-item label="地块描述和备注" :label-width="formLabelWidth">
+    <el-input type="textarea" v-model="form.desc" style="width: 80%" placeholder="请输入地块描述和备注"></el-input>
+  </el-form-item>
+  <el-form-item label="地块图片" :label-width="formLabelWidth" >
+   <el-upload
+  action="https://jsonplaceholder.typicode.com/posts"
+  list-type="picture-card"
+  :multiple="true"
+  :show-file-list="true"
+  :on-preview="handlePictureCardPreview"
+  :on-remove="handleRemove">
+  <i class="el-icon-plus"></i>
+</el-upload>
+<el-dialog :visible.sync="dialogVisible" size="tiny">
+  <img width="100%" :src="dialogImageUrl" alt="">
+</el-dialog>
+  </el-form-item>
+  </el-form>
+  <div slot="footer" class="dialog-footer">
+    <el-button type="primary"  @click="dialogFormVisible = false" class="fabu">发布</el-button>
+    <el-button  @click="reset" id="chongzhi">重置</el-button>
+  </div>
+</el-dialog>
+
+
+
 <div class="publish">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
   <el-form-item label="农户姓名" prop="name">
@@ -206,7 +265,7 @@
   position: absolute;
   font-size: 30px;
   right: 65px;
-  top: 32px;
+  top: 23px;
 }
 .xzdk {
   width: 120px;
@@ -231,7 +290,7 @@
   width: 850px;
   padding-top: 20px;
   position: relative;
-  height: 882px;
+  height: 95%;
   left: 354px;
   top: 20px;
   border-radius: 10px;
@@ -261,12 +320,32 @@
 .fbcz {
   width: 192px;
 }
+.fabu {
+  width: 20%;
+  position: absolute;
+  right: 50%;
+}
+#chongzhi {
+  width: 20%;
+  margin-right: 25%;
+}
 </style>
 <script>
 import VDistpicker from "v-distpicker";
 export default {
   data() {
     return {
+      form: {
+        name: "",
+        site: "",
+        area: "",
+        crop: "",
+        desc: ""
+      },
+      formLabelWidth: "120px",
+      dialogFormVisible: false,
+      dialogImageUrl: "",
+      dialogVisible: false,
       ruleForm: {
         name: "",
         date: "",
@@ -344,6 +423,16 @@ export default {
     };
   },
   methods: {
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    reset() {
+      this.form = {};
+    },
     ck: function() {
       this.ruleForm.zwzl = true;
     },

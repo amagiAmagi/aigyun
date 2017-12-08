@@ -39,4 +39,7 @@ a {
 a:hover {
   color: #0094ff;
 }
+input {
+  padding: 0;
+}
 </style>

@@ -18,9 +18,36 @@ import fullCalendar from "vue-fullcalendar";
 import echarts from "echarts";
 Vue.prototype.$echarts = echarts;
 Vue.component("full-calendar", fullCalendar);
-import store from "./store/store.js";
+import store from "./store/index.js";
 import api from "./components/common/api.js";
 Vue.config.productionTip = false;
+
+// 封装get和post请求
+
+Vue.get = (url, params) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(url, { params: params })
+      .then(function(response) {
+        resolve(response.data);
+      })
+      .catch(err => {});
+  });
+};
+Vue.post = (url, params) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(url, params, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      })
+      .then(function(response) {
+        resolve(response.data);
+      })
+      .catch(err => {});
+  });
+};
 
 /* eslint-disable no-new */
 new Vue({

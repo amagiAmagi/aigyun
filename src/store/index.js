@@ -3,6 +3,7 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 const state = {
+  peasantUseList: [],
   count: 1
 };
 const mutations = {
