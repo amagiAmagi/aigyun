@@ -3,18 +3,14 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 const state = {
-  peasantUseList: [],
-  count: 1
+  peasantUseList: []
 };
-const mutations = {
-  add(state) {
-    state.count += 1;
-  },
-  reduce(state) {
-    state.count -= 1;
-  }
-};
+
+import mutations from "./mutations.js";
+import getters from "./getters.js";
+
 export default new Vuex.Store({
   state,
-  mutations
+  mutations,
+  getters
 });

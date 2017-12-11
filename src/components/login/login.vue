@@ -150,7 +150,9 @@ export default {
       pand: false,
       pswd: "",
       name: "",
-      loading: false
+      loading: false,
+      useifon: {},
+      dataIfon: ""
     };
   },
   created() {
@@ -180,26 +182,12 @@ export default {
     loginTo: function() {
       var val = this.$refs.short.$el.childNodes[1].value;
       var http = this.$http;
-      console.log(http);
+      const _this = this;
       if (val == this.map) {
         this.pand = false;
         this.loading = true;
         if (this.name.indexOf("@") > 0) {
           this.loading = false;
-
-          // const res = await login({user_name: this.loginForm.username, password: this.loginForm.password})
-          // 	if (res.status == 1) {
-          // 		this.$message({
-          //                   type: 'success',
-          //                   message: '登录成功'
-          //               });
-          // 		this.$router.push('manage')
-          // 	}else{
-          // 		this.$message({
-          //                   type: 'error',
-          //                   message: res.message
-          //               });
-          // 	}
 
           this.$http
             .post(
@@ -218,6 +206,15 @@ export default {
             .then(function(res) {
               console.log(res.data);
               if (res.data.code == 0) {
+                _this.useifon = {
+                  role: res.data.attachment.role,
+                  reg_id: res.data.attachment.reg_id
+                };
+                _this.$store.commit("peasantUseinfo", _this.useifon);
+                window.localStorage.setItem(
+                  "red_id",
+                  res.data.attachment.reg_id
+                );
                 if (res.data.attachment.role == 1) {
                   location.href = "#/peasant";
                 }
@@ -253,6 +250,15 @@ export default {
             .then(function(res) {
               console.log(res.data);
               if (res.data.code == 0) {
+                _this.useifon = {
+                  role: res.data.attachment.role,
+                  reg_id: res.data.attachment.reg_id
+                };
+                _this.$store.commit("peasantUseinfo", _this.useifon);
+                window.localStorage.setItem(
+                  "red_id",
+                  res.data.attachment.reg_id
+                );
                 if (res.data.attachment.role == 1) {
                   http
                     .post(
@@ -267,9 +273,12 @@ export default {
                       }
                     )
                     .then(res => {
-                      console.log(res);
+                      _this.dataIfon = res.data;
+                      _this.$store.commit("peasantindex", _this.dataIfon);
+                      const ifon = JSON.stringify(res.data);
+                      window.localStorage.setItem("useifon", ifon);
+                      location.href = "#/peasant";
                     });
-                  // location.href = "#/peasant";
                 }
                 if (res.data.attachment.role == 2) {
                   location.href = "/business";

@@ -33,11 +33,11 @@
           <span class="shu"></span>
         </div>
         <div class="personal-right">
-            <span>夏先生</span>
+            <span>{{this.uesifon.attachment.real_name}}</span>
             <i class="xiala">
               <img src="../../assets/Down 2.png" alt="">
             </i>
-            <img src="../../assets/头像.png" alt="">
+            <img src="../../assets/头像.png">
             <div class="xgzl">
                 <p @click="open">修改资料</p>
             </div>
@@ -233,9 +233,11 @@ a {
 <script>
 export default {
   data() {
-    return {};
+    return {
+      uesifon: {},
+      url: ""
+    };
   },
-  created() {},
   methods: {
     open() {
       this.$alert("这是一段内容", "标题名称", {
@@ -248,7 +250,18 @@ export default {
         }
       });
     }
+  },
+  created() {
+    const useifon = window.localStorage.getItem("useifon");
+    const ifon = JSON.parse(useifon);
+    this.uesifon = ifon;
+    console.log(this.uesifon);
+
+    if (ifon.attachment.avatar_url == "") {
+      this.url = "../../assets/头像.png";
+    }
   }
 };
 </script>
+
 
