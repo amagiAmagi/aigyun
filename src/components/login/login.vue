@@ -29,7 +29,7 @@
    <img src="../../assets/二维码.png"  alt="">
    </li>
    </ul>
-   <div class="mark" @click="cut">
+   <div class="mark" @click="cut" v-show="false">
       <img src="../../assets/角标.png" alt="">
     </div>
     </div>
@@ -138,10 +138,9 @@ ul {
 </style>
 
  <script>
-// import $ from 'jquery'
 import api from "../common/api.js";
 import post from "../../axios/post.js";
-// import login from "@api/getData";
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -152,7 +151,7 @@ export default {
       name: "",
       loading: false,
       useifon: {},
-      dataIfon: ""
+      dataIfon: []
     };
   },
   created() {
@@ -180,8 +179,8 @@ export default {
       }
     },
     loginTo: function() {
-      var val = this.$refs.short.$el.childNodes[1].value;
-      var http = this.$http;
+      const val = this.$refs.short.$el.childNodes[1].value;
+      const http = this.$http;
       const _this = this;
       if (val == this.map) {
         this.pand = false;
@@ -206,15 +205,6 @@ export default {
             .then(function(res) {
               console.log(res.data);
               if (res.data.code == 0) {
-                _this.useifon = {
-                  role: res.data.attachment.role,
-                  reg_id: res.data.attachment.reg_id
-                };
-                _this.$store.commit("peasantUseinfo", _this.useifon);
-                window.localStorage.setItem(
-                  "red_id",
-                  res.data.attachment.reg_id
-                );
                 if (res.data.attachment.role == 1) {
                   location.href = "#/peasant";
                 }
@@ -248,16 +238,16 @@ export default {
               }
             )
             .then(function(res) {
-              console.log(res.data);
               if (res.data.code == 0) {
+                // 将农户id存储在vuex
                 _this.useifon = {
-                  role: res.data.attachment.role,
                   reg_id: res.data.attachment.reg_id
                 };
-                _this.$store.commit("peasantUseinfo", _this.useifon);
+                _this.$store.commit("setuseifon", _this.useifon);
+                // /将id存储在localStorage;
                 window.localStorage.setItem(
-                  "red_id",
-                  res.data.attachment.reg_id
+                  "id",
+                  JSON.stringify(_this.useifon)
                 );
                 if (res.data.attachment.role == 1) {
                   http
@@ -273,11 +263,61 @@ export default {
                       }
                     )
                     .then(res => {
-                      _this.dataIfon = res.data;
-                      _this.$store.commit("peasantindex", _this.dataIfon);
-                      const ifon = JSON.stringify(res.data);
-                      window.localStorage.setItem("useifon", ifon);
-                      location.href = "#/peasant";
+                      console.log(res.data);
+                      // 将农户地块数量存到vuex
+                      _this.$store.commit("peasant", res.data.num_fields);
+                      // 将农户地块数量存到loacl
+                      // window.localStorage.setItem("num", res.data.num_fields);
+                      window.localStorage.num = res.data.attachment.num_fields;
+                      // 将农户地块信息存储vuex;
+                      _this.dataIfon = res.data.attachment.fields;
+                      _this.$store.commit("setusepolt", _this.dataIfon);
+                      // _this.types.SET_USEPLOT(_this.dataIfon);
+                      // 存到loacl去
+                      const list = JSON.stringify(res.data.attachment.fields);
+                      window.localStorage.setItem("peasantList", list);
+                      // 将农户头像和名字存储vuex
+                      _this.$store.commit("setuseifon", {
+                        url: res.data.attachment.avatar_url,
+                        name: res.data.attachment.real_name
+                      });
+                      // _this.types.SET_USEIFON({
+                      //   url: res.data.attachment.avatar_url,
+                      //   name: res.data.attachment.real_name
+                      // });
+                      // 将农户头像和名字存储到loacl;
+                      window.localStorage.setItem(
+                        "name",
+                        JSON.stringify({
+                          url: res.data.attachment.avatar_url,
+                          name: res.data.attachment.real_name
+                        })
+                      );
+
+                      // 将农户值保统计信息存储在vuex中;
+                      _this.$store.commit("setuseindex", {
+                        stats: res.data.attachment.stats,
+                        num_stats: res.data.attachment.num_stats
+                      });
+                      // _this.types.SET_USEINDEX({
+                      //   stats: res.data.attachment.stats,
+                      //   num_stats: res.data.attachment.num_stats
+                      // });
+
+                      // 将农户值保流程数据信息存储在vuex中;
+                      _this.$store.commit("setplresee", {
+                        num_tasks: res.data.attachment.num_tasks,
+                        tasks: res.data.attachment.tasks
+                      });
+                      // _this.types.SET_USEPROCESSPLOT({
+                      //   num_tasks: res.data.attachment.num_tasks,
+                      //   tasks: res.data.attachment.tasks
+                      // });
+
+                      // 跳转到农户首页
+                      if (res.data.code == 0) {
+                        location.href = "#/peasant";
+                      }
                     });
                 }
                 if (res.data.attachment.role == 2) {

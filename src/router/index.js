@@ -21,6 +21,7 @@ import protectTeam from "../components/protectPlayers/teamCenter/teamCenter.vue"
 import protectStats from "../components/protectPlayers/StatsCentral/StatsCentral.vue";
 import mybus from "../components/business/business-center/mybus/mybus.vue";
 import publish from "../components/peasant/botanyCenter/publish/publish.vue";
+import Myorder from "../components/peasant/botanyCenter/Myorder/Myorder.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -39,6 +40,7 @@ export default new Router({
       // name: 'register',
       component: register
     },
+    // 值保商路由
     {
       path: "/business",
       component: business,
@@ -55,6 +57,7 @@ export default new Router({
         { path: "StatsCentral", component: StatsCentral }
       ]
     },
+    // 农户路由
     {
       path: "/peasant",
       component: peasant,
@@ -65,7 +68,13 @@ export default new Router({
         {
           path: "peasantBotany",
           component: peasantBotany,
-          children: [{ path: "publish", component: publish }]
+          children: [
+            { path: "publish", component: publish },
+            {
+              path: "Myorder",
+              component: Myorder
+            }
+          ]
         },
         { path: "peasantSoil", component: peasantSoil }
       ]

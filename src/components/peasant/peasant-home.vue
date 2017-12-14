@@ -10,6 +10,7 @@
     <div class="conter">
      <!-- 欢迎语 -->
       <hello></hello>
+      <!-- 值保订单状态 -->
       <confirmed></confirmed>
 
           <!-- 值保作业统计模块 -->

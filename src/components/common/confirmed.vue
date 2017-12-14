@@ -1,7 +1,7 @@
 <template>
   <div class="confirmed">
     <div class="confirmed-top">
-     <span> <a href=""><i class="el-icon-rank"></i>发起值保订单</a></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span> <a href=""><i class="el-icon-menu"></i>查看所有订单</a></span>
+     <span> <router-link to="/peasant/peasantBotany/publish"><i class="el-icon-rank"></i>发起值保订单</router-link></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span> <a href=""><i class="el-icon-menu"></i>查看所有订单</a></span>
      </div>
       <div class="stlsp">
         <ul class="stlsp-ul">

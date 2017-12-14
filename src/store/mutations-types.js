@@ -1,0 +1,11 @@
+export const SET_USEIFON = "SET_USEIFON";
+
+export const SET_USEINDEX = "SET_USEINDEX";
+
+export const SET_USEPLOT = "SET_USEPLOT";
+
+export const SET_USEADDPLOT = "SET_USEADDPLOT";
+
+export const SET_USEDEIPLOT = "SET_USEDEIPLOT";
+
+export const SET_USEPROCESSPLOT = "SET_USEPROCESSPLOT";

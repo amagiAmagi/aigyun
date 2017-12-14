@@ -22,32 +22,22 @@ import store from "./store/index.js";
 import api from "./components/common/api.js";
 Vue.config.productionTip = false;
 
-// 封装get和post请求
+// 封装时间过滤器
 
-Vue.get = (url, params) => {
-  return new Promise((resolve, reject) => {
-    axios
-      .get(url, { params: params })
-      .then(function(response) {
-        resolve(response.data);
-      })
-      .catch(err => {});
-  });
-};
-Vue.post = (url, params) => {
-  return new Promise((resolve, reject) => {
-    axios
-      .post(url, params, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
-      })
-      .then(function(response) {
-        resolve(response.data);
-      })
-      .catch(err => {});
-  });
-};
+Vue.filter("time", function(val) {
+  var date = new Date(val * 1000);
+  var Y = date.getFullYear();
+  var m = date.getMonth() + 1;
+  var d = date.getDate();
+  if (m < 10) {
+    m = "0" + m;
+  }
+  if (d < 10) {
+    d = "0" + d;
+  }
+  var t = Y + "-" + m + "-" + d;
+  return t;
+});
 
 /* eslint-disable no-new */
 new Vue({

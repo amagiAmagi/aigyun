@@ -12,44 +12,12 @@
           <el-button type="primary" class="xzdk"  @click="dialogFormVisible = true"><i class="el-icon-circle-plus-outline"></i>新增地块</el-button>
       </div>
       <div class="dklist">
-          <div class="information">
+          <div class="information" v-for="(item,index) in this.plotList" :key="index">
               <img src="../../../../assets/5555.png" alt="">
               <div class="information-right">
-                <h4>田地一号</h4>
-                <span>广东省深圳市南山区特发信息港A栋</span><br>
-                <span>120亩</span>|<span>水稻</span>
-              </div>
-          </div>
-          <div class="information">
-              <img src="../../../../assets/5555.png" alt="">
-              <div class="information-right">
-                <h4>田地一号</h4>
-                <span>广东省深圳市南山区特发信息港A栋</span><br>
-                <span>120亩</span>|<span>水稻</span>
-              </div>
-          </div>
-          <div class="information">
-              <img src="../../../../assets/5555.png" alt="">
-              <div class="information-right">
-                <h4>田地一号</h4>
-                <span>广东省深圳市南山区特发信息港A栋</span><br>
-                <span>120亩</span>|<span>水稻</span>
-              </div>
-          </div>
-          <div class="information">
-              <img src="../../../../assets/5555.png" alt="">
-              <div class="information-right">
-                <h4>田地一号</h4>
-                <span>广东省深圳市南山区特发信息港A栋</span><br>
-                <span>120亩</span>|<span>水稻</span>
-              </div>
-          </div>
-          <div class="information">
-              <img src="../../../../assets/5555.png" alt="">
-              <div class="information-right">
-                <h4>田地一号</h4>
-                <span>广东省深圳市南山区特发信息港A栋</span><br>
-                <span>120亩</span>|<span>水稻</span>
+                <h4>{{item.farmland_name}}</h4>
+                <span>{{item.farmland_addr}}</span><br>
+                <span>{{item.farmland_ares}}</span>|<span>{{item.crops_name}}</span>
               </div>
           </div>
       </div>
@@ -87,7 +55,7 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="dialogFormVisible = false" class="fabu">发布</el-button>
+      <el-button type="primary" @click="addplot" class="fabu">发布</el-button>
       <el-button @click="reset" id="chongzhi">重置</el-button>
     </div>
   </el-dialog>
@@ -167,25 +135,25 @@
   <el-dialog title="值保机构选择" :visible.sync="outerVisible">
     <div class="dialog-top">
       <h3>选择系统推荐值保商：</h3>
-      <div class="zbsxz" style="width: 20%; border: 1px solid #ccc; padding: 0 10px;float: left;border-radius: 10px;margin-right: 1%">
+      <div class="zbsxz" style="width: 20%; border: 1px solid #ccc; padding-left: 3%;float: left;border-radius: 10px;margin-right: 1%">
         <p><span>值保商:</span>&nbsp;&nbsp;<span>高科新农总部</span></p>
         <p><span>人数:</span>&nbsp;&nbsp;<span>20</span></p>
         <p><span>值保范围:</span>&nbsp;&nbsp;<span>全国</span></p>
         <p><span>评价:</span>&nbsp;&nbsp;<span> <el-rate :value="5"></el-rate></span></p>
       </div>
-      <div class="zbsxz" style="width: 20%; border: 1px solid #ccc; padding: 0 10px;float: left;border-radius: 10px;margin-right: 1%">
+      <div class="zbsxz" style="width: 20%; border: 1px solid #ccc; padding-left: 3%;float: left;border-radius: 10px;margin-right: 1%">
         <p><span>值保商:</span>&nbsp;&nbsp;<span>高科新农总部</span></p>
         <p><span>人数:</span>&nbsp;&nbsp;<span>20</span></p>
         <p><span>值保范围:</span>&nbsp;&nbsp;<span>全国</span></p>
         <p><span>评价:</span>&nbsp;&nbsp;<span> <el-rate :value="5"></el-rate></span></p>
       </div>
-      <div class="zbsxz" style="width: 20%; border: 1px solid #ccc; padding: 0 10px;float: left;border-radius: 10px;margin-right: 1%">
+      <div class="zbsxz" style="width: 20%; border: 1px solid #ccc; padding-left: 3%;float: left;border-radius: 10px;margin-right: 1%">
         <p><span>值保商:</span>&nbsp;&nbsp;<span>高科新农总部</span></p>
         <p><span>人数:</span>&nbsp;&nbsp;<span>20</span></p>
         <p><span>值保范围:</span>&nbsp;&nbsp;<span>全国</span></p>
         <p><span>评价:</span>&nbsp;&nbsp;<span> <el-rate :value="5"></el-rate></span></p>
       </div>
-      <div class="zbsxz" style="width: 20%; border: 1px solid #ccc; padding: 0 10px;float: left;border-radius: 10px">
+      <div class="zbsxz" style="width: 20%; border: 1px solid #ccc; padding-left: 3%;float: left;border-radius: 10px">
         <p><span>值保商:</span>&nbsp;&nbsp;<span>高科新农总部</span></p>
         <p><span>人数:</span>&nbsp;&nbsp;<span>20</span></p>
         <p><span>值保范围:</span>&nbsp;&nbsp;<span>全国</span></p>
@@ -368,9 +336,12 @@
 <script>
 import VDistpicker from "v-distpicker";
 import crop from "../../../common/crop.vue";
+import api from "../../../common/api.js";
 export default {
   data() {
     return {
+      plotList: [],
+      red_id: "",
       tableData: [
         {
           date: "高科新农总部",
@@ -407,8 +378,11 @@ export default {
         name: "",
         site: "",
         area: "",
+        are: "",
         crop: "",
-        desc: ""
+        desc: "",
+        cit: "",
+        prov: ""
       },
       formLabelWidth: "120px",
       dialogFormVisible: false,
@@ -463,6 +437,55 @@ export default {
     };
   },
   methods: {
+    addplot: function() {
+      this.dialogFormVisible = false;
+      const _this = this;
+      this.$http
+        .post(
+          api.apihost + "FieldManager",
+          {
+            reg_id: this.red_id,
+            action: 0,
+            farmland_name: this.form.name,
+            farmland_prov: this.form.prov,
+            farmland_city: this.form.cit,
+            farmland_district: this.form.are,
+            farmland_addr: this.form.site,
+            farmland_ares: this.form.area,
+            crops_type: this.cropList.value,
+            crops_name: this.cropList.city,
+            remarks: this.form.desc
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(function(res) {
+          console.log(res);
+          if (res.data.code == 0) {
+            _this.$store.commit("peasantProl", res.data.attachment);
+            let pl = JSON.parse(window.localStorage.getItem("peasantList"));
+            pl = pl.push(res.data.attachment);
+            window.localStorage.setItem("peasantList", JSON.stringify(pl));
+            _this.$message({
+              message: "恭喜你,新增地块成功",
+              type: "success"
+            });
+            const plot = _this.$store.getters.getPenasntPlot;
+            console.log(plot);
+            _this.plotList = plot[0];
+          } else {
+            _this.$message({
+              message: "地块新增失败",
+              type: "error"
+            });
+          }
+
+          console.log(res);
+        });
+    },
     handleCurrentChange(val) {
       this.currentRow = val;
     },
@@ -480,8 +503,11 @@ export default {
       this.ruleForm.zwzl = true;
     },
     onSelected(data) {
-      alert(data.province.value + data.city.value + data.area.value);
-      console.log(data);
+      // alert(data.province.value + data.city.value + data.area.value);
+      this.form.prov = data.province.value;
+      this.form.cityOptions = data.city.value;
+      this.form.are = data.area.value;
+      // console.log(data);
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
@@ -504,6 +530,21 @@ export default {
   components: {
     VDistpicker,
     crop
+  },
+  created() {
+    this.red_id = JSON.parse(window.localStorage.getItem("id"));
+    this.plotList = this.$store.getters.getPenasntPlot[0];
+  },
+  mounted() {
+    const plo = JSON.parse(window.localStorage.getItem("peasantList"));
+    if (this.plotList == undefined) {
+      this.$store.commit("setusepolt", plo);
+    }
+    if (this.$store.getters.getPenasntPlot[0].length > 4) {
+      this.plotList = this.$store.getters.getPenasntPlot[0].slice(0, 4);
+    } else {
+      this.plotList = this.$store.getters.getPenasntPlot[0];
+    }
   }
 };
 </script>

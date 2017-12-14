@@ -100,118 +100,30 @@
 
     <div class="plot">
       <div class="plot-top">
-          地块信息（<span>5</span>块）
+          地块信息（<span ref="num">{{this.num}}</span>块）
       </div>
       <div class="plot-center">
           <ul class="plot-center-list">
-            <li class="plot-center-li">
+            <li class="plot-center-li" ref="list"  :id="item.farmland_id" v-for="(item,index) in  this.plotList" :key="index">
               <div class="plot-center-li-left">
                   <div class="plot-center-li-left-top">
                       <img src="../../../assets/5555.png" alt="">
                       <div class="plot-center-li-left-top-right">
-                        <h5>田地一号</h5><br>
-                        <span>2017-10-22</span>
+                        <h5>{{item.farmland_name}}</h5><br>
+                        <span>{{item.add_time | time}}</span>
                       </div>
                   </div>
-                  <p>广东省深圳市南山区特发信息港A栋</p>
+                  <p>{{item.farmland_addr}}</p>
                   <div class="plot-center-li-left-buttom">
-                    <span>120亩</span>&nbsp;&nbsp;
+                    <span>{{item.farmland_ares}}亩</span>&nbsp;&nbsp;
                     <span>|</span>&nbsp;&nbsp;
-                    <span>水稻</span>
+                    <span>{{item.crops_name}}</span>
                   </div>
               </div>
               <div class="plot-center-li-right">
                  <el-button plain @click="plot">发布需求</el-button>
                  <el-button type="primary" @click="centerDialogVisible = true">查看</el-button>
-                 <el-button type="primary" @click="open">删除</el-button>
-              </div>
-            </li>
-            <li class="plot-center-li">
-              <div class="plot-center-li-left">
-                  <div class="plot-center-li-left-top">
-                      <img src="../../../assets/5555.png" alt="">
-                      <div class="plot-center-li-left-top-right">
-                        <h5>田地一号</h5><br>
-                        <span>2017-10-22</span>
-                      </div>
-                  </div>
-                  <p>广东省深圳市南山区特发信息港A栋</p>
-                  <div class="plot-center-li-left-buttom">
-                    <span>120亩</span>&nbsp;&nbsp;
-                    <span>|</span>&nbsp;&nbsp;
-                    <span>水稻</span>
-                  </div>
-              </div>
-              <div class="plot-center-li-right">
-                 <el-button plain  @click="plot">发布需求</el-button>
-                 <el-button type="primary">查看</el-button>
-                 <el-button type="primary" @click="open">删除</el-button>
-              </div>
-            </li>
-            <li class="plot-center-li">
-              <div class="plot-center-li-left">
-                  <div class="plot-center-li-left-top">
-                      <img src="../../../assets/5555.png" alt="">
-                      <div class="plot-center-li-left-top-right">
-                        <h5>田地一号</h5><br>
-                        <span>2017-10-22</span>
-                      </div>
-                  </div>
-                  <p>广东省深圳市南山区特发信息港A栋</p>
-                  <div class="plot-center-li-left-buttom">
-                    <span>120亩</span>&nbsp;&nbsp;
-                    <span>|</span>&nbsp;&nbsp;
-                    <span>水稻</span>
-                  </div>
-              </div>
-              <div class="plot-center-li-right">
-                 <el-button plain  @click="plot">发布需求</el-button>
-                 <el-button type="primary">查看</el-button>
-                 <el-button type="primary" @click="open">删除</el-button>
-              </div>
-            </li>
-            <li class="plot-center-li">
-              <div class="plot-center-li-left">
-                  <div class="plot-center-li-left-top">
-                      <img src="../../../assets/5555.png" alt="">
-                      <div class="plot-center-li-left-top-right">
-                        <h5>田地一号</h5><br>
-                        <span>2017-10-22</span>
-                      </div>
-                  </div>
-                  <p>广东省深圳市南山区特发信息港A栋</p>
-                  <div class="plot-center-li-left-buttom">
-                    <span>120亩</span>&nbsp;&nbsp;
-                    <span>|</span>&nbsp;&nbsp;
-                    <span>水稻</span>
-                  </div>
-              </div>
-              <div class="plot-center-li-right">
-                 <el-button plain  @click="plot">发布需求</el-button>
-                 <el-button type="primary">查看</el-button>
-                 <el-button type="primary" @click="open">删除</el-button>
-              </div>
-            </li>
-            <li class="plot-center-li">
-              <div class="plot-center-li-left">
-                  <div class="plot-center-li-left-top">
-                      <img src="../../../assets/5555.png" alt="">
-                      <div class="plot-center-li-left-top-right">
-                        <h5>田地一号</h5><br>
-                        <span>2017-10-22</span>
-                      </div>
-                  </div>
-                  <p>广东省深圳市南山区特发信息港A栋</p>
-                  <div class="plot-center-li-left-buttom">
-                    <span>120亩</span>&nbsp;&nbsp;
-                    <span>|</span>&nbsp;&nbsp;
-                    <span>水稻</span>
-                  </div>
-              </div>
-              <div class="plot-center-li-right">
-                 <el-button plain  @click="plot">发布需求</el-button>
-                 <el-button type="primary">查看</el-button>
-                 <el-button type="primary" @click="open">删除</el-button>
+                 <el-button type="primary" @click="open(item,index)">删除</el-button>
               </div>
             </li>
           </ul>
@@ -407,11 +319,13 @@ import crop from "../../common/crop.vue";
 export default {
   data() {
     return {
+      num: "",
       logoHeaders: {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         }
       },
+      plotList: [],
       centerDialogVisible: false,
       cropList: {},
       input1: "",
@@ -435,13 +349,57 @@ export default {
     };
   },
   methods: {
-    open() {
+    open(item, index) {
+      const _this = this;
+
       this.$confirm("此操作将永久删除该地块, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
         .then(() => {
+          this.$http
+            .post(
+              api.apihost + "FieldManager",
+              {
+                reg_id: this.red_id.reg_id,
+                action: 1,
+                farmland_id: item.farmland_id
+              },
+              {
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded"
+                }
+              }
+            )
+            .then(res => {
+              console.log(res);
+              // 将vuex里的num删掉
+              _this.$store.commit("delpeasant");
+
+              const nums = window.localStorage.num;
+
+              window.localStorage.num = nums - 1;
+              // 将vuex里的数据删掉
+              _this.$store.dispatch("delUser", index);
+              // 将loca的数据取出来
+              const plot = JSON.parse(
+                window.localStorage.getItem("peasantList")
+              );
+              // 删掉loac里面选中的那个数据
+              plot.splice(index, 1);
+              console.log(plot);
+              window.localStorage.removeItem("peasantList");
+              // 在将数据存储进去
+              window.localStorage.setItem("peasantList", JSON.stringify(plot));
+              console.log(
+                JSON.parse(window.localStorage.getItem("peasantList"))
+              );
+              _this.num--;
+            })
+            .catch(err => {
+              console.log(err);
+            });
           this.$message({
             type: "success",
             message: "删除成功!"
@@ -461,8 +419,7 @@ export default {
       this.form.prov = data.province.value;
       this.form.cityOptions = data.city.value;
       this.form.are = data.area.value;
-      alert(data.province.value + data.city.value + data.area.value);
-      console.log(data);
+      console.log(this.form.prov + this.form.cityOptions + this.form.are);
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
@@ -478,11 +435,11 @@ export default {
         .post(
           api.apihost + "FieldManager",
           {
-            reg_id: this.red_id,
+            reg_id: this.red_id.reg_id,
             action: 0,
             farmland_name: this.form.name,
             farmland_prov: this.form.prov,
-            farmland_city: this.form.cit,
+            farmland_city: this.form.cityOptions,
             farmland_district: this.form.are,
             farmland_addr: this.form.site,
             farmland_ares: this.form.area,
@@ -497,11 +454,78 @@ export default {
           }
         )
         .then(function(res) {
-          _this.$message({
-            message: "恭喜你,新增地块成功",
-            type: "success"
-          });
           console.log(res);
+          if (res.data.code == 0) {
+            _this.$http
+              .post(
+                api.apihost + "GetUserIndexInfo",
+                {
+                  reg_id: _this.red_id.reg_id
+                },
+                {
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                  }
+                }
+              )
+              .then(function(res) {
+                // 将之前数据初始化
+                _this.$store.commit("deltePeasant");
+                // 将农户地块数量存到vuex
+                _this.$store.commit("peasant", res.data.num_fields);
+                // 将农户地块数量存到loacl
+                // window.localStorage.setItem("num", res.data.num_fields);
+                window.localStorage.num = res.data.attachment.num_fields;
+                // 将农户地块信息存储vuex;
+                _this.dataIfon = res.data.attachment.fields;
+                _this.$store.commit("setusepolt", _this.dataIfon);
+                // _this.types.SET_USEPLOT(_this.dataIfon);
+                // 存到loacl去
+                const list = JSON.stringify(res.data.attachment.fields);
+                window.localStorage.setItem("peasantList", list);
+              })
+              .catch(function(err) {
+                console.log(err);
+              });
+            // const useifon = {
+            //   farmland_ares: res.data.attachment.farmland_ares,
+            //   farmland_addr:
+            //     res.data.attachment.farmland_prov +
+            //     res.data.attachment.farmland_city +
+            //     res.data.attachment.farmland_district +
+            //     res.data.attachment.farmland_addr,
+            //   farmland_id: res.data.attachment.farmland_id,
+            //   farmland_name: res.data.attachment.farmland_name,
+            //   add_time: res.data.attachment.add_time,
+            //   crops_name: res.data.attachment.crops_name,
+            //   pic_url_1: res.data.attachment.pic_url_1
+            // };
+
+            // 修改vuex中的数据
+            // console.log(res.data.attachment);
+            // _this.$store.dispatch("addUser", useifon);
+            // // _this.$store.commit("setplotadd", res.data.attachment);
+            // // 修改loacl中的数据
+            // const pl = JSON.parse(window.localStorage.getItem("peasantList"));
+            // const ply = pl.push(useifon);
+            // console.log(pl);
+            // window.localStorage.setItem("peasantList", JSON.stringify(ply));
+            // console.log(JSON.parse(window.localStorage.getItem("peasantList")));
+            // // 给vuex中加一
+            // _this.$store.commit("addpeasant");
+            // loacl中的数据加一
+            _this.num++;
+            window.localStorage.num = _this.num;
+            _this.$message({
+              message: "恭喜你,新增地块成功",
+              type: "success"
+            });
+          } else {
+            _this.$message({
+              message: "地块新增失败",
+              type: "error"
+            });
+          }
         });
     },
     resetForm: function() {
@@ -509,7 +533,6 @@ export default {
     },
     getchangeNumber: function(obj) {
       this.cropList = obj;
-      console.log(this.cropList);
     }
   },
   components: {
@@ -518,11 +541,23 @@ export default {
     // upload
   },
   created() {
-    // this.red_id =
-
-    const id = window.localStorage.getItem("red_id");
-    this.red_id = id;
-    console.log(this.red_id);
+    this.red_id = JSON.parse(window.localStorage.getItem("id"));
+    this.plotList = this.$store.getters.getPenasntPlot[0];
+    this.num = window.localStorage["num"];
+    console.log(this.num);
+  },
+  mounted() {
+    const plo = JSON.parse(window.localStorage.getItem("peasantList"));
+    console.log(plo);
+    console.log(this.plotList);
+    if (this.plotList == undefined) {
+      console.log(111111111111111111111111111111);
+      this.$store.commit("setusepolt", plo);
+      this.plotList = this.$store.getters.getPenasntPlot[0];
+    }
+    console.log(this.$store.getters.getPenasntPlot);
+    this.num = window.localStorage["num"];
+    console.log(this.num);
   }
 };
 </script>
