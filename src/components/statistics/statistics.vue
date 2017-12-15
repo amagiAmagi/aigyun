@@ -138,9 +138,9 @@ export default {
     }
   },
   created() {
-    // const data = this.$store.getters.getPenasntStats;
-    // this.dataList = data[0].stats;
-    // console.log(this.dataList);
+    const data = this.$store.getters.getPenasntStats[0];
+    this.dataList = data;
+    console.log(this.dataList);
   },
   components: {
     Schart

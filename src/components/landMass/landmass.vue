@@ -44,8 +44,8 @@
     <div class="gkgd" v-show="theer">
       <router-link to="/peasant/peasantSoil">更多>></router-link>
     </div>
-    <div class="left-center" v-show="add">
-      <el-button type="text" class="left-center-button" @click="adds"><i class="el-icon-circle-plus-outline"></i><br> 新增地块
+    <div class="left-centers" v-show="add">
+      <el-button type="text" class="left-center-buttons" @click="adds"><i class="el-icon-circle-plus-outline"></i><br> 新增地块
       </el-button>
     </div>
   </div>
@@ -80,28 +80,31 @@ export default {
       console.log(JSON.parse(plot));
       if (this.plotList == undefined) {
         this.$store.commit("setusepolt", JSON.parse(plot));
-        this.plotList = this.$store.getters.getPenasntPlot[0];
-        if (this.plotList.length < 1) {
-          this.ling = false;
-        }
-        if (this.plotList.length < 2) {
-          this.one = false;
-        }
-        if (this.plotList.length < 3) {
-          this.two = false;
-        }
-        if (this.plotList.length < 4) {
-          this.theer = false;
-        }
-        if (this.plotList.length >= 1) {
-          this.plot1 = this.plotList[0];
-        }
-        if (this.plotList.length >= 2) {
-          this.plot2 = this.plotList[1];
-        }
-        if (this.plotList.length >= 3) {
-          this.plot3 = this.plotList[2];
-        }
+        this.getshow();
+      }
+    },
+    getshow: function() {
+      this.plotList = this.$store.getters.getPenasntPlot[0];
+      if (this.plotList.length < 1) {
+        this.ling = false;
+      }
+      if (this.plotList.length < 2) {
+        this.one = false;
+      }
+      if (this.plotList.length < 3) {
+        this.two = false;
+      }
+      if (this.plotList.length < 4) {
+        this.theer = false;
+      }
+      if (this.plotList.length >= 1) {
+        this.plot1 = this.plotList[0];
+      }
+      if (this.plotList.length >= 2) {
+        this.plot2 = this.plotList[1];
+      }
+      if (this.plotList.length >= 3) {
+        this.plot3 = this.plotList[2];
       }
     }
   },
@@ -112,11 +115,7 @@ export default {
   },
   created() {
     this.plotList = this.$store.getters.getPenasntPlot[0];
-  },
-  watch: {
-    $route(to, from) {
-      console.log(11111111111111);
-    }
+    this.getshow();
   }
 };
 </script>
@@ -159,14 +158,14 @@ export default {
 .mj {
   border-right: 1px solid #ccc;
 }
-.left-center {
+.left-centers {
   width: 176px;
   height: 116px;
   background-color: #fff;
   border-radius: 10px;
   padding: 47px 68px;
 }
-.left-center .left-center-button {
+.left-centers .left-center-buttons {
   width: 176px;
   height: 116px;
   border-radius: 10px;
@@ -174,7 +173,7 @@ export default {
   color: #409eff;
   font-size: 30px;
 }
-.left-center-button i {
+.left-center-buttons i {
   font-size: 100px;
 }
 </style>

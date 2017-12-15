@@ -12,7 +12,7 @@
           <el-button type="primary" class="xzdk"  @click="dialogFormVisible = true"><i class="el-icon-circle-plus-outline"></i>新增地块</el-button>
       </div>
       <div class="dklist">
-          <div class="information" v-for="(item,index) in this.plotList" :key="index">
+          <div class="information" v-for="(item,index) in this.plotList" :key="index" @click="showcar(item)">
               <img src="../../../../assets/5555.png" alt="">
               <div class="information-right">
                 <h4>{{item.farmland_name}}</h4>
@@ -214,6 +214,7 @@
   margin-top: 15px;
   border-radius: 10px;
   background-color: #fff;
+  cursor: pointer;
 }
 .information img {
   display: inline-block;
@@ -444,7 +445,7 @@ export default {
         .post(
           api.apihost + "FieldManager",
           {
-            reg_id: this.red_id,
+            reg_id: this.red_id.reg_id,
             action: 0,
             farmland_name: this.form.name,
             farmland_prov: this.form.prov,
@@ -465,17 +466,48 @@ export default {
         .then(function(res) {
           console.log(res);
           if (res.data.code == 0) {
-            _this.$store.commit("peasantProl", res.data.attachment);
-            let pl = JSON.parse(window.localStorage.getItem("peasantList"));
-            pl = pl.push(res.data.attachment);
-            window.localStorage.setItem("peasantList", JSON.stringify(pl));
+            _this.$http
+              .post(
+                api.apihost + "GetUserIndexInfo",
+                {
+                  reg_id: _this.red_id.reg_id
+                },
+                {
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                  }
+                }
+              )
+              .then(function(res) {
+                // 将之前数据初始化
+                _this.$store.commit("deltePeasant");
+                // 将农户地块数量存到vuex
+                _this.$store.commit("peasant", res.data.num_fields);
+                // 将农户地块数量存到loacl
+                // window.localStorage.setItem("num", res.data.num_fields);
+                window.localStorage.num = res.data.attachment.num_fields;
+                // 将农户地块信息存储vuex;
+                _this.dataIfon = res.data.attachment.fields;
+                _this.$store.commit("setusepolt", _this.dataIfon);
+                // _this.types.SET_USEPLOT(_this.dataIfon);
+                // 存到loacl去
+                const list = JSON.stringify(res.data.attachment.fields);
+                window.localStorage.setItem("peasantList", list);
+                _this.plotList = _this.$store.getters.getPenasntPlot[0];
+                console.log(_this.plotList);
+              });
+
+            // _this.$store.commit("peasantProl", res.data.attachment);
+            // let pl = JSON.parse(window.localStorage.getItem("peasantList"));
+            // pl = pl.push(res.data.attachment);
+            // window.localStorage.setItem("peasantList", JSON.stringify(pl));
             _this.$message({
               message: "恭喜你,新增地块成功",
               type: "success"
             });
-            const plot = _this.$store.getters.getPenasntPlot;
-            console.log(plot);
-            _this.plotList = plot[0];
+            // const plot = _this.$store.getters.getPenasntPlot;
+            // console.log(plot);
+            // _this.plotList = plot[0];
           } else {
             _this.$message({
               message: "地块新增失败",
@@ -525,6 +557,11 @@ export default {
     getchangeNumber: function(obj) {
       this.cropList = obj;
       console.log(this.cropList);
+    },
+    showcar: function(item) {
+      console.log(item);
+      this.ruleForm.site = item.farmland_addr;
+      this.ruleForm.area = item.farmland_ares;
     }
   },
   components: {

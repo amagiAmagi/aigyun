@@ -295,10 +295,10 @@ export default {
                       );
 
                       // 将农户值保统计信息存储在vuex中;
-                      _this.$store.commit("setuseindex", {
-                        stats: res.data.attachment.stats,
-                        num_stats: res.data.attachment.num_stats
-                      });
+                      _this.$store.commit(
+                        "setuseindex",
+                        res.data.attachment.stats
+                      );
                       // _this.types.SET_USEINDEX({
                       //   stats: res.data.attachment.stats,
                       //   num_stats: res.data.attachment.num_stats

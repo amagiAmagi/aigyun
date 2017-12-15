@@ -102,9 +102,23 @@
       <div class="plot-top">
           地块信息（<span ref="num">{{this.num}}</span>块）
       </div>
+         <div class="zssxs">
+            <span>展示筛选</span>
+            <span class="el-icon-menu actions" ref="menu" @click="menu"></span>
+            <span class="el-icon-tickets" ref="tickets" @click="tickets"></span>
+          </div>
       <div class="plot-center">
           <ul class="plot-center-list">
-            <li class="plot-center-li" ref="list"  :id="item.farmland_id" v-for="(item,index) in  this.plotList" :key="index">
+            <div v-show="!select" class="order-sper-heder">
+              <span class="names">名称</span>
+              <span class="cjsj">创建时间</span>
+              <span class="dkdz">地块地址</span>
+              <span class="mj">面积</span>
+              <span class="zuowu">作物</span>
+              <span class="beizhu">备注</span>
+            </div>
+            <!-- 竖版 -->
+            <li class="plot-center-li" v-show="select" ref="list"  :id="item.farmland_id" v-for="(item,index) in  this.plotList" :key="index">
               <div class="plot-center-li-left">
                   <div class="plot-center-li-left-top">
                       <img src="../../../assets/5555.png" alt="">
@@ -126,6 +140,24 @@
                  <el-button type="primary" @click="open(item,index)">删除</el-button>
               </div>
             </li>
+            <!-- 横版 -->
+            <li class="order-sper" v-show="!select" ref="list"  :id="item.farmland_id" v-for="(item,index) in  this.plotList" :key="index">
+              <img src="../../../assets/5555.png" alt="">
+              <div class="order-sper-top">
+                <span class="namessss">{{item.farmland_name}}</span>
+                <span class="cjshfdsg">{{item.add_time | time}}</span>
+                <span class="dkdzs">{{item.farmland_addr}}</span>
+                <span class="mianjisdh">{{item.farmland_ares}}亩</span>
+                <span class="zw">{{item.crops_name}}</span>
+                <span class="bez">无</span>
+              </div>
+              <div class="order-sper-bottom">
+                <el-button type="info" class="prima quxiao" @click="plot">发布需求</el-button>
+                <el-button type="primary" class="prima" @click="centerDialogVisible = true">查看</el-button>
+                <el-button type="primary" class="prima" @click="open(item,index)">删除</el-button>
+              </div>
+            </li>
+
           </ul>
       </div>
     </div>
@@ -139,6 +171,129 @@
   width: 1200px;
   margin: 0 auto;
   padding-top: 70px;
+}
+.zssxs {
+  position: relative;
+  right: -740px;
+  top: -40px;
+  font-size: 14px;
+}
+.cjshfdsg {
+  display: inline-block;
+  text-align: center;
+  width: 80px;
+}
+.mianjisdh {
+  display: inline-block;
+  text-align: center;
+  width: 100px;
+}
+.names {
+  width: 90px;
+  margin-left: 120px;
+  border-right: 1px solid #ccc;
+}
+.namessss {
+  display: inline-block;
+  text-align: center;
+  width: 90px;
+}
+.zw {
+  display: inline-block;
+  width: 50px;
+  text-align: center;
+}
+.cjsj {
+  width: 90px;
+  border-right: 1px solid #ccc;
+}
+.dkdz {
+  width: 200px;
+  border-right: 1px solid #ccc;
+}
+.dkdzs {
+  width: 200px;
+  display: inline-block;
+  text-align: center;
+}
+.mj {
+  width: 90px;
+  border-right: 1px solid #ccc;
+}
+.zuowu {
+  width: 50px;
+  border-right: 1px solid #ccc;
+}
+.beizhu {
+  margin-left: 75px;
+}
+.bez {
+  margin: 0px;
+  text-align: center;
+  word-break: break-all;
+  display: inline-block;
+  word-break: break-all;
+  width: 160px;
+}
+.dikdzs {
+  display: inline-block;
+  word-break: break-all;
+  width: 180px;
+}
+.actions {
+  color: #0094ff;
+}
+.order-sper-heder {
+  margin-top: 20px;
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+  background-color: #d3dee3;
+  font-size: 14px;
+}
+.order-sper-heder span {
+  display: inline-block;
+  /* width: 16%; */
+  text-align: center;
+}
+.order-sper {
+  width: 100%;
+  height: 116px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  padding: 11px 5px;
+}
+.order-sper-bottom {
+  position: relative;
+  left: 100px;
+  top: -30px;
+}
+.order-sper-top {
+  position: relative;
+  top: 10px;
+  display: inline-block;
+  height: 30px;
+  font-size: 14px;
+}
+.order-sper-top span {
+  /* margin-right: 25px; */
+}
+.order-sper img {
+  width: 98px;
+  height: 74px;
+  border-radius: 10px;
+  vertical-align: text-top;
+  margin-right: 15px;
+}
+.prima {
+  width: 100px;
+  height: 28px;
+  padding: 0;
+  margin-right: 20px;
+}
+.quxiao {
+  margin-left: 15px;
 }
 .left {
   width: 312px;
@@ -319,6 +474,7 @@ import crop from "../../common/crop.vue";
 export default {
   data() {
     return {
+      select: true,
       num: "",
       logoHeaders: {
         headers: {
@@ -483,37 +639,12 @@ export default {
                 // 存到loacl去
                 const list = JSON.stringify(res.data.attachment.fields);
                 window.localStorage.setItem("peasantList", list);
+                _this.plotList = _this.$store.getters.getPenasntPlot[0];
+                console.log(_this.plotList);
               })
               .catch(function(err) {
                 console.log(err);
               });
-            // const useifon = {
-            //   farmland_ares: res.data.attachment.farmland_ares,
-            //   farmland_addr:
-            //     res.data.attachment.farmland_prov +
-            //     res.data.attachment.farmland_city +
-            //     res.data.attachment.farmland_district +
-            //     res.data.attachment.farmland_addr,
-            //   farmland_id: res.data.attachment.farmland_id,
-            //   farmland_name: res.data.attachment.farmland_name,
-            //   add_time: res.data.attachment.add_time,
-            //   crops_name: res.data.attachment.crops_name,
-            //   pic_url_1: res.data.attachment.pic_url_1
-            // };
-
-            // 修改vuex中的数据
-            // console.log(res.data.attachment);
-            // _this.$store.dispatch("addUser", useifon);
-            // // _this.$store.commit("setplotadd", res.data.attachment);
-            // // 修改loacl中的数据
-            // const pl = JSON.parse(window.localStorage.getItem("peasantList"));
-            // const ply = pl.push(useifon);
-            // console.log(pl);
-            // window.localStorage.setItem("peasantList", JSON.stringify(ply));
-            // console.log(JSON.parse(window.localStorage.getItem("peasantList")));
-            // // 给vuex中加一
-            // _this.$store.commit("addpeasant");
-            // loacl中的数据加一
             _this.num++;
             window.localStorage.num = _this.num;
             _this.$message({
@@ -533,6 +664,16 @@ export default {
     },
     getchangeNumber: function(obj) {
       this.cropList = obj;
+    },
+    menu: function() {
+      this.select = true;
+      this.$refs.menu.className = "el-icon-menu actions";
+      this.$refs.tickets.className = "el-icon-tickets";
+    },
+    tickets: function() {
+      this.select = false;
+      this.$refs.menu.className = "el-icon-menu";
+      this.$refs.tickets.className = "el-icon-tickets actions";
     }
   },
   components: {
