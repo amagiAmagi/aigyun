@@ -110,12 +110,13 @@ export default {
   },
   mounted() {
     // 获取地块信息
-    this.getplot();
     this.plotList = this.$store.getters.getPenasntPlot[0];
+    this.getplot();
+    this.getshow();
   },
   created() {
     this.plotList = this.$store.getters.getPenasntPlot[0];
-    this.getshow();
+    // this.getshow();
   }
 };
 </script>

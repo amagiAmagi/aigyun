@@ -32,23 +32,17 @@
       </div>
         <!-- 展示订单信息的tab -->
       <div class="order-center">
-
-        <el-tabs type="border-card">
-          <el-tab-pane label="全部">
-
-            <ul class="order-card">
-               <div v-show="!select" class="order-sper-heders">
-              <span class="sper-titela namesss">名称</span>
-              <span class="sper-titela fbsj">发布时间</span>
-              <span class="sper-titela zysj">作业时间</span>
-              <span class="sper-titela aers">地块地址</span>
-              <span class="sper-titela sase">面积</span>
-              <span class="sper-titela zuow">作物</span>
-              <span class="sper-titela">作业类型</span>
-              <span class="sper-titela jage">价格</span>
-              <span class="sper-titela caozuo">操作</span>
-            </div>
-              <!-- 竖版 -->
+          <ul class="order-center-tops-ul" ref="allss">
+            <li class="order-center-tops-li actionsColr" ref="all" @click="all">全部</li>
+            <li class="order-center-tops-li" @click="order" ref="order">接单中</li>
+            <li class="order-center-tops-li" @click="Inorder" ref="Inorder">已接单</li>
+            <li class="order-center-tops-li" @click="Operation" ref="Operation">作业中</li>
+            <li class="order-center-tops-li" @click="confirmed" ref="confirmed">待确认</li>
+            <li class="order-center-tops-li" @click="evaluated" ref="evaluated">待评价</li>
+            <li class="order-center-tops-li" @click="accomplish" ref="accomplish">已完成</li>
+          </ul>
+            <div class="order-card">
+               <!-- 竖版 -->
               <li class="order-card-li" v-show="select">
                   <div class="order-card-li-heder">
                      <span class="order-card-li-heder-left">接单中</span><span class="order-card-li-heder-right">订单号：1710221411932</span>
@@ -66,40 +60,49 @@
                     </div>
                     <p>高科新农值保一队</p>
                       <div class="feelot">
-                        <el-button type="primary" class="select">选择值保机构</el-button>  <el-button type="primary" class="select" @click="dialogFormVisible = true">取消</el-button>
+                        <el-button type="primary" class="select">选择值保机构</el-button>  <el-button type="primary" class="select cancel" @click="dialogFormVisible = true">取消</el-button>
                       </div>
                   </div>
               </li>
               <!-- 横版 -->
-              <li class="order-spers order-sper-li" v-show="!select">
-                  <img src="../../../../assets/5555.png" alt="">
-                  <div class="order-sper-tops">
-                    <span>田地一号 &nbsp;&nbsp;&nbsp;2017.11.22 &nbsp;&nbsp;2017.11.22</span>
-                  <span class="aerss">广东省深圳市南山区特发信息港A栋8楼</span>
-                  <span>120亩</span>
-                  <span style="margin-left: 0px">水稻</span>
-                  <span class="shif">施肥</span>
-                  <span style="margin-left: 24px">10元/亩</span>
-                  <el-button type="primary" class="primar jigou">选择值保机构</el-button>
-                  </div>
-                  <div class="order-sper-bottoms">
-                    <span>订单号：1710221411932</span>
-                    <span>接单中</span>
-                    <span>高科新农公司</span>
-                    <span>值保一队</span>
-                    <el-button type="primary" class="primar quxia" @click="dialogFormVisible = true">取消</el-button>
-                  </div>
-              </li>
-            </ul>
-          </el-tab-pane>
-          <el-tab-pane label="接单中">接单中</el-tab-pane>
-          <el-tab-pane label="已接单">已接单</el-tab-pane>
-          <el-tab-pane label="作业中">作业中</el-tab-pane>
-           <el-tab-pane label="待确定">待确定</el-tab-pane>
-          <el-tab-pane label="待评价">待评价</el-tab-pane>
-          <el-tab-pane label="已完成">已完成</el-tab-pane>
-        </el-tabs>
-         <div class="zssx">
+
+              <div class="order-spers order-sper-li" v-show="!select">
+                <div v-show="!select" class="order-sper-heders">
+                  <span class="sper-titela namesss">名称</span>
+                  <span class="sper-titela fbsjss">发布时间</span>
+                  <span class="sper-titela zysjss">作业时间</span>
+                  <span class="sper-titela aersss">地块地址</span>
+                  <span class="sper-titela sasess">面积</span>
+                  <span class="sper-titela zuowss">作物</span>
+                  <span class="sper-titela">作业类型</span>
+                  <span class="sper-titela jagess">价格</span>
+                  <span class="sper-titela caozuoss">操作</span>
+                </div>
+                <!-- 横版 -->
+                 <div class="across">
+                   <img src="../../../../assets/5555.png" alt="">
+                   <div class="order-sper-tops">
+                     <span>田地一号 &nbsp;&nbsp;&nbsp;2017.11.22 &nbsp;&nbsp;2017.11.22</span>
+                     <span class="aerss">广东省深圳市南山区特发信息港A栋8楼</span>
+                     <span>120亩</span>
+                     <span class="rice">水稻</span>
+                     <span class="shif">施肥</span>
+                     <span style="margin-left: 24px">10元/亩</span>
+                     <el-button type="primary" class="primar jigouss">选择值保机构</el-button>
+                   </div>
+                   <div class="wireas"></div>
+                   <div class="order-sper-bottoms">
+                     <span>订单号：1710221411932</span>
+                     <span>接单中</span>
+                     <span>高科新农公司</span>
+                     <span>值保一队</span>
+                     <el-button type="primary" class="primar quxiaS" @click="dialogFormVisible = true">取消</el-button>
+                   </div>
+                 </div>
+              </div>
+
+            </div>
+         <div class="showScreen">
             <span>展示筛选</span>
             <span class="el-icon-menu actions" ref="menu" @click="menu"></span>
             <span class="el-icon-tickets" ref="tickets" @click="tickets"></span>
@@ -123,7 +126,6 @@
             <el-checkbox label="其他" name="type5"></el-checkbox>
           </el-checkbox-group>
           <el-input type="textarea" style="margin-left: 100px ;width: 60%;height: 155px" placeholder="请输入其他原因" v-model="neirong"></el-input>
-          </el-form-item>
         </div>
       </div>
 
@@ -139,20 +141,54 @@
 </template>
 
 <style>
+.order-center-tops-ul {
+  margin: 0;
+  padding: 0;
+  width: 822px;
+  padding-bottom: 20px;
+  height: 100%;
+}
+.order-center-tops-ul .actionsColr {
+  color: #fff;
+  background-color: #0094ff;
+}
+.order-center-tops-li {
+  float: left;
+  width: 80px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  font-size: 14px;
+  border: 1px solid #bdc4c7;
+  color: #959fa7;
+  margin-right: 6px;
+  cursor: pointer;
+}
+.wireas {
+  width: 600px;
+  height: 1px;
+  background-color: #eaeff0;
+  position: absolute;
+  left: 110px;
+  top: 55px;
+}
 .namesss {
   width: 60px;
   margin-left: 100px;
   border-right: 1px solid #ccc;
 }
-.fbsj {
+.cancel {
+  margin-left: 10px;
+}
+.fbsjss {
   border-right: 1px solid #ccc;
   width: 70px;
 }
-.zysj {
+.zysjss {
   border-right: 1px solid #ccc;
   width: 70px;
 }
-.aers {
+.aersss {
   display: inline-block;
   width: 153px;
   word-break: break-all;
@@ -163,26 +199,34 @@
   width: 153px;
   word-break: break-all;
 }
-.sase {
+.across {
+  height: 96px;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 0 5px;
+  position: relative;
+}
+.sasess {
   width: 50px;
   border-right: 1px solid #ccc;
 }
-.zuow {
+.zuowss {
   width: 40px;
   border-right: 1px solid #ccc;
 }
 .shif {
   margin-left: 20px;
 }
-.jage {
+.jagess {
   width: 70px;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
 }
-.caozuo {
+.caozuoss {
   margin-left: 40px;
 }
-.jigou {
+.jigouss {
   margin-left: 8px;
 }
 .bodys p {
@@ -193,17 +237,10 @@
 }
 .order-spers {
   width: 100%;
-  height: 96px;
+  height: 100%;
   box-sizing: border-box;
-  border: 1px solid #ccc;
-  padding: 11px 5px;
-}
-.order-sper-li {
-  margin-top: 20px;
-  height: 106px;
 }
 .order-sper-bottoms {
-  border-top: 1px solid #ccc;
   height: 28px;
   line-height: 28px;
   position: relative;
@@ -215,7 +252,6 @@
   top: 10px;
   display: inline-block;
   height: 30px;
-  /* left: 100px; */
 }
 .order-spers img {
   width: 98px;
@@ -223,7 +259,7 @@
   border-radius: 10px;
   vertical-align: text-top;
 }
-.quxia {
+.quxiaS {
   position: absolute;
   right: 105px;
   top: 2px;
@@ -237,7 +273,7 @@
   margin-right: 10px;
 }
 .order-sper-heders {
-  width: 100%;
+  width: 822px;
   height: 32px;
   line-height: 32px;
   background-color: #d3dee3;
@@ -321,12 +357,12 @@
   width: 176px;
   height: 116px;
   border-radius: 10px;
-  background-color: #409eff;
-  color: #fff;
+  background-color: #fff;
+  color: #409eff;
   font-size: 20px;
 }
 .left-center-button i {
-  font-size: 50px;
+  font-size: 100px;
 }
 .order {
   width: 850px;
@@ -342,31 +378,22 @@
 }
 .order-center {
   width: 822px;
-  /* height: 700px; */
   box-shadow: 0 0 2px 2px #ccc;
   border-radius: 10px;
   margin-top: 20px;
   padding: 20px 14px 0px 14px;
   position: relative;
-}
-.el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
-  background-color: #0094ff;
-  color: #fff;
-}
-.el-tabs--border-card {
-  border: 0;
-  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
+  min-height: 50px;
+  padding-bottom: 20px;
 }
 .order-card {
-  margin: 0;
-  padding: 0;
-  width: 100%;
+  margin-top: 20px;
+  width: 822px;
   height: 100%;
-  /* background-color: red; */
+  display: flex;
+  flex-wrap: wrap;
 }
-.el-tabs--border-card > .el-tabs__content {
-  padding: 15px 0;
-}
+
 .order-card-li {
   float: left;
   width: 256px;
@@ -375,6 +402,7 @@
   border: 1px solid #ccc;
   margin-right: 27px;
   margin-bottom: 15px;
+  border-radius: 10px;
 }
 .order-card-li:nth-of-type(3n) {
   margin-right: 0;
@@ -384,6 +412,8 @@
   line-height: 30px;
   background-color: #ccc;
   font-size: 12px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 .order-card-li-heder-left {
   height: 24px;
@@ -450,7 +480,7 @@
 .feelot {
   margin-top: 8px;
 }
-.zssx {
+.showScreen {
   position: absolute;
   right: 38px;
   top: 28px;
@@ -466,6 +496,7 @@
 </style>
 
 <script>
+import api from "../../../common/api.js";
 export default {
   data() {
     return {
@@ -476,7 +507,9 @@ export default {
       dialogTableVisible: false,
       dialogFormVisible: false,
       type: [],
-      neirong: ""
+      neirong: "",
+      MyorderList: [],
+      red_id: ""
     };
   },
   methods: {
@@ -492,7 +525,92 @@ export default {
       this.select = false;
       this.$refs.menu.className = "el-icon-menu";
       this.$refs.tickets.className = "el-icon-tickets actions";
+    },
+    all: function() {
+      this.$refs.all.className = "order-center-tops-li actionsColr";
+      this.$refs.order.className = "order-center-tops-li";
+      this.$refs.Inorder.className = "order-center-tops-li";
+      this.$refs.Operation.className = "order-center-tops-li";
+      this.$refs.confirmed.className = "order-center-tops-li";
+      this.$refs.evaluated.className = "order-center-tops-li";
+      this.$refs.accomplish.className = "order-center-tops-li";
+    },
+    order: function() {
+      this.$refs.all.className = "order-center-tops-li ";
+      this.$refs.order.className = "order-center-tops-li actionsColr";
+      this.$refs.Inorder.className = "order-center-tops-li";
+      this.$refs.Operation.className = "order-center-tops-li";
+      this.$refs.confirmed.className = "order-center-tops-li";
+      this.$refs.evaluated.className = "order-center-tops-li";
+      this.$refs.accomplish.className = "order-center-tops-li";
+    },
+    Inorder: function() {
+      this.$refs.all.className = "order-center-tops-li ";
+      this.$refs.order.className = "order-center-tops-li";
+      this.$refs.Inorder.className = "order-center-tops-li  actionsColr";
+      this.$refs.Operation.className = "order-center-tops-li";
+      this.$refs.confirmed.className = "order-center-tops-li";
+      this.$refs.evaluated.className = "order-center-tops-li";
+      this.$refs.accomplish.className = "order-center-tops-li";
+    },
+    Operation: function() {
+      this.$refs.all.className = "order-center-tops-li ";
+      this.$refs.order.className = "order-center-tops-li";
+      this.$refs.Inorder.className = "order-center-tops-li ";
+      this.$refs.Operation.className = "order-center-tops-li  actionsColr";
+      this.$refs.confirmed.className = "order-center-tops-li";
+      this.$refs.evaluated.className = "order-center-tops-li";
+      this.$refs.accomplish.className = "order-center-tops-li";
+    },
+    confirmed: function() {
+      this.$refs.all.className = "order-center-tops-li ";
+      this.$refs.order.className = "order-center-tops-li";
+      this.$refs.Inorder.className = "order-center-tops-li ";
+      this.$refs.Operation.className = "order-center-tops-li";
+      this.$refs.confirmed.className = "order-center-tops-li  actionsColr";
+      this.$refs.evaluated.className = "order-center-tops-li";
+      this.$refs.accomplish.className = "order-center-tops-li";
+    },
+    evaluated: function() {
+      this.$refs.all.className = "order-center-tops-li ";
+      this.$refs.order.className = "order-center-tops-li";
+      this.$refs.Inorder.className = "order-center-tops-li ";
+      this.$refs.Operation.className = "order-center-tops-li";
+      this.$refs.confirmed.className = "order-center-tops-li ";
+      this.$refs.evaluated.className = "order-center-tops-li  actionsColr";
+      this.$refs.accomplish.className = "order-center-tops-li";
+    },
+    accomplish: function() {
+      this.$refs.all.className = "order-center-tops-li ";
+      this.$refs.order.className = "order-center-tops-li";
+      this.$refs.Inorder.className = "order-center-tops-li ";
+      this.$refs.Operation.className = "order-center-tops-li";
+      this.$refs.confirmed.className = "order-center-tops-li ";
+      this.$refs.evaluated.className = "order-center-tops-li ";
+      this.$refs.accomplish.className = "order-center-tops-li  actionsColr";
+    },
+    getMyorderList: function() {
+      this.$http
+        .post(
+          api.apihost + "TaskManager",
+          {
+            reg_id: this.red_id.reg_id,
+            action: 2
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(function(res) {
+          console.log(res);
+        });
     }
+  },
+  created() {
+    this.red_id = JSON.parse(window.localStorage.getItem("id"));
+    this.getMyorderList();
   }
 };
 </script>

@@ -11,16 +11,16 @@
           </div>
           <el-button type="primary" class="xzdk"  @click="dialogFormVisible = true"><i class="el-icon-circle-plus-outline"></i>新增地块</el-button>
       </div>
-      <div class="dklist">
-          <div class="information" v-for="(item,index) in this.plotList" :key="index" @click="showcar(item)">
-              <img src="../../../../assets/5555.png" alt="">
-              <div class="information-right">
-                <h4>{{item.farmland_name}}</h4>
-                <span>{{item.farmland_addr}}</span><br>
-                <span>{{item.farmland_ares}}</span>|<span>{{item.crops_name}}</span>
-              </div>
-          </div>
-      </div>
+      <div class="dklist" ref="dklist">
+           <div class="information" v-for="(item,index) in this.plotList" :key="index" @click="showcar(item)" ref="information">
+             <img src="../../../../assets/5555.png" alt="">
+             <div class="information-right">
+               <h4>{{item.farmland_name}}</h4>
+               <span>{{item.farmland_addr}}</span>
+               <span>{{item.farmland_ares}}亩</span>|<span>{{item.crops_name}}</span>
+             </div>
+           </div>
+         </div>
     </div>
 
 <!-- 新增地块模态框 -->
@@ -62,34 +62,39 @@
 
 
 
+<el-steps :active="num" class="stepss">
+  <el-step title="请选择地块" icon="el-icon-edit"></el-step>
+  <el-step title="请输入信息" icon="el-icon-upload"></el-step>
+  <el-step title="发布完成" icon="el-icon-picture"></el-step>
+</el-steps>
 
-<div class="publish">
+<div class="publish" v-show="formData" >
 
-  <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+  <el-form :model="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
     <el-form-item label="农户姓名" prop="name">
       <el-input v-model="ruleForm.name"></el-input>
     </el-form-item>
     <el-form-item label="农户电话" prop="phone">
       <el-input v-model="ruleForm.phone"></el-input>
     </el-form-item>
-    <el-form-item label="作物类型" prop="type">
-      <el-checkbox-group v-model="ruleForm.type">
-        <el-checkbox label="防治" name="type"></el-checkbox>
-        <el-checkbox label="杀虫灭菌" name="type"></el-checkbox>
-        <el-checkbox label="施肥" name="type"></el-checkbox>
-        <el-checkbox label="授粉" name="type"></el-checkbox>
-        <el-checkbox label="脱叶" name="type"></el-checkbox>
-        <el-checkbox label="消杀灭菌" name="type"></el-checkbox>
-        <el-checkbox label="消杀灭菌" name="type"></el-checkbox>
-        <el-checkbox label="其他" name="type"></el-checkbox>
+    <el-form-item label="作物类型" >
+      <el-checkbox-group>
+        <el-radio v-model="radios" label="防治" name="type"></el-radio>
+        <el-radio v-model="radios" label="杀虫灭菌" name="type"></el-radio>
+        <el-radio v-model="radios" label="施肥" name="type"></el-radio>
+        <el-radio v-model="radios" label="授粉" name="type"></el-radio>
+        <el-radio v-model="radios" label="脱叶" name="type"></el-radio>
+        <el-radio v-model="radios" label="消杀免疫" name="type"></el-radio>
+        <el-radio v-model="radios" label="除草" name="type"></el-radio>
+        <el-radio v-model="radios" label="其他" name="type"></el-radio>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="农作物" prop="type2">
-      <el-checkbox-group v-model="ruleForm.type2">
-        <el-checkbox label="水稻" name="type"></el-checkbox>
-        <el-checkbox label="小麦" name="type"></el-checkbox>
-        <el-checkbox label="玉米" name="type"></el-checkbox>
-        <el-checkbox label="柑橘" name="type"></el-checkbox>
+    <el-form-item label="农作物">
+      <el-checkbox-group >
+        <el-radio v-model="radio" label="水稻" name="type"></el-radio>
+        <el-radio v-model="radio" label="小麦" name="type"></el-radio>
+        <el-radio v-model="radio" label="玉米" name="type"></el-radio>
+        <el-radio v-model="radio" label="柑橘" name="type"></el-radio>
       </el-checkbox-group>
       <span class="ck" @click="ck">查看更多</span>
     </el-form-item>
@@ -103,14 +108,14 @@
         </el-form-item>
       </el-col>
     </el-form-item>
-    <el-form-item label="作物地址">
+    <!-- <el-form-item label="作物地址">
       <v-distpicker @selected="onSelected"></v-distpicker>
+    </el-form-item> -->
+    <el-form-item label="详细地址" prop="site" >
+      <el-input v-model="ruleForm.site" placeholder="请填写详细地址" :disabled="true"></el-input>
     </el-form-item>
-    <el-form-item label="详细地址" prop="site">
-      <el-input v-model="ruleForm.site" placeholder="请填写详细地址"></el-input>
-    </el-form-item>
-    <el-form-item label="作业面积" prop="area">
-      <el-input v-model="ruleForm.area"></el-input>
+    <el-form-item label="作业面积" prop="area" >
+      <el-input v-model="ruleForm.area" :disabled="true"></el-input>
     </el-form-item>
     <el-form-item label="发布价格" prop="price">
       <el-input v-model="ruleForm.price"></el-input>
@@ -122,14 +127,14 @@
       <el-button type="primary"  @click="outerVisible = true">选择值保队</el-button><br> 可以指定值保机构为您服务
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submitForm('ruleForm')" class="fbcz">发布</el-button>
+      <el-button type="primary" @click="release" class="fbcz">发布</el-button>
       <el-button @click="resetForm('ruleForm')" class="fbcz">重置</el-button>
     </el-form-item>
   </el-form>
 
 
-
 <!-- 值保队选择框 -->
+
 
 
   <el-dialog title="值保机构选择" :visible.sync="outerVisible">
@@ -163,20 +168,20 @@
     <div class="xzzbdhzbs">
       <h3>选择值保队或值保商:</h3>
 
-  <el-table ref="singleTable" :data="tableData" highlight-current-row @current-change="handleCurrentChange" style="width: 100%">
-    <el-table-column type="index" width="50">
-    </el-table-column>
-    <el-table-column property="date" label="值保商名称">
-    </el-table-column>
-    <el-table-column property="name" label="值保队名称">
-    </el-table-column>
-    <el-table-column property="address" label="人数">
-    </el-table-column>
-       <el-table-column property="addr" label="值保范围">
-    </el-table-column>
-       <el-table-column property="ress" label="评价">
-    </el-table-column>
-  </el-table>
+      <el-table ref="singleTable" :data="tableData" highlight-current-row @current-change="handleCurrentChange" style="width: 100%">
+        <el-table-column type="index" width="50">
+        </el-table-column>
+        <el-table-column property="date" label="值保商名称">
+        </el-table-column>
+        <el-table-column property="name" label="值保队名称">
+        </el-table-column>
+        <el-table-column property="address" label="人数">
+        </el-table-column>
+        <el-table-column property="addr" label="值保范围">
+        </el-table-column>
+        <el-table-column property="ress" label="评价">
+        </el-table-column>
+      </el-table>
 
     </div>
     <div slot="footer" class="dialog-footer">
@@ -185,6 +190,7 @@
       <el-button type="primary" @click="outerVisible = false">确 定</el-button>
     </div>
   </el-dialog>
+
 
 
 
@@ -197,6 +203,20 @@
 </template>
 
 <style>
+.stepss {
+  width: 500px;
+  margin-left: 550px;
+  margin-top: 20px;
+}
+.stepss .el-step__icon-inner[class*="el-icon"]:not(.is-status) {
+  margin-left: 20px;
+}
+.step__title {
+  font-size: 14px;
+}
+.el-step__icon-inner[class*="el-icon"]:not(.is-status) {
+  font-size: 45px;
+}
 .dialog-top {
   height: 238px;
   margin-bottom: 50px;
@@ -209,12 +229,26 @@
   top: 70px;
   height: 100%;
 }
+
+.dklist {
+  overflow: auto;
+  margin-top: 20px;
+  box-pack: justify;
+  height: 600px;
+  overflow-x: hidden;
+}
 .information {
-  height: 112px;
-  margin-top: 15px;
+  width: 280px;
+  border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #fff;
   cursor: pointer;
+  height: 116px;
+  margin-bottom: 20px;
+}
+.information:hover {
+  color: #0094ff;
+  transform: scale(1.05);
 }
 .information img {
   display: inline-block;
@@ -225,10 +259,9 @@
 }
 .information-right {
   display: inline-block;
-  width: 166px;
-  height: 112px;
-  margin-left: 10px;
-  margin-top: -20px;
+  width: 136px;
+  margin-top: 10px;
+  text-align: center;
 }
 .information-right h4 {
   margin: 0;
@@ -341,6 +374,13 @@ import api from "../../../common/api.js";
 export default {
   data() {
     return {
+      num: 1,
+      formData: false,
+      length: "",
+      id: "",
+      task_type: "",
+      radio: "",
+      radios: "",
       plotList: [],
       red_id: "",
       tableData: [
@@ -393,14 +433,13 @@ export default {
       ruleForm: {
         name: "",
         date: "",
-        type: [],
-        type2: [],
         desc: "",
         phone: "",
         site: "",
         area: "",
         price: "",
-        zwzl: false
+        zwzl: false,
+        dates: ""
       },
       rules: {
         name: [
@@ -416,22 +455,6 @@ export default {
         price: [{ required: true, message: "请输入价格", trigger: "blur" }],
         date: [
           { type: "date", required: true, message: "请选择日期", trigger: "change" }
-        ],
-        type: [
-          {
-            type: "array",
-            required: true,
-            message: "请至少选择一个作物类型",
-            trigger: "change"
-          }
-        ],
-        type2: [
-          {
-            type: "array",
-            required: true,
-            message: "请至少选择一个农作物",
-            trigger: "change"
-          }
         ],
         desc: [{ required: true, message: "请填写作业说明", trigger: "blur" }]
       }
@@ -539,17 +562,45 @@ export default {
       this.form.prov = data.province.value;
       this.form.cityOptions = data.city.value;
       this.form.are = data.area.value;
-      // console.log(data);
+      console.log(data);
     },
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          // alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+    release() {
+      // this.ruleForm.dates = Math.round(this.ruleForm.date.getTime() / 1000);
+      const _this = this;
+      console.log(11111111111);
+      console.log(this.ruleForm);
+      console.log(this);
+      this.$http
+        .post(
+          api.apihost + "TaskManager",
+          {
+            reg_id: 7622756,
+            action: 0,
+            farmland_id: 7622756002,
+            task_type: 1,
+            // task_other_type: "",
+            crops_type: 0,
+            crops_name: 0,
+            task_time: 1513662376,
+            // task_prov: "",
+            // task_city: "",
+            // task_district: "",
+            task_ares: 2562,
+            task_price: 1236,
+            task_introduce: "是大法官好是大法官好",
+            task_addr: "山西省朔州市右玉县阿萨德法国和",
+            demand_type: 1
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(function(res) {
+          console.log(res);
+          _this.num = 3;
+        });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -559,9 +610,56 @@ export default {
       console.log(this.cropList);
     },
     showcar: function(item) {
-      console.log(item);
       this.ruleForm.site = item.farmland_addr;
       this.ruleForm.area = item.farmland_ares;
+      this.id = item.farmland_id;
+      this.formData = true;
+      this.num = 2;
+      console.log(item);
+    },
+    getRadio: function() {
+      if (this.radio == "水稻") {
+        this.cropList.type = 0;
+        this.cropList.name = 2;
+      }
+      if (this.radio == "小麦") {
+        this.cropList.type = 0;
+        this.cropList.name = 0;
+      }
+      if (this.radio == "玉米") {
+        this.cropList.type = 0;
+        this.cropList.name = 5;
+      }
+      if (this.radio == "柑橘") {
+        this.cropList.type = 4;
+        this.cropList.name = 10;
+      }
+    },
+    getRadios: function() {
+      if (this.radios == "防治") {
+        this.task_type = 1;
+      }
+      if (this.radios == "杀虫灭菌") {
+        this.task_type = 2;
+      }
+      if (this.radios == "施肥") {
+        this.task_type = 3;
+      }
+      if (this.radios == "授粉") {
+        this.task_type = 4;
+      }
+      if (this.radios == "脱叶") {
+        this.task_type = 5;
+      }
+      if (this.radios == "消杀免疫") {
+        this.task_type = 6;
+      }
+      if (this.radios == "除草") {
+        this.task_type = 7;
+      }
+      if (this.radios == "其他") {
+        this.task_type = 8;
+      }
     }
   },
   components: {
@@ -577,11 +675,17 @@ export default {
     if (this.plotList == undefined) {
       this.$store.commit("setusepolt", plo);
     }
-    if (this.$store.getters.getPenasntPlot[0].length > 4) {
-      this.plotList = this.$store.getters.getPenasntPlot[0].slice(0, 4);
-    } else {
-      this.plotList = this.$store.getters.getPenasntPlot[0];
-    }
+    this.plotList = this.$store.getters.getPenasntPlot[0];
+    this.length = this.plotList.length;
+    this.index = Math.ceil(this.length / 4);
+    // if (this.length > 5) {
+    //   this.$refs.dklist.firstElementChild.clientWidth = 280;
+    // }
+  },
+  updated() {
+    this.getRadio();
+    this.getRadios();
+    // console.log();
   }
 };
 </script>

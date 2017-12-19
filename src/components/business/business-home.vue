@@ -14,22 +14,28 @@
           </div>
           <ul class="zblcxq">
             <li>
-              <img src="../../assets/1.png" alt="">
+              <img src="../../assets/值保商首页/15.png" alt="">
+              <span>待接订单数</span>
             </li>
              <li>
-              <img src="../../assets/1.png" alt="">
+              <img  src="../../assets/值保商首页/16.png" alt="">
+              <span>待接订单数</span>
             </li>
              <li>
-              <img src="../../assets/1.png" alt="">
+              <img src="../../assets/值保商首页/18.png" alt="">
+              <span>待接订单数</span>
             </li>
              <li>
-              <img src="../../assets/1.png" alt="">
+              <img  src="../../assets/值保商首页/19.png" alt="">
+              <span>待接订单数</span>
             </li>
              <li>
-              <img src="../../assets/1.png" alt="">
+              <img  src="../../assets/值保商首页/20.png" alt="">
+              <span>待接订单数</span>
             </li>
              <li>
-              <img src="../../assets/1.png" alt="">
+              <img src="../../assets/值保商首页/21.png" alt="">
+              <span>待接订单数</span>
             </li>
           </ul>
         </div>
@@ -104,15 +110,20 @@
 }
 .zblcxq {
   width: 802px;
-  height: 110px;
+  height: 130px;
   margin: 0;
-  padding: 18px 24px;
+  padding: 0px 24px;
 }
 .zblcxq li {
   float: left;
   width: 16.66%;
   text-align: center;
   height: 100%;
+}
+.zblcxq li span {
+  display: inline-block;
+  width: 100%;
+  /* font-size: 14px; */
 }
 .zbsgzzt {
   height: 56px;

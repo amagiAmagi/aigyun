@@ -43,7 +43,7 @@
         <el-input v-model="form.area" style="width: 80%" placeholder="请输入作业面积"></el-input>
       </el-form-item>
       <el-form-item label="目标作物" :label-width="formLabelWidth">
-        <crop v-on:cropList="getchangeNumber"></crop>
+        <crop v-on:cropList="getchangeNumber" :cropList="cropList"></crop>
       </el-form-item>
       <el-form-item label="地块描述和备注" :label-width="formLabelWidth">
         <el-input type="textarea" v-model="form.desc" style="width: 80%" placeholder="请输入地块描述和备注"></el-input>
@@ -69,26 +69,38 @@
 <!-- 点击查看弹出来的页面信息 -->
 
 
-  <el-dialog title="地块信息" :visible.sync="centerDialogVisible" width="30%" center>
-    <div>
-      <p><span>地块名称：</span><span>田地一号</span></p>
-      <p><span>地块地址：</span><span>广东省深圳市特发信息港</span></p>
-      <p><span>详细地址：</span><span>广东省深圳市特发信息港广东省深圳市特发信息港</span></p>
-      <p><span>面积（亩）：</span><span>120亩</span></p>
-      <p><span>目标作物：</span><span>粮食作物、水稻</span></p>
-      <div>
-        <span>地块描述和备注：</span><span>工业化农业的发展，已投入大量物质和能量为标注</span>
-      </div>
-      <div>
-        <span>地块图片：</span>
-        <img src="../../../assets/0094.gif" alt="">
-        <img src="../../../assets/0094.gif" alt="">
-        <img src="../../../assets/0094.gif" alt="">
-        <img src="../../../assets/0094.gif" alt="">
-      </div>
-    </div>
-    <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="centerDialogVisible = false">修改</el-button>
+  <el-dialog title="地块信息" :visible.sync="outerVisible">
+    <el-form :model="form">
+      <el-form-item label="地块名称" :label-width="formLabelWidth">
+        <el-input v-model="form.name" style="width: 80%" placeholder="请输入地块名称"></el-input>
+      </el-form-item>
+      <el-form-item label="地块地址" :label-width="formLabelWidth">
+        <VDistpicker @selected="onSelected" :province="cityObj.farmland_prov" :city="cityObj.farmland_city" :area="cityObj.farmland_district"></VDistpicker>
+      </el-form-item>
+      <el-form-item label="详细地址" :label-width="formLabelWidth">
+        <el-input v-model="form.site" placeholder="请输入详细地址" style="width: 80%"></el-input>
+      </el-form-item>
+      <el-form-item label="作业面积" :label-width="formLabelWidth">
+        <el-input v-model="form.area" style="width: 80%" placeholder="请输入作业面积"></el-input>
+      </el-form-item>
+      <el-form-item label="目标作物" :label-width="formLabelWidth">
+        <crop v-on:cropList="getchangeNumber" :crop="cropList"></crop>
+      </el-form-item>
+      <el-form-item label="地块描述和备注" :label-width="formLabelWidth">
+        <el-input type="textarea" v-model="form.desc" style="width: 80%" placeholder="请输入地块描述和备注"></el-input>
+      </el-form-item>
+      <el-form-item label="地块图片" :label-width="formLabelWidth">
+        <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" :multiple="true" :show-file-list="true"
+          :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :headers="logoHeaders">
+          <i class="el-icon-plus"></i>
+        </el-upload>
+        <el-dialog :visible.sync="dialogVisible" size="tiny">
+          <img width="100%" :src="dialogImageUrl" alt="">
+        </el-dialog>
+      </el-form-item>
+    </el-form>
+    <span slot="footer" class="dialog-footer ">
+      <el-button type="primary centerssss" @click="modification">修改</el-button>
     </span>
   </el-dialog>
 
@@ -109,14 +121,7 @@
           </div>
       <div class="plot-center">
           <ul class="plot-center-list">
-            <div v-show="!select" class="order-sper-heder">
-              <span class="names">名称</span>
-              <span class="cjsj">创建时间</span>
-              <span class="dkdz">地块地址</span>
-              <span class="mj">面积</span>
-              <span class="zuowu">作物</span>
-              <span class="beizhu">备注</span>
-            </div>
+
             <!-- 竖版 -->
             <li class="plot-center-li" v-show="select" ref="list"  :id="item.farmland_id" v-for="(item,index) in  this.plotList" :key="index">
               <div class="plot-center-li-left">
@@ -136,12 +141,21 @@
               </div>
               <div class="plot-center-li-right">
                  <el-button plain @click="plot">发布需求</el-button>
-                 <el-button type="primary" @click="centerDialogVisible = true">查看</el-button>
+                 <el-button type="primary" @click="examine(item)">查看</el-button>
                  <el-button type="primary" @click="open(item,index)">删除</el-button>
               </div>
             </li>
             <!-- 横版 -->
-            <li class="order-sper" v-show="!select" ref="list"  :id="item.farmland_id" v-for="(item,index) in  this.plotList" :key="index">
+            <div v-show="!select" class="order-sper-heder-list-heng">
+              <div  class="order-sper-heder">
+              <span class="names">名称</span>
+              <span class="cjsj">创建时间</span>
+              <span class="dkdz">地块地址</span>
+              <span class="mj">面积</span>
+              <span class="zuowu">作物</span>
+              <span class="beizhu">备注</span>
+            </div>
+            <li class="order-sper"  ref="list"  :id="item.farmland_id" v-for="(item,index) in  this.plotList" :key="index">
               <img src="../../../assets/5555.png" alt="">
               <div class="order-sper-top">
                 <span class="namessss">{{item.farmland_name}}</span>
@@ -153,19 +167,20 @@
               </div>
               <div class="order-sper-bottom">
                 <el-button type="info" class="prima quxiao" @click="plot">发布需求</el-button>
-                <el-button type="primary" class="prima" @click="centerDialogVisible = true">查看</el-button>
+                <el-button type="primary" class="prima" @click="examine(item)">查看</el-button>
                 <el-button type="primary" class="prima" @click="open(item,index)">删除</el-button>
               </div>
             </li>
+            </div>
 
           </ul>
       </div>
     </div>
 
+
     <!-- <upload></upload> -->
   </div>
 </template>
-
 <style>
 .busCenter {
   width: 1200px;
@@ -235,6 +250,10 @@
   word-break: break-all;
   width: 160px;
 }
+.centerssss {
+  width: 100px;
+  text-align: center;
+}
 .dikdzs {
   display: inline-block;
   word-break: break-all;
@@ -243,8 +262,13 @@
 .actions {
   color: #0094ff;
 }
+/* .order-sper-heder-list-heng {
+  box-shadow: 0 0 2px 2px #ccc;
+  width: 830px;
+  padding: 10px;
+} */
 .order-sper-heder {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   width: 100%;
   height: 32px;
   line-height: 32px;
@@ -263,6 +287,7 @@
   border: 1px solid #ccc;
   margin-top: 20px;
   padding: 11px 5px;
+  border-radius: 10px;
 }
 .order-sper-bottom {
   position: relative;
@@ -275,9 +300,6 @@
   display: inline-block;
   height: 30px;
   font-size: 14px;
-}
-.order-sper-top span {
-  /* margin-right: 25px; */
 }
 .order-sper img {
   width: 98px;
@@ -362,14 +384,17 @@
   border-bottom: 1px solid #ccc;
 }
 .plot-center {
-  width: 100%;
-  height: 700px;
+  width: 830px;
+  height: 100%;
 }
 .plot-center-list {
   width: 100%;
-  height: 100%;
-  padding: 0;
+  padding: 10px;
   margin: 0;
+  box-shadow: 0 0 2px 2px #ccc;
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 30px;
 }
 .fabu {
   width: 20%;
@@ -381,7 +406,7 @@
   margin-right: 25%;
 }
 .plot-center-li {
-  width: 416px;
+  width: 411px;
   height: 222px;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -391,7 +416,7 @@
   padding: 18px;
 }
 .plot-center-li:nth-of-type(2n) {
-  margin-left: 18px;
+  margin-left: 8px;
 }
 .plot-center-li-left {
   width: 270px;
@@ -457,12 +482,13 @@
 .left-center .left-center-button {
   width: 176px;
   height: 116px;
-  border-radius: 10px;
-  background-color: #409eff;
-  color: #fff;
+  background-color: #fff;
+  color: #409eff;
+  font-size: 30px;
+  margin-top: -10px;
 }
 .left-center-button i {
-  font-size: 50px;
+  font-size: 100px;
 }
 </style>
 
@@ -474,6 +500,8 @@ import crop from "../../common/crop.vue";
 export default {
   data() {
     return {
+      id: "",
+      cityObj: {},
       select: true,
       num: "",
       logoHeaders: {
@@ -482,7 +510,7 @@ export default {
         }
       },
       plotList: [],
-      centerDialogVisible: false,
+      outerVisible: false,
       cropList: {},
       input1: "",
       input2: "",
@@ -674,6 +702,74 @@ export default {
       this.select = false;
       this.$refs.menu.className = "el-icon-menu";
       this.$refs.tickets.className = "el-icon-tickets actions";
+    },
+    examine: function(item) {
+      // this.onSelected();
+      const _this = this;
+      this.$http
+        .post(
+          api.apihost + "FieldManager",
+          {
+            reg_id: this.red_id.reg_id,
+            action: 2,
+            farmland_id: item.farmland_id + ""
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(function(res) {
+          console.log(res);
+          _this.setExaine(res);
+        });
+
+      this.outerVisible = true;
+    },
+    setExaine: function(res) {
+      this.cityObj.farmland_prov = res.data.attachment.farm_0.farmland_prov;
+      this.cityObj.farmland_city = res.data.attachment.farm_0.farmland_city;
+      this.cityObj.farmland_district =
+        res.data.attachment.farm_0.farmland_district;
+
+      this.form.name = res.data.attachment.farm_0.farmland_name;
+      this.form.site = res.data.attachment.farm_0.farmland_addr;
+      this.form.area = res.data.attachment.farm_0.farmland_ares;
+      this.cropList.crops_type = res.data.attachment.farm_0.crops_type;
+      this.cropList.crops_name = res.data.attachment.farm_0.crops_name;
+      this.form.desc = res.data.attachment.farm_0.farmland_addr;
+      this.id = res.data.attachment.farm_0.farmland_id;
+    },
+    modification: function() {
+      this.$http
+        .post(
+          api.apihost + "FieldManager",
+          {
+            reg_id: this.red_id.reg_id,
+            action: 3,
+            farmland_id: this.id,
+            farmland_name: this.form.name,
+            farmland_prov: this.form.prov,
+            farmland_city: this.form.cityOptions,
+            farmland_district: this.form.are,
+            farmland_addr: this.form.site,
+            farmland_ares: this.form.area,
+            crops_type: this.cropList.value,
+            crops_name: this.cropList.city,
+            remarks: this.form.desc
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(function(res) {
+          console.log(res);
+        });
+
+      this.outerVisible = false;
     }
   },
   components: {

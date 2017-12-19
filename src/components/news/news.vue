@@ -3,7 +3,7 @@
      <div class="zbszytj">
           <span>高科新农新闻</span>
           <div class="zbckgd">
-            <router-link to="" style="color: #000;">查看更多>></router-link>
+            <router-link to="">查看更多>></router-link>
           </div>
         </div>
     <div class="gkxnxw">
@@ -66,7 +66,8 @@
   width: 100px;
   height: 30px;
   margin-top: 20px;
-  background-color: #999;
+  background-color: #ccc;
+  color: #eaeff0;
   border-radius: 20px;
 }
 .zbckgd a {

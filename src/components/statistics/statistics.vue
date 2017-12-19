@@ -3,7 +3,7 @@
     <div class="zbszytj">
           <span>值保商作业统计</span>
           <div class="zbckgd">
-            <router-link to="/business/StatsCentral" style="color: #000;">查看更多>></router-link>
+            <router-link to="/business/StatsCentral">查看更多>></router-link>
           </div>
         </div>
         <schart :canvasId="canvasId" :type="type" :width="width"
@@ -17,10 +17,8 @@
  </div>
 </template>
 <style>
-#statistics {
-  box-shadow: 0 0 2px 2px #ccc;
-  margin-top: 22px;
-  border-radius: 10px;
+#myCanvas {
+  font-size: 16px;
 }
 .zbszytj {
   height: 56px;
@@ -36,7 +34,8 @@
   width: 100px;
   height: 30px;
   margin-top: 20px;
-  background-color: #999;
+  background-color: #ccc;
+  color: #eaeff0;
   border-radius: 20px;
 }
 .zbckgd a {
