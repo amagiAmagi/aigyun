@@ -1,0 +1,93 @@
+.login {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: url("../../assets/9527.png") repeat;
+  background-size: 100%;
+}
+.aigyun {
+  position: absolute;
+  top: 50%;
+  margin-top: -180px;
+  right: 55%;
+}
+.loginto {
+  width: 480px;
+  overflow: hidden;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  margin-top: -200px;
+  padding: 59px 0 0px 0;
+  background-color: #fff;
+  border-radius: 10px;
+}
+.pand {
+  margin: 0;
+  height: 10px;
+  line-height: 16px;
+  color: red;
+  font-size: 10px;
+  position: absolute;
+  top: 40px;
+}
+.loginUl {
+  width: 840px;
+  height: 282px;
+  padding: 0;
+  margin: 0;
+}
+.dl {
+  width: 420px;
+  height: 282px;
+  float: left;
+  position: relative;
+}
+.dl img {
+  margin-left: 76px;
+}
+.el-form {
+  width: 410px;
+  /* padding: 0 10px; */
+}
+.short {
+  width: 280px;
+}
+.forget,
+.auth,
+.zhuce {
+  position: absolute;
+  right: 10px;
+  top: 58px;
+  width: 102px;
+}
+.auth {
+  top: 116px;
+  font-size: 16px;
+}
+.zhuce {
+  top: 174px;
+}
+.shorts {
+  width: 180px;
+}
+.el-input__inner {
+  margin-right: 10px;
+}
+.mark {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: -1px;
+  right: -2px;
+}
+.el-form .el-form-item {
+  margin-bottom: 8px;
+}
+.el-form-item {
+  margin-bottom: 8px;
+}
+.el-form-item__content {
+  margin-bottom: 10px;
+}

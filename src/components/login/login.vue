@@ -4,7 +4,7 @@
       <img src="../../assets/微信图片_20171124152421.png" alt="">
     </div>
     <div class="loginto">
-       <ul ref="ul">
+       <ul ref="ul" class="loginUl">
        <li class="dl">
     <el-form status-icon  label-width="100px" class="demo-ruleForm">
       <el-form-item label="用户名" prop="name">
@@ -37,110 +37,11 @@
   </div>
 </template>
 
-<style>
-.login {
-  width: 100%;
-  height: 100%;
-  /* margin: 0 auto; */
-  position: relative;
-  overflow: hidden;
-  /* margin-top: 100px; */
-  background: url("../../assets/9527.png") repeat;
-  background-size: 100%;
-}
-.aigyun {
-  position: absolute;
-  top: 50%;
-  margin-top: -180px;
-  right: 55%;
-}
-.loginto {
-  width: 480px;
-  /* height: 282px; */
-  overflow: hidden;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  /* margin-left: -210px; */
-  margin-top: -200px;
-  padding: 59px 0 0px 0;
-  background-color: #fff;
-  border-radius: 10px;
-}
-.pand {
-  margin: 0;
-  height: 10px;
-  line-height: 16px;
-  color: red;
-  font-size: 10px;
-  position: absolute;
-  top: 40px;
-}
-ul {
-  width: 840px;
-  height: 282px;
-  padding: 0;
-  margin: 0;
-}
-.dl {
-  width: 420px;
-  height: 282px;
-  float: left;
-  position: relative;
-}
-.dl img {
-  margin-left: 76px;
-}
-.el-form {
-  width: 410px;
-  /* padding: 0 10px; */
-}
-.short {
-  width: 280px;
-}
-.forget,
-.auth,
-.zhuce {
-  position: absolute;
-  right: 10px;
-  top: 58px;
-  width: 102px;
-}
-.auth {
-  top: 116px;
-  font-size: 16px;
-}
-.zhuce {
-  top: 174px;
-}
-.shorts {
-  width: 180px;
-}
-.el-input__inner {
-  margin-right: 10px;
-}
-.mark {
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top: -1px;
-  right: -2px;
-}
-.el-form .el-form-item {
-  margin-bottom: 8px;
-}
-.el-form-item {
-  margin-bottom: 8px;
-}
-.el-form-item__content {
-  margin-bottom: 10px;
-}
-</style>
-
  <script>
 import api from "../common/api.js";
 import post from "../../axios/post.js";
 import { mapMutations } from "vuex";
+import "./login.css";
 export default {
   data() {
     return {
@@ -154,6 +55,9 @@ export default {
       dataIfon: []
     };
   },
+  mounted() {
+    this.authTo();
+  },
   created() {
     this.hashchange();
   },
@@ -163,6 +67,11 @@ export default {
       this.map = Math.floor(Math.random() * 10000);
       this.map = this.map < 1000 ? this.map * 10 : this.map;
       this.map = this.map < 1000 ? this.map + "0" : this.map;
+      if (this.map < 1000) {
+        this.map = this.map * 10;
+        console.log(11111111111);
+        console.log(this.map);
+      }
       this.$refs.auth.$el.innerText = this.map;
     },
     //注册
@@ -206,13 +115,127 @@ export default {
               console.log(res.data);
               if (res.data.code == 0) {
                 if (res.data.attachment.role == 1) {
-                  location.href = "#/peasant";
+                  // location.href = "#/peasant";
                 }
                 if (res.data.attachment.role == 2) {
-                  location.href = "/business";
+                  // 将值保商id存入到vuex中
+                  _this.$store.commit("business", res.data.attachment.reg_id);
+                  // 将值保商id存入loacl中
+                  window.localStorage.setItem(
+                    "businessid",
+                    res.data.attachment.reg_id
+                  );
+
+                  // 获取值保商首页信息
+
+                  _this.$http
+                    .post(
+                      api.apihost + "GetUserIndexInfo",
+                      {
+                        reg_id: res.data.attachment.reg_id
+                      },
+                      {
+                        headers: {
+                          "Content-Type": "application/x-www-form-urlencoded"
+                        }
+                      }
+                    )
+                    .then(res => {
+                      console.log(res);
+                      // 将值保商头像和名字存入vuex中
+                      const useifon = {
+                        avatar_url: res.data.attachment.avatar_url,
+                        ppsp_name: res.data.attachment.ppsp_name,
+                        name_leader: res.data.attachment.real_name_leader
+                      };
+                      _this.$store.commit("businessnameuse", useifon);
+                      // 将值保商头像和名字存入loacl中
+                      window.localStorage.setItem(
+                        "ifon",
+                        JSON.stringify(useifon)
+                      );
+                      // 将值保商的值保队数据存入vuex中
+                      _this.$store.commit(
+                        "businessprasData",
+                        res.data.attachment.service_teams
+                      );
+                      // 将值保商的值保队数据存入loacl中
+                      window.localStorage.setItem(
+                        "businessprasData",
+                        JSON.stringify(res.data.attachment.service_teams)
+                      );
+                      // 将值保商的质保队员数据存入vuex中
+                      _this.$store.commit(
+                        "businessteam",
+                        res.data.attachment.service_players
+                      );
+                      // 将值保商的值保队数据存入loacl中
+                      window.localStorage.setItem(
+                        "businessteam",
+                        JSON.stringify(res.data.attachment.service_players)
+                      );
+                      // 将值保商订单状态存入vuex中
+                      _this.$store.commit(
+                        "businesstasks",
+                        res.data.attachment.tasks
+                      );
+                      // 将值保商订单状态存入loacl中
+                      window.localStorage.setItem(
+                        "businesstasks",
+                        JSON.stringify(res.data.attachment.tasks)
+                      );
+                      // 将值保商无人机状态存入vuex中
+                      _this.$store.commit(
+                        "businessuavs",
+                        res.data.attachment.uavs
+                      );
+                      // 将值保商无人机状态存入loacl中
+                      window.localStorage.setItem(
+                        "businessuavs",
+                        JSON.stringify(res.data.attachment.uavs)
+                      );
+                      // 将值保商总面积存入vuex中
+                      _this.$store.commit(
+                        "businesswork_ares",
+                        res.data.attachment.work_ares
+                      );
+                      // 将值保商总面积存入loacl中
+                      window.localStorage.setItem(
+                        "businesswork_ares",
+                        JSON.stringify(res.data.attachment.work_ares)
+                      );
+                      // 将值保商总飞行距离存入vuex中
+                      _this.$store.commit(
+                        "businesswork_length",
+                        res.data.attachment.work_length
+                      );
+                      // 将值保商总飞行距离存入loacl中
+                      window.localStorage.setItem(
+                        "businesswork_length",
+                        JSON.stringify(res.data.attachment.work_length)
+                      );
+                      // 将值保商无人机总数存入vuex中
+                      _this.$store.commit(
+                        "num_uavs",
+                        res.data.attachment.num_uavs
+                      );
+                      // 将值保商无人机总数距离存入loacl中
+                      window.localStorage.setItem(
+                        "num_uavs",
+                        JSON.stringify(res.data.attachment.num_uavs)
+                      );
+                      // 将值保商评分总数存入vuex中
+                      _this.$store.commit("rate", res.data.attachment.rate);
+                      // 将值保商评分距离存入loacl中
+                      window.localStorage.setItem(
+                        "rate",
+                        JSON.stringify(res.data.attachment.rate)
+                      );
+                      location.href = "#/business";
+                    });
                 }
                 if (res.data.attachment.role == 3) {
-                  location.href = "#/protect";
+                  // location.href = "#/protect";
                 }
               } else {
               }
@@ -238,6 +261,7 @@ export default {
               }
             )
             .then(function(res) {
+              console.log(res);
               if (res.data.code == 0) {
                 // 将农户id存储在vuex
                 _this.useifon = {
@@ -272,7 +296,6 @@ export default {
                       // 将农户地块信息存储vuex;
                       _this.dataIfon = res.data.attachment.fields;
                       _this.$store.commit("setusepolt", _this.dataIfon);
-                      // _this.types.SET_USEPLOT(_this.dataIfon);
                       // 存到loacl去
                       const list = JSON.stringify(res.data.attachment.fields);
                       window.localStorage.setItem("peasantList", list);
@@ -321,10 +344,11 @@ export default {
                     });
                 }
                 if (res.data.attachment.role == 2) {
-                  location.href = "/business";
+                  console.log(res);
+                  // location.href = "/business";
                 }
                 if (res.data.attachment.role == 3) {
-                  location.href = "#/protect";
+                  // location.href = "#/protect";
                 }
               } else {
               }

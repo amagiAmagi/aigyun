@@ -1,6 +1,6 @@
 <template>
   <div class="busCenter">
-    我是团队中心
+    <router-view ></router-view>
   </div>
 </template>
 

@@ -7,7 +7,7 @@
           </div>
         </div>
         <schart :canvasId="canvasId" :type="type" :width="width"
-    :height="height" :data="data" :options="options"></schart>
+    :height="height" :data="data" :options="options" :defaultFontSize="fonstsize" ref="canvas"></schart>
         <div class="jrbzby">
            <p><span @click="day" ref="day">日</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
            <span class="date" @click="week" ref="week">周</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -70,6 +70,7 @@ export default {
       type: "bar",
       width: 850,
       height: 460,
+      fonstsize: 18,
       data: [
         { name: "星期一", value: 1342 },
         { name: "星期二", value: 2123 },
@@ -88,7 +89,8 @@ export default {
         yEqual: 5, // y轴分成5等分
         fillColor: "#1E9FFF", // 默认填充颜色
         contentColor: "#eeeeee", // 内容横线颜色
-        axisColor: "#666666" // 坐标轴颜色
+        axisColor: "#666666", // 坐标轴颜色
+        axisFontSize: 16
       }
     };
   },
@@ -143,6 +145,10 @@ export default {
   },
   components: {
     Schart
+  },
+  mounted() {
+    this.$refs.canvas.$el.style.fontSize = 16;
+    console.log(this.$refs.canvas.$el.style.fontSize);
   }
 };
 </script>

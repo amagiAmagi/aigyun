@@ -5,7 +5,13 @@
 </template>
 <script>
 export default {
-  name: "app"
+  name: "app",
+  watch: {
+    $route() {
+      // alert(this.$route);
+      console.log(this.$router.app._route.fullPath);
+    }
+  }
 };
 </script>
 
@@ -27,6 +33,9 @@ body {
   margin: 0;
   padding: 0;
   background-color: #fff;
+  color: #4b5f6d;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 li {

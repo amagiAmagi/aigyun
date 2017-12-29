@@ -22,6 +22,11 @@ import protectStats from "../components/protectPlayers/StatsCentral/StatsCentral
 import mybus from "../components/business/business-center/mybus/mybus.vue";
 import publish from "../components/peasant/botanyCenter/publish/publish.vue";
 import Myorder from "../components/peasant/botanyCenter/Myorder/Myorder.vue";
+import history from "../components/map/history.vue";
+import tenant from "../components/business/teamCenter/tenant/tenant.vue";
+import Teamadministration from "../components/business/teamCenter/Teamadministration/Teamadministration.vue";
+import modified from "../components/business/modified/modified.vue";
+import solicenter from "../components/business/soilCenter/soilCenter.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -52,9 +57,19 @@ export default new Router({
           component: businessCenter,
           children: [{ path: "mybus", component: mybus }]
         },
-        { path: "teamCenter", component: teamCenter },
+        {
+          path: "teamCenter",
+          component: teamCenter,
+          children: [
+            { path: "", component: tenant },
+            { path: "tenant", component: tenant },
+            { path: "Teamadministration", component: Teamadministration }
+          ]
+        },
         { path: "assetsCenter", component: assetsCenter },
-        { path: "StatsCentral", component: StatsCentral }
+        { path: "StatsCentral", component: StatsCentral },
+        { path: "modified", component: modified },
+        { path: "solicenter", component: solicenter }
       ]
     },
     // 农户路由
@@ -69,6 +84,7 @@ export default new Router({
           path: "peasantBotany",
           component: peasantBotany,
           children: [
+            { path: "", component: Myorder },
             { path: "publish", component: publish },
             {
               path: "Myorder",
@@ -79,6 +95,7 @@ export default new Router({
         { path: "peasantSoil", component: peasantSoil }
       ]
     },
+    // 值保队员路由
     {
       path: "/protect",
       component: protect,
@@ -90,6 +107,11 @@ export default new Router({
         { path: "protectTeam", component: protectTeam },
         { path: "protectStats", component: protectStats }
       ]
+    },
+    // 地图路由
+    {
+      path: "/history",
+      component: history
     }
   ]
 });

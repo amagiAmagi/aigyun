@@ -45,91 +45,9 @@
 
 </template>
 
-<style>
-.register {
-  width: 100%;
-  height: 100%;
-  background: url("../../assets/back.jpg") no-repeat;
-  background-size: 100%;
-  position: relative;
-}
-.reg {
-  width: 540px;
-  background-color: rgba(255, 255, 255, 0.5);
-  position: absolute;
-  padding: 50px 0;
-  height: 360px;
-  top: 50%;
-  margin-top: -245px;
-  left: 50%;
-  margin-left: -270px;
-  border-radius: 10px;
-}
-.shortt {
-  width: 360px;
-}
-.names {
-  width: 480px;
-}
-.auths {
-  position: absolute;
-  right: -120px;
-  top: 0;
-}
-.shortss {
-  width: 250px;
-}
-.el-form .demo-ruleform {
-  width: 100%;
-}
-.el-radio + .el-radio {
-  margin-left: 10px;
-}
-.audio {
-  margin: 0;
-  width: 400px;
-  height: 40px;
-  padding: 0;
-  border-bottom: 2px solid #0094ff;
-  margin-left: -20px;
-}
-.audio-n {
-  float: left;
-  width: 200px;
-  height: 40px;
-  box-sizing: border-box;
-  text-align: center;
-}
-.tatelt {
-  width: 110px;
-  position: absolute;
-  left: -100px;
-  top: 20px;
-}
-.active {
-  background-color: #0094ff;
-}
-.zhuces {
-  width: 110px;
-  position: absolute;
-}
-
-.el-form .el-form-item {
-  margin-bottom: 8px;
-}
-.el-form-item__content {
-  margin-bottom: 10px;
-}
-.role {
-  position: absolute;
-  left: -70px;
-  top: -30px;
-  color: #f40;
-}
-</style>
-
 <script>
-import { Message } from "element-ui";
+// import { Message } from "element-ui";
+import "./register.css";
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
@@ -181,19 +99,18 @@ export default {
     bdtwo3: function() {
       this.$refs.list3.className = "audio-n active";
       this.$refs.list1.className = "audio-n";
-      this.ruleForm.id = 3;
+      this.ruleForm.id = 2;
       this.ruleForm.role = false;
+      console.log(this.ruleForm.id);
     },
     enroll: function() {
+      const _this = this;
       if (this.ruleForm.id == 0) {
         this.ruleForm.role = true;
       } else {
         this.ruleForm.role = false;
         if (this.ruleForm.name.indexOf("@") > 0) {
-          if (
-            this.ruleForm.pass == this.ruleForm.checkPass &&
-            this.ruleForm.verify == this.ruleForm.yanz
-          ) {
+          if (this.ruleForm.pass == this.ruleForm.checkPass) {
             this.$http
               .post(
                 "http://10.10.3.32:8080/AigyunWeb/SignUp",
@@ -212,6 +129,10 @@ export default {
               .then(function(res) {
                 console.log(res);
                 if (res.data.code == 0) {
+                  _this.$message({
+                    message: "恭喜你,注册成功",
+                    type: "success"
+                  });
                 } else {
                 }
               })
@@ -240,6 +161,10 @@ export default {
               .then(function(res) {
                 console.log(res);
                 if (res.data.code == 0) {
+                  _this.$message({
+                    message: "恭喜你，注册成功",
+                    type: "success"
+                  });
                 } else {
                 }
               })

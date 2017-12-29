@@ -1,0 +1,474 @@
+.youtuo-heng-li-left .delrefertsr {
+  width: 88px;
+  height: 28px;
+  padding: 0;
+  font-size: 12px;
+  text-align: center;
+}
+.delterteam {
+  height: 80px;
+  margin-top: -30px;
+  border-top: 1px solid #ccc;
+  padding: 30px 20%;
+}
+.el-icon-warning {
+  font-size: 70px;
+  color: #0094ff;
+}
+.cvenjdhaslfsdh {
+  font-size: 26px;
+  font-weight: 700;
+  display: inline-block;
+  position: relative;
+  top: -10px;
+  left: 20px;
+}
+.member {
+  width: 146px;
+  height: 36px;
+  position: relative;
+  right: 25%;
+  top: -30px;
+}
+
+.addteam {
+  height: 80px;
+  margin-top: -30px;
+  border-top: 1px solid #ccc;
+  padding: 40px 20%;
+}
+.emali {
+  width: 60%;
+  height: 30px;
+  position: relative;
+  left: 40px;
+  top: -10px;
+}
+.emali .el-input__inner {
+  height: 30px;
+}
+.addteam img {
+  margin-top: 20px;
+  position: relative;
+  top: 10px;
+}
+.addteam span {
+  display: inline-block;
+  position: relative;
+  top: -20px;
+  left: 10px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.location {
+  width: 146px;
+  height: 76px;
+  float: left;
+  line-height: 40px;
+  font-size: 14px;
+  text-align: center;
+}
+.licence {
+  width: 98px;
+  height: 76px;
+  float: left;
+  font-size: 14px;
+  text-align: center;
+  line-height: 40px;
+}
+.ssenfs {
+  width: 152px;
+  word-wrap: break-word;
+}
+.generder {
+  width: 198px;
+  height: 76px;
+  float: left;
+  line-height: 40px;
+}
+.generder span {
+  font-size: 14px;
+  margin-left: 8px;
+}
+.delrefertsr span {
+  margin-left: 15px;
+}
+.teamMember {
+  position: absolute;
+  width: 850px;
+  margin-left: 350px;
+}
+.youtuo-heng-li {
+  width: 826px;
+  height: 96px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  padding: 10px 0px 10px 5px;
+}
+.youtuo-heng-li-left {
+  width: 114px;
+  height: 76px;
+  float: left;
+  margin-left: 12px;
+  line-height: 40px;
+}
+.youtuo-heng-li-left span {
+  display: inline-block;
+  width: 57px;
+  float: left;
+  text-align: center;
+  font-size: 14px;
+}
+.youtuo-heng-li img {
+  width: 98px;
+  height: 76px;
+  border-radius: 10px;
+  float: left;
+}
+.youtuo-heng-heder {
+  width: 826px;
+  height: 30px;
+  background-color: #d5dde4;
+  line-height: 30px;
+  font-size: 14px;
+}
+.youtuo-heng-heder span {
+  display: inline-block;
+  border-right: 1px solid #ccc;
+  text-align: center;
+}
+.youtuo-heng-heder .heng-heder-top8 {
+  border-right: 0;
+  width: 94px;
+}
+.youtuo-heng-heder .heng-heder-top1 {
+  width: 164px;
+  text-align: right;
+  padding-right: 20px;
+}
+.heng-heder-top2 {
+  width: 40px;
+}
+.heng-heder-top3 {
+  width: 40px;
+}
+.heng-heder-top4 {
+  width: 74px;
+}
+.heng-heder-top5 {
+  width: 74px;
+}
+.heng-heder-top6 {
+  width: 138px;
+}
+.heng-heder-top7 {
+  width: 146px;
+}
+.teamMember-center-heder-xuanz span {
+  display: inline-block;
+  width: 80px;
+  height: 28px;
+  text-align: center;
+  border: 1px solid #ccc;
+  line-height: 28px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.youtuo-li .shanchu {
+  width: 98px;
+  height: 30px;
+  padding: 0;
+  margin-top: 10px;
+  margin-left: 30px;
+}
+.shanchu.el-button {
+  padding: 0;
+  margin-top: 10px;
+  margin-left: 30px;
+}
+.youtuo-li-right {
+  position: absolute;
+  right: 0px;
+  top: 10px;
+  height: 76px;
+  width: 70px;
+}
+.fepeisree {
+  color: #0094ff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.lave_name {
+  width: 58px;
+  font-size: 18px;
+  font-weight: 700;
+  max-height: 48px;
+  margin-top: 10px;
+  display: inline-block;
+  overflow-x: hidden;
+}
+.youtuo-li p {
+  margin: 0;
+  font-size: 14px;
+  margin-top: 6px;
+}
+.youtuo {
+  width: 826px;
+  height: 100%;
+  display: flex;
+  flex-flow: wrap;
+  align-content: flex-start;
+}
+.generder .fepeisrees {
+  color: #0094ff;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: 18px;
+}
+.generder .sui {
+  display: inline-block;
+  width: 40px;
+  margin: 0;
+}
+.generder .sui span {
+  margin: 4px;
+}
+.youtuo-li {
+  width: 196px;
+  height: 226px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 14px;
+  float: left;
+  position: relative;
+  margin-right: 14px;
+  margin-bottom: 14px;
+}
+.youtuo-li:nth-of-type(4n) {
+  margin-right: 0px;
+}
+.youtuo-li img {
+  width: 102px;
+  height: 74px;
+  border-radius: 10px;
+  display: inline-block;
+}
+.activots {
+  background-color: #0094ff;
+  color: #fff;
+}
+.actions {
+  color: #0094ff;
+}
+.teamMember-top {
+  height: 60px;
+  line-height: 60px;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+}
+.teamMember-center-heder {
+  height: 45px;
+  /* line-height: 60px; */
+  padding-top: 15px;
+  position: relative;
+}
+.demonstrates {
+  position: absolute;
+  right: 15px;
+  top: 20px;
+}
+.teamMember-center {
+  width: 850px;
+  padding: 0px 12px;
+  height: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 0 2px 2px #ccc;
+  margin-top: 22px;
+  border-radius: 10px;
+  overflow: auto;
+}
+.left {
+  width: 312px;
+  background-color: #4c5e70;
+  padding: 22px 14px;
+  position: fixed;
+  top: 70px;
+  height: 100%;
+}
+.left .left-top {
+  width: 248px;
+  background-color: #fff;
+  padding: 10px 32px;
+  border-radius: 10px;
+}
+.left-top-mu {
+  margin-top: 6px;
+}
+.left-top-mu span {
+  font-size: 14px;
+}
+.left-top-headers span {
+  font-size: 14px;
+}
+.left-top-headers input {
+  width: 248px;
+  height: 34px;
+  font-size: 18px;
+  border-radius: 10px;
+  margin-top: 6px;
+}
+.left-top-headers {
+  position: relative;
+}
+.left .left-top .left-top-headers i {
+  position: absolute;
+  font-size: 30px;
+  right: 10px;
+  top: 28px;
+}
+.left-top-buttom {
+  margin-top: 20px;
+}
+.left-top-mu .input-mu {
+  width: 111px;
+}
+.left-top-mu .el-range-editor.el-input__inner {
+  width: 248px;
+}
+.el-date-editor .el-range__close-icon {
+  position: absolute;
+  right: 0;
+}
+.left-top-buttom .sousers {
+  width: 110px;
+  position: relative;
+  right: -70px;
+}
+.left-center {
+  width: 176px;
+  height: 116px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 47px 68px;
+}
+.left-center .left-center-button {
+  width: 176px;
+  height: 116px;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #409eff;
+  font-size: 20px;
+}
+.left-center-button i {
+  font-size: 100px;
+}
+.disalogs {
+  height: 552px;
+  margin-top: -30px;
+  border-top: 1px solid #ccc;
+  position: relative;
+}
+.disalogs-top {
+  height: 114px;
+  border-bottom: 1px solid #ccc;
+  line-height: 114px;
+  padding: 0 26px;
+}
+.yixuanz {
+  font-size: 18px;
+  font-weight: 700;
+}
+.disasdhasition {
+  width: 246px;
+  height: 60px;
+  box-shadow: 0 0 0.5px 0.5px #ccc;
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  margin-left: 10px;
+  border-radius: 6px;
+  padding: 16px 11px;
+}
+.disasdhasition img {
+  width: 86px;
+  height: 60px;
+  display: inline-block;
+}
+.zhibaoname {
+  margin: 0;
+  height: 30px;
+  position: absolute;
+  right: 11px;
+  top: 16px;
+  width: 148px;
+  line-height: 30px;
+  font-size: 16px;
+}
+.datename {
+  height: 30px;
+  position: absolute;
+  right: 11px;
+  line-height: 30px;
+  /* top: -26px; */
+  bottom: 16px;
+  width: 148px;
+  font-size: 16px;
+}
+.disalogs-center {
+  height: 420px;
+  padding: 0px 26px 12px 26px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  overflow-y: scroll;
+}
+.disalogs-center-li {
+  width: 246px;
+  height: 60px;
+  box-shadow: 0 0 0.5px 0.5px #ccc;
+  float: left;
+  top: 10px;
+  margin-right: 46px;
+  border-radius: 6px;
+  padding: 16px 11px;
+  /* margin-top: 12px; */
+  margin-bottom: 12px;
+  position: relative;
+  cursor: pointer;
+}
+.disalogs-center-li:nth-of-type(3n) {
+  margin-right: 0;
+}
+.disalogs-center-li img {
+  width: 86px;
+  height: 60px;
+  display: inline-block;
+}
+
+.disali {
+  margin-right: 10px;
+  width: 302px;
+}
+.zhibaonames {
+  margin: 0;
+  height: 30px;
+  position: absolute;
+  left: 114px;
+  top: 16px;
+  width: 148px;
+  line-height: 30px;
+  font-size: 16px;
+}
+.datenames {
+  height: 30px;
+  position: absolute;
+  left: 114px;
+  line-height: 30px;
+  /* top: -26px; */
+  bottom: 16px;
+  width: 148px;
+  font-size: 16px;
+}

@@ -184,6 +184,9 @@ import "./soilCenter.css";
 export default {
   data() {
     return {
+      nums: "",
+      dataIfon: [],
+      ids: "",
       id: "",
       cityObj: {},
       select: true,
@@ -230,7 +233,7 @@ export default {
             .post(
               api.apihost + "FieldManager",
               {
-                reg_id: this.red_id.reg_id,
+                reg_id: this.ids,
                 action: 1,
                 farmland_id: item.farmland_id
               },
@@ -243,27 +246,27 @@ export default {
             .then(res => {
               console.log(res);
               // 将vuex里的num删掉
-              _this.$store.commit("delpeasant");
+              _this.$store.commit("delpeasants");
 
               const nums = window.localStorage.num;
 
-              window.localStorage.num = nums - 1;
+              window.localStorage.nums = nums - 1;
               // 将vuex里的数据删掉
-              _this.$store.dispatch("delUser", index);
+              _this.$store.dispatch("delUsers", index);
               // 将loca的数据取出来
               const plot = JSON.parse(
-                window.localStorage.getItem("peasantList")
+                window.localStorage.getItem("peasantLists")
               );
               // 删掉loac里面选中的那个数据
               plot.splice(index, 1);
               console.log(plot);
-              window.localStorage.removeItem("peasantList");
+              window.localStorage.removeItem("peasantLists");
               // 在将数据存储进去
-              window.localStorage.setItem("peasantList", JSON.stringify(plot));
+              window.localStorage.setItem("peasantLists", JSON.stringify(plot));
               console.log(
-                JSON.parse(window.localStorage.getItem("peasantList"))
+                JSON.parse(window.localStorage.getItem("peasantLists"))
               );
-              _this.num--;
+              _this.nums--;
             })
             .catch(err => {
               console.log(err);
@@ -303,7 +306,7 @@ export default {
         .post(
           api.apihost + "FieldManager",
           {
-            reg_id: this.red_id.reg_id,
+            reg_id: this.ids,
             action: 0,
             farmland_name: this.form.name,
             farmland_prov: this.form.prov,
@@ -328,7 +331,7 @@ export default {
               .post(
                 api.apihost + "GetUserIndexInfo",
                 {
-                  reg_id: _this.red_id.reg_id
+                  reg_id: _this.ids
                 },
                 {
                   headers: {
@@ -337,20 +340,21 @@ export default {
                 }
               )
               .then(function(res) {
+                console.log(res);
                 // 将之前数据初始化
-                _this.$store.commit("deltePeasant");
+                _this.$store.commit("deltePeasants");
                 // 将农户地块数量存到vuex
-                _this.$store.commit("peasant", res.data.num_fields);
+                _this.$store.commit("peasants", res.data.num_fields);
                 // 将农户地块数量存到loacl
                 // window.localStorage.setItem("num", res.data.num_fields);
                 window.localStorage.num = res.data.attachment.num_fields;
                 // 将农户地块信息存储vuex;
                 _this.dataIfon = res.data.attachment.fields;
-                _this.$store.commit("setusepolt", _this.dataIfon);
+                _this.$store.commit("setusepolts", _this.dataIfon);
                 // _this.types.SET_USEPLOT(_this.dataIfon);
                 // 存到loacl去
                 const list = JSON.stringify(res.data.attachment.fields);
-                window.localStorage.setItem("peasantList", list);
+                window.localStorage.setItem("peasantLists", list);
                 _this.plotList = _this.$store.getters.getPenasntPlot[0];
                 console.log(_this.plotList);
               })
@@ -395,7 +399,7 @@ export default {
         .post(
           api.apihost + "FieldManager",
           {
-            reg_id: this.red_id.reg_id,
+            reg_id: this.ids,
             action: 2,
             farmland_id: item.farmland_id + ""
           },
@@ -432,7 +436,7 @@ export default {
         .post(
           api.apihost + "FieldManager",
           {
-            reg_id: this.red_id.reg_id,
+            reg_id: this.ids,
             action: 3,
             farmland_id: this.id,
             farmland_name: this.form.name,
@@ -458,7 +462,7 @@ export default {
               .post(
                 api.apihost + "GetUserIndexInfo",
                 {
-                  reg_id: _this.red_id.reg_id
+                  reg_id: this.ids
                 },
                 {
                   headers: {
@@ -469,29 +473,29 @@ export default {
               .then(function(res) {
                 console.log(res);
                 // 将之前数据初始化
-                _this.$store.commit("deltePeasant");
+                _this.$store.commit("deltePeasants");
                 // 将农户地块数量存到vuex
-                _this.$store.commit("peasant", res.data.num_fields);
+                _this.$store.commit("peasants", res.data.num_fields);
                 // 将农户地块数量存到loacl
                 // window.localStorage.setItem("num", res.data.num_fields);
-                window.localStorage.num = res.data.attachment.num_fields;
+                window.localStorage.nums = res.data.attachment.num_fields;
                 // 将农户地块信息存储vuex;
                 _this.dataIfon = res.data.attachment.fields;
-                _this.$store.commit("setusepolt", _this.dataIfon);
+                _this.$store.commit("setusepolts", _this.dataIfon);
                 // _this.types.SET_USEPLOT(_this.dataIfon);
                 // 存到loacl去
                 const list = JSON.stringify(res.data.attachment.fields);
-                window.localStorage.setItem("peasantList", list);
-                _this.plotList = _this.$store.getters.getPenasntPlot[0];
+                window.localStorage.setItem("peasantLists", list);
+                _this.plotList = _this.$store.getters.getPenasntPlots[0];
                 console.log(_this.plotList);
-                _this.num = res.data.attachment.num_fields;
-                console.log(_this.num);
+                _this.nums = res.data.attachment.num_fields;
+                console.log(_this.nums);
               })
               .catch(function(err) {
                 console.log(err);
               });
-            _this.num++;
-            window.localStorage.num = _this.num;
+            _this.nums++;
+            window.localStorage.nums = _this.nums;
             _this.$message({
               message: "恭喜你,修改地块成功",
               type: "success"
@@ -505,35 +509,77 @@ export default {
         });
 
       this.outerVisible = false;
+    },
+    // 获取值保商id
+    getuseid: function() {
+      this.ids = this.$store.getters.getbusinessId;
+      if (this.ids == "") {
+        const data = JSON.parse(window.localStorage.getItem("businessid"));
+        this.$store.commit("business", data);
+        this.ids = this.$store.getters.getbusinessId;
+      }
+      console.log(this.ids);
+    },
+    getproverpli: function() {
+      this.$http
+        .post(
+          api.apihost + "GetUserIndexInfo",
+          {
+            reg_id: this.ids
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res);
+          if (res.data.code == 0) {
+            // 将农户地块数量存到vuex
+            this.$store.commit("peasants", res.data.num_fields);
+            // 将农户地块数量存到loacl
+            // window.localStorage.setItem("num", res.data.num_fields);
+            window.localStorage.nums = res.data.attachment.num_fields;
+            // 将农户地块信息存储vuex;
+            this.dataIfon = res.data.attachment.fields;
+            this.$store.commit("setusepolts", this.dataIfon);
+            // 存到loacl去
+            const list = JSON.stringify(res.data.attachment.fields);
+            window.localStorage.setItem("peasantLists", list);
+          }
+        });
+    },
+    getifons: function() {
+      this.plotList = this.$store.getters.getPenasntPlots[0];
+      this.nums = window.localStorage["nums"];
+      console.log(this.nums);
+      const plo = JSON.parse(window.localStorage.getItem("peasantLists"));
+      console.log(plo);
+      console.log(this.plotList);
+      if (this.plotList == undefined) {
+        console.log(111111111111111111111111111111);
+        this.$store.commit("setusepolts", plo);
+        this.plotList = this.$store.getters.getPenasntPlots[0];
+      }
+      console.log(this.$store.getters.getPenasntPlots);
+      this.nums = window.localStorage["nums"];
+      console.log(this.nums);
+      if (this.nums == "") {
+        console.log(1111111);
+        this.nums = 0;
+      }
     }
   },
   components: {
     VDistpicker,
     crop
-    // upload
   },
-  created() {
-    this.red_id = JSON.parse(window.localStorage.getItem("id"));
-    this.plotList = this.$store.getters.getPenasntPlot[0];
-    this.num = window.localStorage["num"];
-    console.log(this.num);
-  },
+  created() {},
   mounted() {
-    const plo = JSON.parse(window.localStorage.getItem("peasantList"));
-    console.log(plo);
-    console.log(this.plotList);
-    if (this.plotList == undefined) {
-      console.log(111111111111111111111111111111);
-      this.$store.commit("setusepolt", plo);
-      this.plotList = this.$store.getters.getPenasntPlot[0];
-    }
-    console.log(this.$store.getters.getPenasntPlot);
-    this.num = window.localStorage["num"];
-    console.log(this.num);
-    if (this.num == "") {
-      console.log(1111111);
-      this.num = 0;
-    }
+    this.getproverpli();
+    this.getuseid();
+    this.getifons();
   }
 };
 </script>

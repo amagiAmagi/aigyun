@@ -2,8 +2,8 @@
   <div>
      <div class="zbszytj">
           <span>高科新农新闻</span>
-          <div class="zbckgd">
-            <router-link to="">查看更多>></router-link>
+          <div class="zbckgd" v-show="false">
+            <router-link to="" >查看更多>></router-link>
           </div>
         </div>
     <div class="gkxnxw">
@@ -53,64 +53,10 @@
   </div>
 </template>
 <style>
-.zbszytj {
-  height: 56px;
-  border-bottom: 2px solid #e0e6ec;
-}
-.zbszytj span {
-  font-size: 20px;
-  line-height: 56px;
-}
-.zbckgd {
-  float: right;
-  width: 100px;
-  height: 30px;
-  margin-top: 20px;
-  background-color: #ccc;
-  color: #eaeff0;
-  border-radius: 20px;
-}
-.zbckgd a {
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  padding: 5px;
-}
-.mui-media-body {
-  height: 80px;
-  padding: 15px 0 15px 100px;
-  margin-top: -90px;
-}
-.mui-media-body span {
-  float: right;
-  margin-top: -20px;
-}
-.mui-ellipsis {
-  margin-top: 15px;
-  font-size: 14px;
-}
-.gkxnxw {
-  box-shadow: 0 0 2px 2px #ccc;
-  height: 408px;
-  margin-top: 22px;
-  border-radius: 10px;
-}
-.mui-media {
-  height: 102px;
-  border-bottom: 1px solid #ccc;
-}
-.mui-media:last-child {
-  border-bottom: 0;
-}
-.mui-media a {
-  height: 102px;
-  width: 100%;
-}
-.mui-table-view .mui-media-object {
-  line-height: 80px;
-  max-width: 80px;
-  height: 80px;
-  margin-top: 10px;
-  margin-left: 10px;
-}
+
 </style>
+
+<script>
+import "./news.css";
+export default {};
+</script>

@@ -1,6 +1,5 @@
 <template>
   <div class="busCenter">
-    我是值保中心下面的我的订单
   </div>
 </template>
 
@@ -11,3 +10,4 @@
   padding-top: 70px;
 }
 </style>
+<script>

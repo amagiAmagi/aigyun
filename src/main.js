@@ -20,6 +20,29 @@ Vue.prototype.$echarts = echarts;
 Vue.component("full-calendar", fullCalendar);
 import store from "./store/index.js";
 import api from "./components/common/api.js";
+import VueAMap from "vue-amap";
+Vue.use(VueAMap);
+VueAMap.initAMapApiLoader({
+  // 高德的key
+  key: "e6028e37338ad27a169d4bc63a32a0ec",
+  // 插件集合
+  plugin: [
+    "AMap.Autocomplete",
+    "AMap.PlaceSearch",
+    "AMap.Scale",
+    "AMap.OverView",
+    "AMap.ToolBar",
+    "AMap.MapType",
+    "AMap.PolyEditor",
+    "AMap.CircleEditor"
+  ]
+});
+import BaiduMap from "vue-baidu-map";
+
+Vue.use(BaiduMap, {
+  // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
+  ak: "tQjkPjZdaohQAK5V25eCanw2anfBh62D"
+});
 Vue.config.productionTip = false;
 
 // 封装时间过滤器

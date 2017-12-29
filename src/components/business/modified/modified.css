@@ -1,0 +1,52 @@
+.modified {
+  width: 1200px;
+  margin: 0 auto;
+  padding-top: 70px;
+  color: #4b5f6d;
+  letter-spacing: 0.6px;
+}
+.modified-top {
+  width: 1160px;
+  height: 60px;
+  padding: 0 20px;
+  line-height: 60px;
+  font-size: 20px;
+  font-weight: 700;
+  border-bottom: 1px solid #ccc;
+}
+.modified-center {
+  box-shadow: 0 0 2px 2px #ccc;
+  color: #4e5e70;
+  padding: 10px;
+  margin-top: 50px;
+}
+.formdata {
+  margin-top: 25px;
+  position: relative;
+  height: 34px;
+}
+.formdata input {
+  width: 382px;
+  height: 30px;
+  font-size: 16px;
+}
+.modified-center-left {
+  width: 500px;
+}
+.formdata .na {
+  width: 202px;
+}
+.formdata .el-radio {
+  margin-left: 10px;
+}
+.formdata .el-radio + .el-radio {
+  margin-left: 10px;
+}
+.xingbie {
+  margin-left: 20px;
+}
+.citydiz {
+  position: absolute;
+  left: 76px;
+  top: -4px;
+}

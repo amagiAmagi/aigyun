@@ -16,7 +16,7 @@
              <img src="../../../../assets/5555.png" alt="">
              <div class="information-right">
                <h4>{{item.farmland_name}}</h4>
-               <span>{{item.farmland_addr}}</span>
+               <span>{{item.farmland_addr}}</span><br>
                <span>{{item.farmland_ares}}亩</span>|<span>{{item.crops_name}}</span>
              </div>
            </div>
@@ -36,7 +36,7 @@
         <el-input v-model="form.site" placeholder="请输入详细地址" style="width: 80%"></el-input>
       </el-form-item>
       <el-form-item label="作业面积" :label-width="formLabelWidth">
-        <el-input v-model="form.area" style="width: 80%" placeholder="请输入作业面积"></el-input>
+        <el-input v-model="form.area" style="width: 80%" placeholder="请输入作业面积" type="number"></el-input>
       </el-form-item>
       <el-form-item label="目标作物" :label-width="formLabelWidth">
         <crop v-on:cropList="getchangeNumber"></crop>
@@ -78,7 +78,7 @@
       <el-input v-model="ruleForm.phone"></el-input>
     </el-form-item>
     <el-form-item label="作物类型" >
-      <el-checkbox-group>
+      <el-checkbox-group class="group">
         <el-radio v-model="radios" label="防治" name="type"></el-radio>
         <el-radio v-model="radios" label="杀虫灭菌" name="type"></el-radio>
         <el-radio v-model="radios" label="施肥" name="type"></el-radio>
@@ -115,20 +115,20 @@
       <el-input v-model="ruleForm.site" placeholder="请填写详细地址" :disabled="true"></el-input>
     </el-form-item>
     <el-form-item label="作业面积" prop="area" >
-      <el-input v-model="ruleForm.area" :disabled="true"></el-input>
+      <el-input v-model="ruleForm.area" :disabled="true" type="number" placeholder="请填写作业面积"></el-input>
     </el-form-item>
     <el-form-item label="发布价格" prop="price">
-      <el-input v-model="ruleForm.price"></el-input>
+      <el-input v-model="ruleForm.price" placeholder="请输入发布价格"></el-input>
     </el-form-item>
     <el-form-item label="作业说明" prop="desc">
-      <el-input type="textarea" v-model="ruleForm.desc" style="width: 592px"></el-input>
+      <el-input type="textarea" v-model="ruleForm.desc" style="width: 592px" placeholder="请填写作业说明"></el-input>
     </el-form-item>
     <el-form-item label="值保队选择">
       <el-button type="primary"  @click="outerVisible = true">选择值保队</el-button><br> 可以指定值保机构为您服务
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="release" class="fbcz">发布</el-button>
-      <el-button @click="resetForm('ruleForm')" class="fbcz">重置</el-button>
+      <!-- <el-button @click="resetForm" class="fbcz">重置</el-button> -->
     </el-form-item>
   </el-form>
 
@@ -203,177 +203,17 @@
 </template>
 
 <style>
-.stepss {
-  width: 500px;
-  margin-left: 550px;
-  margin-top: 20px;
-}
-.stepss .el-step__icon-inner[class*="el-icon"]:not(.is-status) {
-  margin-left: 20px;
-}
-.step__title {
-  font-size: 14px;
-}
-.el-step__icon-inner[class*="el-icon"]:not(.is-status) {
-  font-size: 45px;
-}
-.dialog-top {
-  height: 238px;
-  margin-bottom: 50px;
-}
-.left {
-  width: 312px;
-  background-color: #4c5e70;
-  padding: 22px 14px;
-  position: fixed;
-  top: 70px;
-  height: 100%;
-}
 
-.dklist {
-  overflow: auto;
-  margin-top: 20px;
-  box-pack: justify;
-  height: 600px;
-  overflow-x: hidden;
-}
-.information {
-  width: 280px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #fff;
-  cursor: pointer;
-  height: 116px;
-  margin-bottom: 20px;
-}
-.information:hover {
-  color: #0094ff;
-  transform: scale(1.05);
-}
-.information img {
-  display: inline-block;
-  width: 116px;
-  height: 86px;
-  margin-top: 14px;
-  margin-left: 10px;
-}
-.information-right {
-  display: inline-block;
-  width: 136px;
-  margin-top: 10px;
-  text-align: center;
-}
-.information-right h4 {
-  margin: 0;
-}
-.information-right span {
-  font-size: 14px;
-}
-.demand {
-  height: 200px;
-  width: 100%;
-  background-color: #fff;
-  border-radius: 10px;
-}
-.demand-top {
-  padding: 0 10px;
-  text-align: center;
-  height: 40px;
-  line-height: 40px;
-}
-.demand-top p {
-  margin: 0;
-  border-bottom: 1px solid #ccc;
-  font-weight: 700;
-}
-.souse {
-  height: 30px;
-  /* background-color: red; */
-  padding: 20px 46px;
-  position: relative;
-}
-.souse input {
-  height: 30px;
-  width: 200px;
-  border-radius: 10px;
-  font-size: 20px;
-}
-.souse i {
-  position: absolute;
-  font-size: 30px;
-  right: 65px;
-  top: 23px;
-}
-.xzdk {
-  width: 120px;
-  height: 70px;
-  padding: 0;
-  font-size: 20px;
-  border-radius: 10px;
-  margin-left: 90px;
-}
-.zwzl {
-  height: 45px;
-  margin-bottom: 22px;
-  margin-left: 50px;
-  display: none;
-}
-.zwzl select {
-  height: 45px;
-  width: 100px;
-  font-size: 14px;
-}
-.publish {
-  width: 850px;
-  padding-top: 20px;
-  position: relative;
-  height: 95%;
-  left: 354px;
-  top: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 2px 2px #ccc;
-}
-.el-input {
-  width: 376px;
-}
-.ck {
-  position: absolute;
-  width: 60px;
-  height: 30px;
-  right: 350px;
-  top: 0;
-  color: #0094ff;
-  cursor: pointer;
-}
-.el-input__suffix {
-  right: 220px;
-}
-.el-input--suffix .el-input__inner {
-  width: 160px;
-}
-.el-select {
-  width: 160px;
-}
-.fbcz {
-  width: 192px;
-}
-.fabu {
-  width: 20%;
-  position: absolute;
-  right: 50%;
-}
-#chongzhi {
-  width: 20%;
-  margin-right: 25%;
-}
 </style>
 <script>
 import VDistpicker from "v-distpicker";
 import crop from "../../../common/crop.vue";
 import api from "../../../common/api.js";
+import "./publish.css";
 export default {
   data() {
     return {
+      mationList: [],
       num: 1,
       formData: false,
       length: "",
@@ -519,18 +359,10 @@ export default {
                 _this.plotList = _this.$store.getters.getPenasntPlot[0];
                 console.log(_this.plotList);
               });
-
-            // _this.$store.commit("peasantProl", res.data.attachment);
-            // let pl = JSON.parse(window.localStorage.getItem("peasantList"));
-            // pl = pl.push(res.data.attachment);
-            // window.localStorage.setItem("peasantList", JSON.stringify(pl));
             _this.$message({
               message: "恭喜你,新增地块成功",
               type: "success"
             });
-            // const plot = _this.$store.getters.getPenasntPlot;
-            // console.log(plot);
-            // _this.plotList = plot[0];
           } else {
             _this.$message({
               message: "地块新增失败",
@@ -565,7 +397,7 @@ export default {
       console.log(data);
     },
     release() {
-      // this.ruleForm.dates = Math.round(this.ruleForm.date.getTime() / 1000);
+      this.ruleForm.dates = Math.round(this.ruleForm.date.getTime() / 1000);
       const _this = this;
       console.log(11111111111);
       console.log(this.ruleForm);
@@ -574,21 +406,21 @@ export default {
         .post(
           api.apihost + "TaskManager",
           {
-            reg_id: 7622756,
+            reg_id: this.red_id.reg_id,
             action: 0,
-            farmland_id: 7622756002,
-            task_type: 1,
+            farmland_id: this.id,
+            task_type: this.task_type,
             // task_other_type: "",
-            crops_type: 0,
-            crops_name: 0,
-            task_time: 1513662376,
+            crops_type: this.cropList.value,
+            crops_name: this.cropList.city,
+            task_time: this.ruleForm.dates,
             // task_prov: "",
             // task_city: "",
             // task_district: "",
-            task_ares: 2562,
-            task_price: 1236,
-            task_introduce: "是大法官好是大法官好",
-            task_addr: "山西省朔州市右玉县阿萨德法国和",
+            task_ares: this.ruleForm.area,
+            task_price: this.ruleForm.price,
+            task_introduce: this.ruleForm.desc,
+            task_addr: this.ruleForm.site,
             demand_type: 1
           },
           {
@@ -599,11 +431,23 @@ export default {
         )
         .then(function(res) {
           console.log(res);
-          _this.num = 3;
+          if (res.data.code == 0) {
+            _this.num = 3;
+            _this.$message({
+              type: "success",
+              message: "发布成功!"
+            });
+          }
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "发布失败"
+          });
         });
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    resetForm() {
+      // this.ruleForm = {};
     },
     getchangeNumber: function(obj) {
       this.cropList = obj;
@@ -619,20 +463,20 @@ export default {
     },
     getRadio: function() {
       if (this.radio == "水稻") {
-        this.cropList.type = 0;
-        this.cropList.name = 2;
+        this.cropList.value = 0;
+        this.cropList.city = 2;
       }
       if (this.radio == "小麦") {
-        this.cropList.type = 0;
-        this.cropList.name = 0;
+        this.cropList.value = 0;
+        this.cropList.city = 0;
       }
       if (this.radio == "玉米") {
-        this.cropList.type = 0;
-        this.cropList.name = 5;
+        this.cropList.value = 0;
+        this.cropList.city = 5;
       }
       if (this.radio == "柑橘") {
-        this.cropList.type = 4;
-        this.cropList.name = 10;
+        this.cropList.value = 4;
+        this.cropList.city = 10;
       }
     },
     getRadios: function() {
@@ -660,6 +504,18 @@ export default {
       if (this.radios == "其他") {
         this.task_type = 8;
       }
+    },
+    setmation: function() {
+      this.mationList = this.$refs.information;
+      console.log(this.mationList);
+      const li = JSON.stringify(this.$refs.information);
+      window.localStorage.setItem("mationList", li);
+      if (this.mationList == undefined) {
+        console.log(111111111);
+        const list = window.localStorage.getItem("mationList");
+        console.log(JSON.parse(list));
+        this.mationList = JSON.parse(list);
+      }
     }
   },
   components: {
@@ -677,15 +533,22 @@ export default {
     }
     this.plotList = this.$store.getters.getPenasntPlot[0];
     this.length = this.plotList.length;
-    this.index = Math.ceil(this.length / 4);
-    // if (this.length > 5) {
-    //   this.$refs.dklist.firstElementChild.clientWidth = 280;
-    // }
+    // this.index = Math.ceil(this.length / 4);
+    // this.setmation();
   },
   updated() {
     this.getRadio();
     this.getRadios();
-    // console.log();
+  },
+  watch: {
+    mationList: function() {
+      // this.setmation();
+      // if (this.length < 6) {
+      //   this.mationList.forEach(e => {
+      //     e.className = "information mation";
+      //   });
+      // }
+    }
   }
 };
 </script>
