@@ -1,0 +1,394 @@
+.order-center-tops-ul {
+  margin: 0;
+  padding: 0;
+  width: 822px;
+  padding-bottom: 20px;
+  height: 100%;
+}
+.order-center-tops-ul .actionsColr {
+  color: #fff;
+  background-color: #0094ff;
+}
+.order-center-tops-li {
+  float: left;
+  width: 80px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  font-size: 14px;
+  border: 1px solid #bdc4c7;
+  color: #959fa7;
+  margin-right: 6px;
+  cursor: pointer;
+}
+.wireas {
+  width: 600px;
+  height: 1px;
+  background-color: #eaeff0;
+  position: absolute;
+  left: 110px;
+  top: 55px;
+}
+.namesss {
+  width: 60px;
+  margin-left: 100px;
+  border-right: 1px solid #ccc;
+}
+.cancel {
+  margin-left: 10px;
+}
+.fbsjss {
+  border-right: 1px solid #ccc;
+  width: 70px;
+}
+.zysjss {
+  border-right: 1px solid #ccc;
+  width: 70px;
+}
+.aersss {
+  display: inline-block;
+  width: 153px;
+  word-break: break-all;
+  border-right: 1px solid #ccc;
+}
+.aerss {
+  display: inline-block;
+  width: 160px;
+  word-break: break-all;
+  text-align: center;
+}
+.across {
+  height: 96px;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 0 5px;
+  position: relative;
+}
+.sasess {
+  width: 50px;
+  border-right: 1px solid #ccc;
+}
+.zuowss {
+  width: 40px;
+  border-right: 1px solid #ccc;
+}
+.shif {
+  width: 60px;
+}
+.rice {
+  width: 40px;
+}
+.mianjise {
+  width: 50px;
+}
+.jiasheridfashjfg {
+  width: 70px;
+}
+.jagess {
+  width: 70px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+.caozuoss {
+  margin-left: 40px;
+}
+/* .jigouss {
+  margin-left: 8px;
+  position: absolute;
+  right: -100px;
+  top: 0;
+} */
+.bodys p {
+  display: inline-block;
+  position: absolute;
+  font-size: 18px;
+  font-weight: 900;
+}
+.order-spers {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.order-sper-bottoms {
+  height: 28px;
+  line-height: 28px;
+  position: absolute;
+  left: 108px;
+  top: 60px;
+}
+.order-sper-tops {
+  position: absolute;
+  top: 10px;
+  display: inline-block;
+  height: 30px;
+  right: 6px;
+}
+.order-spers img {
+  width: 98px;
+  height: 74px;
+  border-radius: 10px;
+  vertical-align: text-top;
+}
+.quxiaS {
+  position: absolute;
+  right: -372px;
+  top: 2px;
+}
+.order-sper-bottoms span {
+  font-size: 12px;
+  /* margin-right: 20px; */
+}
+.order-sper-tops span {
+  font-size: 12px;
+  display: inline-block;
+  text-align: center;
+}
+.order-sper-heders {
+  width: 822px;
+  height: 32px;
+  line-height: 32px;
+  background-color: #d3dee3;
+  font-size: 14px;
+}
+.order-sper-heders .sper-titela {
+  display: inline-block;
+  text-align: center;
+}
+.primar {
+  width: 100px;
+  height: 28px;
+  padding: 0;
+}
+.primar span {
+  margin-right: 0;
+}
+.left {
+  width: 312px;
+  background-color: #4c5e70;
+  padding: 22px 14px;
+  position: fixed;
+  top: 70px;
+  height: 100%;
+}
+.left-top {
+  width: 248px;
+  background-color: #fff;
+  padding: 10px 32px;
+  border-radius: 10px;
+}
+.left-top-mu {
+  margin-top: 6px;
+}
+.left-top-mu span {
+  font-size: 14px;
+}
+.left-top-header span {
+  font-size: 14px;
+}
+.left-top-header input {
+  width: 248px;
+  height: 34px;
+  font-size: 18px;
+  border-radius: 10px;
+  margin-top: 6px;
+}
+.left .left-top .left-top-header .seascsarfs {
+  position: absolute;
+  font-size: 30px;
+  right: 50px;
+  top: 62px;
+}
+.left-top-buttom {
+  margin-top: 20px;
+}
+.left-top-mu .input-mu {
+  width: 111px;
+}
+.el-range-editor.el-input__inner {
+  width: 248px;
+}
+.el-date-editor .el-range__close-icon {
+  position: absolute;
+  right: 0;
+}
+.souser {
+  width: 110px;
+  margin-right: 35px;
+}
+.left-center {
+  width: 176px;
+  height: 116px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 47px 68px;
+}
+.left-center .left-center-button {
+  width: 176px;
+  height: 116px;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #409eff;
+  font-size: 20px;
+}
+.left-center-button i {
+  font-size: 100px;
+}
+.order {
+  width: 850px;
+  height: 800px;
+  /* background-color: red; */
+  margin-left: 350px;
+}
+.order-top {
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #ccc;
+  font-size: 18px;
+}
+.order-center {
+  width: 822px;
+  box-shadow: 0 0 2px 2px #ccc;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 20px 14px 0px 14px;
+  position: relative;
+  min-height: 50px;
+  padding-bottom: 20px;
+}
+.order-card {
+  margin-top: 20px;
+  width: 822px;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.order-card-li {
+  float: left;
+  width: 256px;
+  height: 316px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  margin-right: 27px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
+.order-card-li:nth-of-type(3n) {
+  margin-right: 0;
+}
+.order-card-li-heder {
+  height: 30px;
+  line-height: 30px;
+  background-color: #ccc;
+  font-size: 12px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.order-card-li-heder-left {
+  height: 24px;
+  line-height: 24px;
+  display: inline-block;
+  width: 70px;
+  text-align: center;
+  border-right: 1px solid #aaa;
+}
+.order-card-li-heder-right {
+  width: 182px;
+  display: inline-block;
+  text-align: center;
+}
+.order-card-li-center {
+  width: 226px;
+  height: 262px;
+  /* background-color: red; */
+  padding: 10px 15px;
+}
+.order-card-li-center img {
+  width: 98px;
+  height: 74px;
+  border-radius: 10px;
+}
+.order-card-li-center-right {
+  width: 120px;
+  height: 74px;
+  display: inline-block;
+  font-size: 12px;
+  text-align: center;
+  position: relative;
+  top: -10px;
+  /* line-height: 74px; */
+}
+.order-card-li-center-right h5 {
+  margin: 0;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.order-card-li-center p {
+  margin: 0;
+  font-size: 14px;
+}
+.tetale {
+  margin: 10px 0;
+}
+.tetale span {
+  display: inline-block;
+  width: 113px;
+  height: 32px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  text-align: center;
+  line-height: 32px;
+  font-size: 12px;
+}
+.select {
+  width: 105px;
+  height: 28px;
+}
+.select.el-button {
+  font-size: 12px;
+  padding: 0;
+}
+.primar.el-button {
+  padding: 0;
+  font-size: 12px;
+}
+.feelot {
+  margin-top: 8px;
+}
+.showScreen {
+  position: absolute;
+  right: 38px;
+  top: 28px;
+  font-size: 14px;
+}
+.el-icon-menu,
+.el-icon-tickets {
+  font-size: 20px;
+}
+.actions {
+  color: #0094ff;
+}
+.countersign-left {
+  width: 20%;
+  height: 100px;
+  display: inline-block;
+  padding-left: 10%;
+}
+.countersign {
+  margin-top: -30px;
+  border-top: 1px solid #ccc;
+  padding-top: 50px;
+}
+.countersign-right {
+  display: inline-block;
+}
+.countersign-right p {
+  font-size: 18px;
+  font-weight: 600;
+}
+.countersign-right input {
+  height: 40px;
+  width: 80%;
+}

@@ -194,6 +194,7 @@
   height: 800px;
   /* background-color: #0094ff; */
   margin-left: 350px;
+  /* overflow-x: hidden; */
 }
 .plot-top {
   height: 60px;
@@ -306,4 +307,21 @@
 }
 .left-center-button i {
   font-size: 100px;
+}
+.addrerrerer .addrerrerer {
+  width: 452px;
+  height: 96px;
+  /* border: 1px solid #ccc; */
+  margin-top: 18px;
+  /* /* margin-left: 120px; */
+}
+select {
+  /* width: 176px; */
+}
+.modification {
+  position: relative;
+  right: 40%;
+}
+.selecteders {
+  width: 600px;
 }

@@ -19,7 +19,7 @@
 .toux {
   width: 42px;
   height: 42px;
-  border-radius: 5px;
+  border-radius: 50%;
   border: 0;
 }
 .conter {
@@ -43,23 +43,6 @@
   left: 50%;
   margin-left: -600px;
 }
-.search {
-  width: 142px;
-  height: 24px;
-  position: absolute;
-  left: 860px;
-  top: 23px;
-  border-radius: 10px;
-}
-.corent .search .searchInpt {
-  width: 142px;
-  height: 22px;
-  border: 0;
-  border-radius: 10px;
-  margin: 0;
-  padding: 0;
-  font-size: 12px;
-}
 .personal {
   width: 170px;
   height: 70px;
@@ -70,6 +53,7 @@
 }
 .personal-left {
   width: 50px;
+  height: 70px;
   position: relative;
 }
 .personal-right {
@@ -78,9 +62,11 @@
   right: 0;
   top: 0;
   height: 70px;
+  text-align: left;
 }
-.personal-right:hover .xgzl {
-  display: block;
+.personal-right:hover .xgzls {
+  transition: all 0.5s;
+  height: 120px;
 }
 .personal-right img {
   position: absolute;
@@ -88,9 +74,10 @@
   top: 10px;
 }
 .personal-right span {
+  display: inline-block;
   font-size: 14px;
   position: absolute;
-  left: 15px;
+  left: 10px;
   top: 25px;
 }
 .xiala {
@@ -98,17 +85,13 @@
   left: 100px;
   top: 20px;
 }
-.el-icon-bell {
+.personal-left .el-icon-bell {
   position: absolute;
   line-height: 70px;
   margin-left: -15px;
-  top: 24px;
+  /* top: 24px; */
 }
-.el-icon-search {
-  position: absolute;
-  right: 5px;
-  top: 3px;
-}
+
 .shu {
   width: 1px;
   height: 26px;
@@ -122,63 +105,99 @@
   height: 70px;
   padding: 5px 120px;
 }
-.tab-centers {
-  width: 540px;
+.tabs-centers {
+  width: 660px;
   position: relative;
-  top: -70px;
+  top: -80px;
   height: 70px;
   left: 340px;
-  /* background-color: red; */
 }
 a {
   color: #000;
 }
-.xgzl {
+.xgzls {
   position: absolute;
   font-size: 12px;
-  width: 60px;
-  height: 80px;
-  top: 48px;
-  left: 14px;
-  background-color: #0094ff;
-  border-radius: 5px;
-  text-align: center;
-  display: none;
-  color: #fff;
-  padding-top: 10px;
-}
-.el-menu-demo.el-menu {
-  top: -10px;
-  height: 70px;
-  background-color: #d5dde4;
-  color: #000;
-}
-.el-menu--horizontal .el-menu-item {
-  height: 70px;
-  line-height: 70px;
-  width: 120px;
-  padding: 0;
-}
-.el-menu--horizontal .el-submenu {
-  width: 120px;
-  padding: 0;
-}
-.el-menu--horizontal .el-submenu .el-submenu__title {
-  height: 70px;
-  line-height: 70px;
-  padding: 0;
-}
-.el-menu-demo.el-menu--horizontal .el-submenu > .el-menu {
+  width: 150px;
+  height: 0px;
   top: 70px;
-  min-width: 0px;
-  width: 98px;
+  left: 0px;
+  background-color: #d5dde4;
+  text-align: center;
+  cursor: pointer;
   overflow: hidden;
-  padding-left: 10px;
 }
-.el-menu-demo.el-menu--horizontal .el-menu-item:hover {
-  background-color: transparent;
+.xgzls p {
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
 }
-.el-menu-demo.el-menu--horizontal .el-submenu .el-submenu__title:hover {
-  background-color: transparent;
-  /* border-bottom: 2px solid #0094ff; */
+.xgzls p:hover {
+  color: #0094ff;
+  background-color: #e3edf6;
+}
+.tab-centers-ul {
+  margin: 0;
+  height: 70px;
+  padding: 0;
+}
+.tab-centers-ul-li {
+  width: 120px;
+  height: 70px;
+  float: left;
+  line-height: 70px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+}
+.home {
+  border-bottom: 2px solid #0094ff;
+  box-sizing: border-box;
+}
+.tab-centers-ul-li:nth-of-type(2):hover .point {
+  transition: all 0.5s;
+  height: 160px;
+}
+.point {
+  width: 120px;
+  height: 0px;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  padding: 0;
+  z-index: 2;
+  background-color: #d5dde4;
+}
+.point-li {
+  height: 40px;
+  line-height: 40px;
+}
+.point-li:hover {
+  background-color: #e3edf6;
+  color: #0094ff;
+  /* border-bottom: 1px solid #0094ff; */
+  box-sizing: border-box;
+}
+.states {
+  width: 120px;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  padding: 0;
+  z-index: 2;
+  background-color: #d5dde4;
+}
+.states-li {
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+}
+.states-li:hover {
+  background-color: #e3edf6;
+  color: #0094ff;
+}
+.tab-centers-ul-li:nth-of-type(4):hover .states {
+  transition: all 0.5s;
+  height: 80px;
 }

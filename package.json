@@ -8,7 +8,8 @@
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
     "build": "node build/build.js",
-    "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
+    "unit":
+      "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e"
   },
@@ -21,11 +22,13 @@
     "vue-amap": "^0.4.4",
     "vue-axios": "^2.0.2",
     "vue-baidu-map": "^0.19.0",
+    "vue-core-image-upload": "^2.3.10",
     "vue-event-calendar": "^1.5.1",
     "vue-fullcalendar": "^1.0.9",
     "vue-router": "^3.0.1",
     "vue-schart": "^0.1.4",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "jquery": "^2.2.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -89,9 +92,5 @@
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
 }

@@ -1,76 +1,46 @@
 <template>
-
-
   <div class="topbar">
     <div class="corent">
       <div class="min-logon">
-        <img src="../../assets/小logo.gif" alt="">
+        <img src="../../assets/log-login-log.png" alt="">
       </div>
-      <div class="tab-centers">
-        <el-menu class="el-menu-demo" mode="horizontal">
-          <el-menu-item index="1">
-            <router-link to="/business/bushome"><i class="el-icon-delete"></i>值保商首页</router-link>
-          </el-menu-item>
-          <el-submenu index="2">
-            <template slot="title"><router-link to="/business/busCenter"><i class="el-icon-delete"></i>值保中心</router-link></template>
-            <el-menu-item index="2-1">
-              <router-link to="/business/busCenter/mybus">我的订单</router-link>
-            </el-menu-item>
-            <el-menu-item index="2-2">
-              <router-link to="/business/busCenter/mybus">发布订单</router-link>
-            </el-menu-item>
-            <el-menu-item index="2-3">
-              <router-link to="/business/busCenter/mybus">接单订单</router-link>
-            </el-menu-item>
-            <el-menu-item index="2-4">
-              <router-link to="/business/busCenter/mybus">评价订单</router-link>
-            </el-menu-item>
-          </el-submenu>
-          <el-menu-item index="6">
-            <router-link to="/business/solicenter"><i class="el-icon-delete"></i>地块中心</router-link>
-          </el-menu-item>
-          <el-submenu index="3">
-            <template slot="title"><router-link to="/business/teamCenter"><i class="el-icon-delete"></i>团队中心</router-link></template>
-            <el-menu-item index="3-1">
-              <router-link to="/business/teamCenter/tenant">值保队管理</router-link>
-            </el-menu-item>
-            <el-menu-item index="3-2">
-              <router-link to="/business/teamCenter/Teamadministration">队员管理</router-link>
-            </el-menu-item>
-          </el-submenu>
-          <el-submenu index="4">
-            <template slot="title"><router-link to="/business/assetsCenter"><i class="el-icon-delete"></i>资产中心</router-link></template>
-            <el-menu-item index="4-1">
-              <router-link to="/business/busCenter/mybus">无人机管理</router-link>
-            </el-menu-item>
-            <el-menu-item index="4-2">
-              <router-link to="/business/busCenter/mybus">无人机分配</router-link>
-            </el-menu-item>
-          </el-submenu>
-          <el-submenu index="5">
-            <template slot="title"><router-link to="/business/StatsCentral"><i class="el-icon-delete"></i>统计中心</router-link></template>
-            <el-menu-item index="5-1">
-              <router-link to="/business/busCenter/mybus">作业统计</router-link>
-            </el-menu-item>
-            <el-menu-item index="5-2">
-              <router-link to="/business/busCenter/mybus">值保队统计</router-link>
-            </el-menu-item>
-            <el-menu-item index="5-3">
-              <router-link to="/business/busCenter/mybus">值保队员统计</router-link>
-            </el-menu-item>
-            <el-menu-item index="5-4">
-              <router-link to="/business/busCenter/mybus">无人机统计</router-link>
-            </el-menu-item>
-            <el-menu-item index="5-5">
-              <router-link to="/business/busCenter/mybus">实时飞行轨迹</router-link>
-            </el-menu-item>
-          </el-submenu>
-        </el-menu>
+      <div class="tab-centersrs">
 
-      </div>
-      <div class="searchs" v-show="false">
-        <input type="text" class="searchInpts">
-        <!-- <i class="el-icon-search"></i> -->
+        <ul class="poityrhome-ul">
+          <li class="poityrhome-ul-li" ref="home" @click="home"> 值保商首页</li>
+          <li class="poityrhome-ul-li" ref="insuty"> 值保中心 <img src="../../assets/005.png" alt="" style="position: relative;top: -3px;">
+            <ul class="insurance">
+                <li class="insurance-li" @click="Myord">我的订单</li>
+                <li class="insurance-li" @click="pubsh">发布订单</li>
+                <li class="insurance-li" @click="receivings">接单中心</li>
+                <li class="insurance-li" @click="affim">确认订单</li>
+                <li class="insurance-li" @click="evauat">评价订单</li>
+            </ul>
+          </li>
+          <li class="poityrhome-ul-li" @click="solits" ref="solits"> 地块中心</li>
+          <li class="poityrhome-ul-li" ref="teamcenter"> 团队中心 <img src="../../assets/005.png" alt="" style="position: relative;top: -3px;">
+            <ul class="teamcenter">
+                <li class="insurance-li" @click="team">值保队管理</li>
+                <li class="insurance-li" @click="teamtatistes">队员管理</li>
+            </ul>
+          </li>
+          <li class="poityrhome-ul-li" ref="assetsCenter"> 资产中心 <img src="../../assets/005.png" alt="" style="position: relative;top: -3px;">
+            <ul class="assetsCenter">
+              <li class="insurance-li" @click="Uavmanagement">无人机管理</li>
+              <li class="insurance-li" @click="Allocation">无人机分配</li>
+            </ul>
+          </li>
+          <li class="poityrhome-ul-li" ref="StatsCentra"> 统计中心 <img src="../../assets/005.png" alt="" style="position: relative;top: -3px;">
+            <ul class="StatsCentra">
+              <li class="insurance-li" @click="StatsCentra1">作业统计</li>
+              <li class="insurance-li" @click="StatsCentra2">值保队统计</li>
+              <li class="insurance-li" @click="StatsCentra3">队员统计</li>
+              <li class="insurance-li" @click="StatsCentra4">无人机统计</li>
+              <li class="insurance-li" @click="StatsCentra5">实时轨迹</li>
+            </ul>
+          </li>
+        </ul>
+
       </div>
       <div class="personals">
         <div class="personal-lefts">
@@ -78,13 +48,15 @@
           <span class="shu"></span>
         </div>
         <div class="personal-rights">
-          <span>{{useifon.name_leader}}</span>
+          <span>{{ifon.real_name_leader}}</span>
           <i class="xiala">
-                  <img src="../../assets/Down 2.png" alt="">
+                  <img src="../../assets/005.png" alt="">
                 </i>
-          <img src="../../assets/头像.png" alt="">
-          <div class="xgzl">
+          <img :src="ifon.ppsp_logo_1" alt="" class="touxiang">
+          <div class="xgzls">
             <p @click="open">修改资料</p>
+            <p @click="amendpassword">修改密码</p>
+            <p @click="write">注销</p>
           </div>
         </div>
       </div>
@@ -93,62 +65,92 @@
 
   </div>
 
-
+<!-- <img src="../../assets/001.png" alt=""> -->
 </template>
 
 <style>
-.xgzl {
+.poityrhome-ul {
+  margin: 0;
+  padding: 0;
+}
+.poityrhome-ul-li {
+  width: 110px;
+  height: 70px;
+  line-height: 70px;
+  float: left;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+}
+.StatsCentra,
+.assetsCenter,
+.teamcenter,
+.insurance {
+  width: 110px;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  padding: 0;
+  z-index: 2;
+  background-color: #d5dde4;
+  padding: 0;
+}
+.insurance-li {
+  width: 110px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #d5dde4;
+  text-align: center;
+}
+.insurance-li:hover {
+  color: #0094ff;
+  background-color: #e3edf6;
+}
+.poityrhome-ul-li:nth-of-type(2):hover .insurance {
+  transition: all 0.5s;
+  height: 200px;
+}
+.poityrhome-ul-li:nth-of-type(4):hover .teamcenter {
+  transition: all 0.5s;
+  height: 80px;
+}
+.poityrhome-ul-li:nth-of-type(5):hover .assetsCenter {
+  transition: all 0.5s;
+  height: 80px;
+}
+.poityrhome-ul-li:nth-of-type(6):hover .StatsCentra {
+  transition: all 0.5s;
+  height: 200px;
+}
+.home {
+  box-sizing: border-box;
+  border-bottom: 2px solid #0094ff;
+}
+.xgzls {
   position: absolute;
   font-size: 12px;
-  width: 60px;
-  height: 80px;
-  top: 48px;
-  left: 14px;
-  background-color: #0094ff;
-  border-radius: 5px;
-  text-align: center;
-  display: none;
-  color: #fff;
-  padding-top: 10px;
-  cursor: pointer;
-}
-.el-menu-demo.el-menu {
-  top: -10px;
-  height: 70px;
-  background-color: #d5dde4;
-  color: #000;
-}
-.el-menu--horizontal .el-menu-item {
-  height: 70px;
-  line-height: 70px;
-  width: 98px;
-  padding: 0;
-}
-.el-menu--horizontal .el-submenu {
-  width: 98px;
-  padding: 0;
-}
-.el-menu--horizontal .el-submenu .el-submenu__title {
-  height: 70px;
-  line-height: 70px;
-  padding: 0;
-}
-.el-menu-demo.el-menu--horizontal .el-submenu > .el-menu {
+  width: 120px;
+  height: 0px;
   top: 70px;
-  min-width: 0px;
-  width: 98px;
+  left: 0px;
+  background-color: #d5dde4;
+  text-align: center;
+  cursor: pointer;
   overflow: hidden;
-  padding-left: 10px;
 }
-.el-menu-demo.el-menu--horizontal .el-menu-item:hover {
-  background-color: transparent;
+.personal-rights:hover .xgzls {
+  transition: all 0.5s;
+  height: 120px;
 }
-.el-menu-demo.el-menu--horizontal .el-submenu .el-submenu__title:hover {
-  background-color: transparent;
-  /* border-bottom: 2px solid #0094ff; */
+.xgzls p {
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
 }
-.el-menu--horizontal .el-submenu .el-submenu__icon-arrow {
-  margin-left: 3px;
+.xgzls p:hover {
+  color: #0094ff;
+  background-color: #e3edf6;
 }
 
 .topbar {
@@ -167,27 +169,10 @@
   left: 50%;
   margin-left: -600px;
 }
-.searchs {
-  width: 142px;
-  height: 24px;
-  position: absolute;
-  left: 860px;
-  top: 23px;
-  border-radius: 10px;
-}
-.searchs .searchInpts {
-  width: 142px;
-  height: 22px;
-  border: 0;
-  border-radius: 10px;
-  margin: 0;
-  padding: 0;
-  font-size: 12px;
-}
+
 .personals {
   width: 200px;
   height: 70px;
-  /* background-color: red; */
   position: absolute;
   right: 0;
   top: 0;
@@ -196,7 +181,6 @@
   width: 50px;
   height: 70px;
   line-height: 70px;
-
   position: relative;
 }
 .personal-rights {
@@ -206,13 +190,15 @@
   top: 0;
   height: 70px;
 }
-.personal-rights:hover .xgzl {
-  display: block;
-}
-.personal-rights img {
+
+.touxiang {
+  width: 42px;
+  height: 42px;
   position: absolute;
   right: 0;
-  top: 10px;
+  top: 14px;
+  border-radius: 50%;
+  /* border: 0 solid transparent; */
 }
 .personal-rights span {
   font-size: 14px;
@@ -228,11 +214,7 @@
 }
 .personal-lefts .el-icon-bell {
   margin-left: 15px;
-}
-.el-icon-search {
-  position: absolute;
-  right: 5px;
-  top: 3px;
+  top: 24px;
 }
 .shu {
   width: 1px;
@@ -247,10 +229,10 @@
   height: 70px;
   padding: 5px 120px;
 }
-.corent .tab-centers {
-  width: 600px;
+.tab-centersrs {
+  width: 660px;
   position: relative;
-  top: -70px;
+  top: -80px;
   height: 70px;
   left: 340px;
   /* padding-left: 14px; */
@@ -258,10 +240,12 @@
 }
 </style>
 <script>
+import api from "../common/api";
 export default {
   data() {
     return {
-      useifon: {}
+      useifon: [],
+      ifon: {}
     };
   },
   created() {},
@@ -270,22 +254,165 @@ export default {
       location.href = "#/business/modified";
     },
     getbusinessnameuse: function() {
-      // 从vuex中获取用户名和头像
-      this.useifon = this.$store.getters.getbusinessnameuse;
-      // 从vuex中获取id
-      const id = this.$store.getters.getbusinessId;
-      const ifom = [];
-      ifom.push(this.useifon);
-      ifom.push(id);
-      if (ifom[1] == "") {
-        const use = JSON.parse(window.localStorage.getItem("ifon"));
-        this.$store.commit("businessnameuse", use);
-        this.useifon = this.$store.getters.getbusinessnameuse;
+      const id = window.sessionStorage.getItem("id");
+      this.$http
+        .post(
+          api.apihost + "GetUserIndexInfo",
+          {
+            reg_id: id
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res);
+          if (res.data.code == 0) {
+            const ifon = {
+              real_name_leader: res.data.attachment.real_name_leader,
+              ppsp_logo_1: res.data.attachment.ppsp_logo_1
+            };
+            this.$store.commit("getuseifon", ifon);
+            window.sessionStorage.setItem("getifon", JSON.stringify(ifon));
+            this.ifon = this.useifon[0];
+          }
+        });
+      this.useifon = this.$store.getters.getuseifon;
+      console.log(this.useifon);
+      if (this.useifon.length == 0) {
+        console.log(111111111111);
+        const ifon = JSON.parse(window.sessionStorage.getItem("getifon"));
+        this.$store.commit("getuseifon", ifon);
       }
+      this.useifon = this.$store.getters.getuseifon;
+      console.log(this.useifon);
+      this.ifon = this.useifon[0];
+    },
+    home: function() {
+      this.$refs.home.className = "poityrhome-ul-li home";
+      this.$refs.insuty.className = "poityrhome-ul-li";
+      this.$refs.solits.className = "poityrhome-ul-li";
+      this.$refs.teamcenter.className = "poityrhome-ul-li";
+      this.$refs.assetsCenter.className = "poityrhome-ul-li";
+      this.$refs.StatsCentra.className = "poityrhome-ul-li";
+
+      location.href = "#/business/bushome";
+    },
+    Myord: function() {
+      location.href = "#/business/busCenter/mybuss";
+      this.poit();
+    },
+    pubsh: function() {
+      location.href = "#/business/busCenter/publishs";
+      this.poit();
+    },
+    receivings: function() {
+      location.href = "#/business/busCenter/receivings";
+      this.poit();
+    },
+    affim: function() {
+      location.href = "#/business/busCenter/affirms";
+      this.poit();
+    },
+    evauat: function() {
+      location.href = "#/business/busCenter/evaluates";
+      this.poit();
+    },
+    poit: function() {
+      this.$refs.insuty.className = "poityrhome-ul-li home";
+      this.$refs.home.className = "poityrhome-ul-li";
+      this.$refs.solits.className = "poityrhome-ul-li";
+      this.$refs.teamcenter.className = "poityrhome-ul-li";
+      this.$refs.assetsCenter.className = "poityrhome-ul-li";
+      this.$refs.StatsCentra.className = "poityrhome-ul-li";
+    },
+    solits: function() {
+      location.href = "#/business/solicenter";
+      this.$refs.solits.className = "poityrhome-ul-li home";
+      this.$refs.insuty.className = "poityrhome-ul-li";
+      this.$refs.home.className = "poityrhome-ul-li";
+      this.$refs.teamcenter.className = "poityrhome-ul-li";
+      this.$refs.assetsCenter.className = "poityrhome-ul-li";
+      this.$refs.StatsCentra.className = "poityrhome-ul-li";
+    },
+    team: function() {
+      location.href = "#/business/teamCenter/tenant";
+      this.$refs.teamcenter.className = "poityrhome-ul-li home";
+      this.$refs.solits.className = "poityrhome-ul-li";
+      this.$refs.insuty.className = "poityrhome-ul-li";
+      this.$refs.home.className = "poityrhome-ul-li";
+      this.$refs.assetsCenter.className = "poityrhome-ul-li";
+      this.$refs.StatsCentra.className = "poityrhome-ul-li";
+    },
+    teamtatistes: function() {
+      location.href = "#/business/teamCenter/Teamadministration";
+      this.$refs.teamcenter.className = "poityrhome-ul-li home";
+      this.$refs.solits.className = "poityrhome-ul-li";
+      this.$refs.insuty.className = "poityrhome-ul-li";
+      this.$refs.home.className = "poityrhome-ul-li";
+      this.$refs.assetsCenter.className = "poityrhome-ul-li";
+      this.$refs.StatsCentra.className = "poityrhome-ul-li";
+    },
+    Uavmanagement: function() {
+      location.href = "#/business/assetsCenter/Uavmanagement";
+      this.$refs.assetsCenter.className = "poityrhome-ul-li home";
+      this.$refs.teamcenter.className = "poityrhome-ul-li";
+      this.$refs.solits.className = "poityrhome-ul-li";
+      this.$refs.insuty.className = "poityrhome-ul-li";
+      this.$refs.home.className = "poityrhome-ul-li";
+      this.$refs.StatsCentra.className = "poityrhome-ul-li";
+    },
+    Allocation: function() {
+      location.href = "#/business/assetsCenter/Allocation";
+      this.$refs.assetsCenter.className = "poityrhome-ul-li home";
+      this.$refs.teamcenter.className = "poityrhome-ul-li";
+      this.$refs.solits.className = "poityrhome-ul-li";
+      this.$refs.insuty.className = "poityrhome-ul-li";
+      this.$refs.home.className = "poityrhome-ul-li";
+      this.$refs.StatsCentra.className = "poityrhome-ul-li";
+    },
+    StatsCentra1: function() {
+      location.href = "#/business/StatsCentral/JobStatistics";
+      this.StatsCentra();
+    },
+    StatsCentra2: function() {
+      location.href = "#/business/StatsCentral/securityStatistics";
+      this.StatsCentra();
+    },
+    StatsCentra3: function() {
+      location.href = "#/business/StatsCentral/teamStatistics";
+      this.StatsCentra();
+    },
+    StatsCentra4: function() {
+      location.href = "#/business/StatsCentral/uavStatistics";
+      this.StatsCentra();
+    },
+    StatsCentra5: function() {
+      location.href = "#/business/StatsCentral/flightpath";
+      this.StatsCentra();
+    },
+    StatsCentra: function() {
+      this.$refs.StatsCentra.className = "poityrhome-ul-li home";
+      this.$refs.assetsCenter.className = "poityrhome-ul-li";
+      this.$refs.teamcenter.className = "poityrhome-ul-li";
+      this.$refs.solits.className = "poityrhome-ul-li";
+      this.$refs.insuty.className = "poityrhome-ul-li";
+      this.$refs.home.className = "poityrhome-ul-li";
+    },
+    write: function() {
+      window.sessionStorage.removeItem("id");
+      console.log(window.sessionStorage.getItem("id"));
+      location.href = "#/login";
+    },
+    amendpassword: function() {
+      location.href = "#/business/amendpassword";
     }
   },
   mounted() {
     this.getbusinessnameuse();
+    this.home();
   }
 };
 </script>

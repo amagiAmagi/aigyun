@@ -1,0 +1,175 @@
+.left {
+  width: 312px;
+  background-color: #4c5e70;
+  padding: 22px 14px;
+  position: fixed;
+  top: 70px;
+  height: 100%;
+}
+.left-first {
+  width: 260px;
+  height: 162px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 0 26px;
+}
+.left-first-heder {
+  height: 46px;
+  line-height: 46px;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+  font-weight: 700;
+}
+.left-two {
+  height: 114px;
+}
+.left-two p {
+  text-align: center;
+}
+.tubiaos {
+  color: #0094ff;
+}
+.teows {
+  font-size: 18px;
+}
+.left-subise {
+  height: 120px;
+  width: 260px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 0 26px;
+  margin-top: 16px;
+}
+.tubiaoss {
+  color: #0094ff;
+  font-size: 20px;
+  position: relative;
+  left: -12px;
+}
+.management {
+  width: 850px;
+  margin-left: 350px;
+  height: 100%;
+}
+
+.management-top {
+  height: 60px;
+  line-height: 60px;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 22px;
+}
+
+.management-centers {
+  width: 826px;
+  height: 100%;
+  box-shadow: 0 0 2px 2px #ccc;
+  padding: 0 12px;
+  overflow: auto;
+  padding-bottom: 20px;
+}
+
+.management-center-top {
+  height: 28px;
+  padding-top: 20px;
+}
+
+.management-center-top span {
+  display: inline-block;
+  width: 80px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: #a4afb4;
+}
+
+.management-center-top .actionser {
+  background-color: #0094ff;
+  color: #fff;
+}
+
+.management-center-list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.management-center-list-add {
+  text-align: center;
+  line-height: 288px;
+}
+
+.management-center-list li {
+  width: 256px;
+  height: 288px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  margin-top: 15px;
+  margin-right: 29px;
+  float: left;
+  position: relative;
+}
+
+.management-center-list li:nth-of-type(3n) {
+  margin-right: 0;
+}
+.management-center-list-li-top {
+  width: 174px;
+  height: 48px;
+  border-bottom: 1px solid #ccc;
+  padding: 20px;
+}
+.management-center-list-li-top img {
+  width: 48px;
+  height: 48px;
+  float: left;
+}
+.management-center-list-li-top-right {
+  float: right;
+  width: 100px;
+  height: 48px;
+  line-height: 28px;
+}
+.management-center-list-li-top-right span {
+  font-size: 16px;
+  font-weight: 700;
+}
+.management-center-list-li-button {
+  height: 196px;
+  width: 214px;
+}
+.management-center-list-li-button-top {
+  width: 182px;
+  height: 96px;
+  padding: 20px 16px;
+}
+.management-center-list-li-button-top img {
+  width: 98px;
+  height: 76px;
+  margin-top: 10px;
+  border-radius: 10px;
+  float: left;
+}
+.management-center-list-li-button-top-right {
+  width: 72px;
+  height: 56px;
+  float: right;
+  padding: 20px 0;
+}
+.management-center-list-li-button-top-right span {
+  display: inline-block;
+  margin-top: 4px;
+  font-weight: 700;
+}
+.xiugai {
+  width: 80px;
+  height: 28px;
+}
+.xiugai.el-button {
+  padding: 0;
+  margin-left: 16px;
+}

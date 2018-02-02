@@ -1,0 +1,173 @@
+.left {
+  width: 312px;
+  background-color: #4c5e70;
+  padding: 22px 14px;
+  position: fixed;
+  top: 70px;
+  height: 100%;
+}
+.povrtsers {
+  width: 300px;
+  height: 256px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 0 6px;
+}
+.povrtser-tops {
+  width: 300px;
+  height: 136px;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+.povrtser-tops img {
+  margin-top: 10px;
+}
+.povrtser-tops h5 {
+  margin: 0;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-left: -10px;
+}
+.povrtser-bottoms {
+  width: 300px;
+  height: 120px;
+}
+.povrtser-bottoms p {
+  margin: 0;
+  margin-top: 12px;
+}
+.povrtser-bottoms p span {
+  display: inline-block;
+  width: 68px;
+  text-align: center;
+}
+.povrtser-bottoms p span:first-of-type {
+  text-align: left;
+  width: 60px;
+}
+.lastntp {
+  color: #d4d9d8;
+}
+.povrtserss {
+  width: 300px;
+  height: 256px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 0 6px;
+  margin-top: 20px;
+}
+.namesrsfrtr {
+  width: 232px;
+  height: 100px;
+  padding: 10px 34px;
+}
+.penantname {
+  display: inline-block;
+  width: 116px;
+  height: 50px;
+  box-sizing: border-box;
+  float: left;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  line-height: 50px;
+}
+.penantname img {
+  position: relative;
+  top: 4px;
+}
+.penantname:nth-of-type(3) {
+  border-bottom: 0;
+}
+.penantname:nth-of-type(4) {
+  border-bottom: 0;
+}
+.penantname:nth-of-type(odd) {
+  border-right: 1px solid #ccc;
+}
+.working {
+  width: 300px;
+  height: 244px;
+  padding: 0 6px;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+.povrtser-topsss {
+  width: 300px;
+  height: 136px;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+.povrtser-topsss img {
+  margin-top: 40px;
+}
+.working-bottom {
+  width: 300px;
+  text-align: center;
+  height: 106px;
+  line-height: 106px;
+}
+.working-bottom span {
+  font-size: 60px;
+  color: #4b5f72;
+}
+.joblist {
+  width: 850px;
+  margin-left: 350px;
+}
+.joblist-heder {
+  height: 60px;
+  line-height: 60px;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+}
+.plusright {
+  position: absolute;
+  right: 0;
+  top: 10px;
+}
+.joblist-center {
+  width: 818px;
+  box-shadow: 0 0 2px 2px #ccc;
+  border-radius: 8px;
+  margin-top: 22px;
+  padding: 25px 16px;
+}
+.joblist-center-heder {
+  height: 30px;
+  width: 818px;
+}
+.joblist-center-heder span {
+  display: inline-block;
+  width: 170px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+.joblist-center-heder span:nth-of-type(5) {
+  width: 120px;
+}
+.joblist-center-li {
+  width: 818px;
+  height: 56px;
+  line-height: 56px;
+  border-bottom: 1px solid #ccc;
+}
+.joblist-center-li span {
+  display: inline-block;
+  width: 170px;
+  text-align: center;
+}
+.joblist-center-li span:nth-of-type(5) {
+  width: 120px;
+}
+.joblist-center-li span img {
+  margin-left: 10px;
+}
+.presentss {
+  width: 190px;
+  position: relative;
+  left: 166px;
+  top: 20px;
+}

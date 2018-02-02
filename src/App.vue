@@ -11,6 +11,25 @@ export default {
       // alert(this.$route);
       console.log(this.$router.app._route.fullPath);
     }
+  },
+  methods: {
+    getuseid: function() {
+      const id = window.sessionStorage.getItem("id");
+      console.log(id);
+      if (id == null) {
+        if (
+          this.$router.app._route.fullPath == "/login" ||
+          this.$router.app._route.fullPath == "/register" ||
+          this.$router.app._route.fullPath == "/retrieve"
+        ) {
+        } else {
+          location.href = "#/login";
+        }
+      }
+    }
+  },
+  updated() {
+    this.getuseid();
   }
 };
 </script>
@@ -34,7 +53,7 @@ body {
   padding: 0;
   background-color: #fff;
   color: #4b5f6d;
-  overflow: scroll;
+  overflow-y: scroll;
   overflow-x: hidden;
 }
 
@@ -51,6 +70,8 @@ a:hover {
 input {
   padding: 0;
 }
+
+::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
 </style>
-
-

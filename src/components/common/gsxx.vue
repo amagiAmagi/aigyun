@@ -1,19 +1,11 @@
 <template>
   <div class="gsxx">
     <div class="gsxx-top">
-     <i class="el-icon-info"></i> 高科新农公司
+      {{ppsp_name}}
     </div>
     <div class="gsxx-center">
-      <p>高科值保一队</p>
-      <span><i class="el-icon-question"></i>夏末某</span>
-      <span><i class="el-icon-question"></i>夏末某</span>
-      <span><i class="el-icon-question"></i>夏末某</span>
-      <span><i class="el-icon-circle-plus"></i>添加</span>
-
-       <!-- <el-rate
-    v-model="value"
-    :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
-  </el-rate> -->
+      <span>{{team_name}}</span>
+      <span>{{real_name}}</span>
     </div>
   </div>
 </template>
@@ -21,7 +13,7 @@
 <style>
 .gsxx {
   width: 292px;
-  height: 240px;
+  height: 140px;
   background-color: #fff;
   margin-bottom: 20px;
   border-radius: 10px;
@@ -36,31 +28,54 @@
 }
 .gsxx-center span {
   display: inline-block;
-  width: 100px;
-  height: 30px;
-  line-height: 20px;
-  border-bottom: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  text-align: center;
-  padding-bottom: 20px;
-}
-.gsxx-center span:nth-of-type(2n) {
-  border-right: 0;
-  margin-left: -5px;
-}
-.gsxx-center span:last-child {
-  border-bottom: 0;
-}
-.gsxx-center span:nth-of-type(3) {
-  border-bottom: 0;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+  font-weight: 700;
 }
 </style>
 <script>
+import api from "../common/api";
 export default {
   data() {
     return {
-      value: null
+      id: "",
+      real_name: "",
+      ppsp_name: "",
+      team_name: ""
     };
+  },
+  methods: {
+    getuseid: function() {
+      this.id = window.sessionStorage.getItem("id");
+    },
+    getuseifon: function() {
+      this.$http
+        .post(
+          api.apihost + "GetUserIndexInfo",
+          {
+            reg_id: this.id
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res);
+          if (res.data.code == 0) {
+            this.team_name = res.data.attachment.team_name;
+            this.ppsp_name = res.data.attachment.ppsp_name;
+            this.real_name = res.data.attachment.real_name;
+          }
+        });
+    }
+  },
+  mounted() {
+    this.getuseid();
+    this.getuseifon();
   }
 };
 </script>

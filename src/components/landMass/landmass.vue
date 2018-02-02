@@ -2,49 +2,49 @@
 
   <div class="landMass">
     <div>
-      <el-tabs v-model="activeName" @tab-click="handleClick" v-show="ling">
-        <el-tab-pane label="地块一" name="first" v-if="ling">
+      <el-tabs v-model="activeName" @tab-click="handleClick" v-show="plotList.length">
+        <el-tab-pane label="地块一" name="first" v-if="plotList[0]">
           <div class="dikuaixinx">
             <img src="../../assets/11.png" alt="">
-            <h5>{{plot1.farmland_name}}</h5>
+            <h5>{{plotList[0].farmland_name}}</h5>
             <div class="mjzw mj">
-              <span>面积(亩)</span><br>{{plot1.farmland_ares}}</span>
+              <span>面积(亩)</span><br>{{plotList[0].farmland_ares}}</span>
             </div>
             <div class="mjzw">
-              <span>种植作物</span><br>{{plot1.crops_name}}</span>
+              <span>种植作物</span><br>{{plotList[0].crops_name}}</span>
             </div>
           </div>
         </el-tab-pane>
-          <el-tab-pane label="地块二" name="second" v-if="one">
+          <el-tab-pane label="地块二" name="second" v-if="plotList[1]">
           <div class="dikuaixinx">
             <img src="../../assets/11.png" alt="">
-            <h5>{{plot2.farmland_name}}</h5>
+            <h5>{{plotList[1].farmland_name}}</h5>
             <div class="mjzw mj">
-              <span>面积(亩)</span><br>{{plot2.farmland_ares}}</span>
+              <span>面积(亩)</span><br>{{plotList[1].farmland_ares}}</span>
             </div>
             <div class="mjzw">
-              <span>种植作物</span><br>{{plot2.crops_name}}</span>
+              <span>种植作物</span><br>{{plotList[1].crops_name}}</span>
             </div>
           </div>
         </el-tab-pane>
-          <el-tab-pane label="地块三" name="third" v-if="two">
+          <el-tab-pane label="地块三" name="third" v-if="plotList[2]">
           <div class="dikuaixinx">
             <img src="../../assets/11.png" alt="">
-            <h5>{{plot3.farmland_name}}</h5>
+            <h5>{{plotList[2].farmland_name}}</h5>
             <div class="mjzw mj">
-              <span>面积(亩)</span><br>{{plot3.farmland_ares}}</span>
+              <span>面积(亩)</span><br>{{plotList[2].farmland_ares}}</span>
             </div>
             <div class="mjzw">
-              <span>种植作物</span><br>{{plot3.crops_name}}</span>
+              <span>种植作物</span><br>{{plotList[2].crops_name}}</span>
             </div>
           </div>
         </el-tab-pane>
       </el-tabs>
     </div>
-    <div class="gkgd" v-show="theer">
+    <div class="gkgd" v-show="plotList.length >3">
       <router-link to="/peasant/peasantSoil">更多>></router-link>
     </div>
-    <div class="left-centers" v-show="add">
+    <div class="left-centers" v-show="plotList.length<1">
       <el-button type="text" class="left-center-buttons" @click="adds"><i class="el-icon-circle-plus-outline"></i><br> 新增地块
       </el-button>
     </div>
@@ -53,19 +53,12 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import api from "../common/api";
 export default {
   data() {
     return {
       activeName: "first",
-      one: true,
-      two: true,
-      theer: true,
-      plotList: [],
-      add: true,
-      ling: true,
-      plot1: [],
-      plot2: [],
-      plot3: []
+      plotList: []
     };
   },
   methods: {
@@ -76,47 +69,29 @@ export default {
       location.href = "#/peasant/peasantSoil";
     },
     getplot: function() {
-      const plot = window.localStorage.getItem("peasantList");
-      console.log(JSON.parse(plot));
-      if (this.plotList == undefined) {
-        this.$store.commit("setusepolt", JSON.parse(plot));
-        this.getshow();
-      }
-    },
-    getshow: function() {
-      this.plotList = this.$store.getters.getPenasntPlot[0];
-      if (this.plotList.length < 1) {
-        this.ling = false;
-      }
-      if (this.plotList.length < 2) {
-        this.one = false;
-      }
-      if (this.plotList.length < 3) {
-        this.two = false;
-      }
-      if (this.plotList.length < 4) {
-        this.theer = false;
-      }
-      if (this.plotList.length >= 1) {
-        this.plot1 = this.plotList[0];
-      }
-      if (this.plotList.length >= 2) {
-        this.plot2 = this.plotList[1];
-      }
-      if (this.plotList.length >= 3) {
-        this.plot3 = this.plotList[2];
-      }
+      const id = window.sessionStorage.getItem("id");
+      this.$http
+        .post(
+          api.apihost + "GetUserIndexInfo",
+          {
+            reg_id: id
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == 0) {
+            this.plotList = res.data.attachment.fields;
+          }
+        });
     }
   },
   mounted() {
-    // 获取地块信息
-    this.plotList = this.$store.getters.getPenasntPlot[0];
     this.getplot();
-    this.getshow();
-  },
-  created() {
-    this.plotList = this.$store.getters.getPenasntPlot[0];
-    // this.getshow();
   }
 };
 </script>

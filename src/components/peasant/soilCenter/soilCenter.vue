@@ -28,12 +28,12 @@
     </div>
 
   <!-- 点击新增谈出来的页面 -->
-  <el-dialog title="新增地块" :visible.sync="dialogFormVisible">
+  <el-dialog title="新增地块" :visible.sync="dialogFormVisible" :lock-scroll="false">
     <el-form :model="form">
       <el-form-item label="地块名称" :label-width="formLabelWidth">
         <el-input v-model="form.name" style="width: 80%" placeholder="请输入地块名称"></el-input>
       </el-form-item>
-      <el-form-item label="地块地址" :label-width="formLabelWidth">
+      <el-form-item label="地块地址" :label-width="formLabelWidth" class="selecteders">
         <VDistpicker @selected="onSelected"></VDistpicker>
       </el-form-item>
       <el-form-item label="详细地址" :label-width="formLabelWidth">
@@ -42,20 +42,14 @@
       <el-form-item label="作业面积" :label-width="formLabelWidth">
         <el-input v-model="form.area" style="width: 80%" placeholder="请输入作业面积" type="number"></el-input>
       </el-form-item>
-      <el-form-item label="目标作物" :label-width="formLabelWidth">
+      <el-form-item label="目标作物" :label-width="formLabelWidth" class="selecteders">
         <crop v-on:cropList="getchangeNumber" :cropList="cropList"></crop>
       </el-form-item>
       <el-form-item label="地块描述和备注" :label-width="formLabelWidth">
         <el-input type="textarea" v-model="form.desc" style="width: 80%" placeholder="请输入地块描述和备注"></el-input>
       </el-form-item>
-      <el-form-item label="地块图片" :label-width="formLabelWidth">
-        <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" :multiple="true" :show-file-list="true"
-          :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :headers="logoHeaders">
-          <i class="el-icon-plus"></i>
-        </el-upload>
-        <el-dialog :visible.sync="dialogVisible" size="tiny">
-          <img width="100%" :src="dialogImageUrl" alt="">
-        </el-dialog>
+      <el-form-item label="地块图片" :label-width="formLabelWidth"> <upaldimg></upaldimg>
+
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -69,7 +63,7 @@
 <!-- 点击查看弹出来的页面信息 -->
 
 
-  <el-dialog title="地块信息" :visible.sync="outerVisible">
+  <el-dialog title="地块信息" :visible.sync="outerVisible" :lock-scroll="false">
     <el-form :model="form">
       <el-form-item label="地块名称" :label-width="formLabelWidth">
         <el-input v-model="form.name" style="width: 80%" placeholder="请输入地块名称"></el-input>
@@ -90,17 +84,11 @@
         <el-input type="textarea" v-model="form.desc" style="width: 80%" placeholder="请输入地块描述和备注"></el-input>
       </el-form-item>
       <el-form-item label="地块图片" :label-width="formLabelWidth">
-        <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" :multiple="true" :show-file-list="true"
-          :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :headers="logoHeaders">
-          <i class="el-icon-plus"></i>
-        </el-upload>
-        <el-dialog :visible.sync="dialogVisible" size="tiny">
-          <img width="100%" :src="dialogImageUrl" alt="">
-        </el-dialog>
+         <upaldimg></upaldimg>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer ">
-      <el-button type="primary centerssss" @click="modification">修改</el-button>
+      <el-button type="primary centerssss" @click="modification" class="modification">修改</el-button>
     </span>
   </el-dialog>
 
@@ -108,7 +96,7 @@
 <!-- 地块信息 -->
     <div class="plot">
       <div class="plot-top">
-          地块信息（<span ref="num">{{this.num}}</span>块）
+          地块信息（<span ref="num">{{nums == "" ?0:nums}}</span>块）
       </div>
          <div class="zssxs">
             <span>展示筛选</span>
@@ -116,10 +104,10 @@
             <span class="el-icon-tickets" ref="tickets" @click="tickets"></span>
           </div>
       <div class="plot-center">
-          <ul class="plot-center-list" v-show="num != 0">
+          <ul class="plot-center-list" v-show="nums != 0">
 
             <!-- 竖版 -->
-            <li class="plot-center-li" v-show="select" ref="list"  :id="item.farmland_id" v-for="(item,index) in  this.plotList" :key="index">
+            <li class="plot-center-li" v-show="select" ref="list"  :id="item.farmland_id" v-for="(item,index) in  plotList" :key="index">
               <div class="plot-center-li-left">
                   <div class="plot-center-li-left-top">
                       <img src="../../../assets/5555.png" alt="">
@@ -151,7 +139,7 @@
               <span class="zuowu">作物</span>
               <span class="beizhu">备注</span>
             </div>
-            <li class="order-sper"  ref="list"  :id="item.farmland_id" v-for="(item,index) in  this.plotList" :key="index">
+            <li class="order-sper"  ref="list"  :id="item.farmland_id" v-for="(item,index) in  plotList" :key="index">
               <img src="../../../assets/5555.png" alt="">
               <div class="order-sper-top">
                 <span class="namessss">{{item.farmland_name}}</span>
@@ -181,18 +169,17 @@ import VDistpicker from "v-distpicker";
 import api from "../../common/api.js";
 import crop from "../../common/crop.vue";
 import "./soilCenter.css";
+import upaldimg from "../../common/upladimg.vue";
 export default {
   data() {
     return {
+      nums: "",
+      dataIfon: [],
+      ids: "",
       id: "",
       cityObj: {},
       select: true,
       num: "",
-      logoHeaders: {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
-      },
       plotList: [],
       outerVisible: false,
       cropList: {},
@@ -200,8 +187,6 @@ export default {
       input2: "",
       value: "",
       dialogFormVisible: false,
-      dialogImageUrl: "",
-      dialogVisible: false,
       form: {
         name: "",
         site: "",
@@ -223,6 +208,7 @@ export default {
       this.$confirm("此操作将永久删除该地块, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
+        lockScroll: false,
         type: "warning"
       })
         .then(() => {
@@ -230,7 +216,7 @@ export default {
             .post(
               api.apihost + "FieldManager",
               {
-                reg_id: this.red_id.reg_id,
+                reg_id: this.ids,
                 action: 1,
                 farmland_id: item.farmland_id
               },
@@ -242,28 +228,11 @@ export default {
             )
             .then(res => {
               console.log(res);
-              // 将vuex里的num删掉
-              _this.$store.commit("delpeasant");
-
-              const nums = window.localStorage.num;
-
-              window.localStorage.num = nums - 1;
-              // 将vuex里的数据删掉
-              _this.$store.dispatch("delUser", index);
-              // 将loca的数据取出来
-              const plot = JSON.parse(
-                window.localStorage.getItem("peasantList")
-              );
-              // 删掉loac里面选中的那个数据
-              plot.splice(index, 1);
-              console.log(plot);
-              window.localStorage.removeItem("peasantList");
-              // 在将数据存储进去
-              window.localStorage.setItem("peasantList", JSON.stringify(plot));
-              console.log(
-                JSON.parse(window.localStorage.getItem("peasantList"))
-              );
-              _this.num--;
+              if (res.data.code == 0) {
+                this.plotList.splice(index, 1);
+                console.log(this.plotList);
+                this.getproverpli();
+              }
             })
             .catch(err => {
               console.log(err);
@@ -289,13 +258,7 @@ export default {
       this.form.are = data.area.value;
       console.log(this.form.prov + this.form.cityOptions + this.form.are);
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
-    },
+    // 新增地块
     addplot: function() {
       this.dialogFormVisible = false;
       const _this = this;
@@ -303,7 +266,7 @@ export default {
         .post(
           api.apihost + "FieldManager",
           {
-            reg_id: this.red_id.reg_id,
+            reg_id: this.ids,
             action: 0,
             farmland_name: this.form.name,
             farmland_prov: this.form.prov,
@@ -321,50 +284,16 @@ export default {
             }
           }
         )
-        .then(function(res) {
+        .then(res => {
           console.log(res);
           if (res.data.code == 0) {
-            _this.$http
-              .post(
-                api.apihost + "GetUserIndexInfo",
-                {
-                  reg_id: _this.red_id.reg_id
-                },
-                {
-                  headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                  }
-                }
-              )
-              .then(function(res) {
-                // 将之前数据初始化
-                _this.$store.commit("deltePeasant");
-                // 将农户地块数量存到vuex
-                _this.$store.commit("peasant", res.data.num_fields);
-                // 将农户地块数量存到loacl
-                // window.localStorage.setItem("num", res.data.num_fields);
-                window.localStorage.num = res.data.attachment.num_fields;
-                // 将农户地块信息存储vuex;
-                _this.dataIfon = res.data.attachment.fields;
-                _this.$store.commit("setusepolt", _this.dataIfon);
-                // _this.types.SET_USEPLOT(_this.dataIfon);
-                // 存到loacl去
-                const list = JSON.stringify(res.data.attachment.fields);
-                window.localStorage.setItem("peasantList", list);
-                _this.plotList = _this.$store.getters.getPenasntPlot[0];
-                console.log(_this.plotList);
-              })
-              .catch(function(err) {
-                console.log(err);
-              });
-            _this.num++;
-            window.localStorage.num = _this.num;
-            _this.$message({
+            this.getproverpli();
+            this.$message({
               message: "恭喜你,新增地块成功",
               type: "success"
             });
           } else {
-            _this.$message({
+            this.$message({
               message: "地块新增失败",
               type: "error"
             });
@@ -388,14 +317,16 @@ export default {
       this.$refs.menu.className = "el-icon-menu";
       this.$refs.tickets.className = "el-icon-tickets actions";
     },
+    //
     examine: function(item) {
       // this.onSelected();
+      console.log(item);
       const _this = this;
       this.$http
         .post(
           api.apihost + "FieldManager",
           {
-            reg_id: this.red_id.reg_id,
+            reg_id: this.ids,
             action: 2,
             farmland_id: item.farmland_id + ""
           },
@@ -405,26 +336,26 @@ export default {
             }
           }
         )
-        .then(function(res) {
+        .then(res => {
           console.log(res);
-          _this.setExaine(res);
+          this.setExaine(res);
         });
 
       this.outerVisible = true;
     },
     setExaine: function(res) {
-      this.cityObj.farmland_prov = res.data.attachment.farm_0.farmland_prov;
-      this.cityObj.farmland_city = res.data.attachment.farm_0.farmland_city;
-      this.cityObj.farmland_district =
-        res.data.attachment.farm_0.farmland_district;
+      console.log(res);
+      this.cityObj.farmland_prov = res.data.attachment[0].farmland_prov;
+      this.cityObj.farmland_city = res.data.attachment[0].farmland_city;
+      this.cityObj.farmland_district = res.data.attachment[0].farmland_district;
 
-      this.form.name = res.data.attachment.farm_0.farmland_name;
-      this.form.site = res.data.attachment.farm_0.farmland_addr;
-      this.form.area = res.data.attachment.farm_0.farmland_ares;
-      this.cropList.crops_type = res.data.attachment.farm_0.crops_type;
-      this.cropList.crops_name = res.data.attachment.farm_0.crops_name;
-      this.form.desc = res.data.attachment.farm_0.farmland_addr;
-      this.id = res.data.attachment.farm_0.farmland_id;
+      this.form.name = res.data.attachment[0].farmland_name;
+      this.form.site = res.data.attachment[0].farmland_addr;
+      this.form.area = res.data.attachment[0].farmland_ares;
+      this.cropList.crops_type = res.data.attachment[0].crops_type;
+      this.cropList.crops_name = res.data.attachment[0].crops_name;
+      this.form.desc = res.data.attachment[0].farmland_addr;
+      this.id = res.data.attachment[0].farmland_id;
     },
     modification: function() {
       const _this = this;
@@ -432,7 +363,7 @@ export default {
         .post(
           api.apihost + "FieldManager",
           {
-            reg_id: this.red_id.reg_id,
+            reg_id: this.ids,
             action: 3,
             farmland_id: this.id,
             farmland_name: this.form.name,
@@ -451,53 +382,19 @@ export default {
             }
           }
         )
-        .then(function(res) {
+        .then(res => {
           console.log(res);
           if (res.data.code == 0) {
-            _this.$http
-              .post(
-                api.apihost + "GetUserIndexInfo",
-                {
-                  reg_id: _this.red_id.reg_id
-                },
-                {
-                  headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                  }
-                }
-              )
-              .then(function(res) {
-                console.log(res);
-                // 将之前数据初始化
-                _this.$store.commit("deltePeasant");
-                // 将农户地块数量存到vuex
-                _this.$store.commit("peasant", res.data.num_fields);
-                // 将农户地块数量存到loacl
-                // window.localStorage.setItem("num", res.data.num_fields);
-                window.localStorage.num = res.data.attachment.num_fields;
-                // 将农户地块信息存储vuex;
-                _this.dataIfon = res.data.attachment.fields;
-                _this.$store.commit("setusepolt", _this.dataIfon);
-                // _this.types.SET_USEPLOT(_this.dataIfon);
-                // 存到loacl去
-                const list = JSON.stringify(res.data.attachment.fields);
-                window.localStorage.setItem("peasantList", list);
-                _this.plotList = _this.$store.getters.getPenasntPlot[0];
-                console.log(_this.plotList);
-                _this.num = res.data.attachment.num_fields;
-                console.log(_this.num);
-              })
-              .catch(function(err) {
-                console.log(err);
+            this.getproverpli();
+            console.log(_this.plotList);
+            setTimeout(() => {
+              this.$message({
+                message: "恭喜你,修改地块成功",
+                type: "success"
               });
-            _this.num++;
-            window.localStorage.num = _this.num;
-            _this.$message({
-              message: "恭喜你,修改地块成功",
-              type: "success"
-            });
+            }, 200);
           } else {
-            _this.$message({
+            this.$message({
               message: "地块修改失败",
               type: "error"
             });
@@ -505,35 +402,45 @@ export default {
         });
 
       this.outerVisible = false;
+    },
+    // 获取值保商id
+    getuseid: function() {
+      this.ids = window.sessionStorage.getItem("id");
+      console.log(this.ids);
+    },
+    // 获取地块信息
+    getproverpli: function() {
+      this.$http
+        .post(
+          api.apihost + "FieldManager",
+          {
+            reg_id: this.ids,
+            action: 2
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res);
+          if (res.data.code == 0) {
+            this.plotList = res.data.attachment;
+            console.log(this.plotList);
+            this.nums = this.plotList.length;
+          }
+        });
     }
   },
   components: {
     VDistpicker,
-    crop
-    // upload
-  },
-  created() {
-    this.red_id = JSON.parse(window.localStorage.getItem("id"));
-    this.plotList = this.$store.getters.getPenasntPlot[0];
-    this.num = window.localStorage["num"];
-    console.log(this.num);
+    crop,
+    upaldimg
   },
   mounted() {
-    const plo = JSON.parse(window.localStorage.getItem("peasantList"));
-    console.log(plo);
-    console.log(this.plotList);
-    if (this.plotList == undefined) {
-      console.log(111111111111111111111111111111);
-      this.$store.commit("setusepolt", plo);
-      this.plotList = this.$store.getters.getPenasntPlot[0];
-    }
-    console.log(this.$store.getters.getPenasntPlot);
-    this.num = window.localStorage["num"];
-    console.log(this.num);
-    if (this.num == "") {
-      console.log(1111111);
-      this.num = 0;
-    }
+    this.getuseid();
+    this.getproverpli();
   }
 };
 </script>

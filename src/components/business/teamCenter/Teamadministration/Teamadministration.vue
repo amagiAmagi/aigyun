@@ -1,11 +1,11 @@
 <template>
   <div>
      <div class="left">
-      <div class="left-top">
+      <div class="left-tops">
         <div class="left-top-headers">
           <span>关键字</span><br>
           <input type="text">
-          <i class="el-icon-search"></i>
+          <i class="el-icon-search searchs"></i>
         </div>
         <div class="left-top-mu">
           <span>加入时间</span><br>
@@ -28,7 +28,7 @@
     <!-- 值保队员 -->
     <div class="teamMember">
       <div class="teamMember-top">
-        队员信息 ( <span>{{number}}</span>人 )
+        队员信息 ( <span>{{number == ""?0:number}}</span>人 )
       </div>
       <div class="teamMember-center">
         <div class="teamMember-center-heder">
@@ -46,7 +46,9 @@
         <div class="youtuo">
           <!-- 竖版 -->
           <li class="youtuo-li" v-show="select" v-for="(item,index) in teamList" :key="index">
-            <img src="../../../../assets/5555.png" alt="">
+
+            <img v-if="item.pic_url_1" :src="item.pic_url_1" alt="">
+            <img  v-else src="../../../../assets/5555.png" alt="">
             <div class="youtuo-li-right">
               <span class="lave_name">{{item.real_name}}</span><br>
               <span>{{item.sex == 0?"男":"女"}} </span><span v-show="item.age > 0">{{item.age}}岁</span>
@@ -54,7 +56,7 @@
             <p>加入时间:<span>{{item.reg_time|time}}</span></p>
             <p>{{item.reg_country +"-"+ item.reg_prov+"-"+item.reg_city}}</p>
             <p v-if="item.team_name">{{item.team_name}}</p>
-            <p v-else class="fepeisree" @click="allocations">分配值保队</p>
+            <p v-else class="fepeisree" @click="allocations(item.tp_reg_id)">分配值保队</p>
               <el-button type="primary" class="shanchu" @click="delteam(index,item.tp_reg_id,item.team_id)">删除</el-button>
           </li>
           <!-- 横版 -->
@@ -69,7 +71,8 @@
             <span class="heng-heder-top8">无人机驾驶证</span>
           </div>
           <li class="youtuo-heng-li"  v-show="!select"  v-for="(item,index) in teamList" :key="index">
-            <img src="../../../../assets/5555.png" alt="">
+            <img v-if="item.pic_url_1" :src="item.pic_url_1" alt="">
+            <img  v-else src="../../../../assets/5555.png" alt="">
             <div  class="youtuo-heng-li-left">
                 <span>{{item.real_name}}</span>
                 <span>{{item.sex == 0?"男":"女"}}</span>
@@ -79,7 +82,7 @@
              <span class="sui"><span v-show="item.age > 0" >{{item.age}}岁</span></span>
               <span>{{item.reg_time|time}}</span>
               <span v-if="item.team_name">{{item.team_name}}</span>
-              <span v-else class="fepeisrees" @click="allocations">分配</span>
+              <span v-else class="fepeisrees" @click="allocations(item.tp_reg_id)">分配</span>
             </div>
             <div class="location">
               {{item.reg_country +"-"+ item.reg_prov+"-"+item.reg_city}}
@@ -99,7 +102,7 @@
 
     <!-- 新增队员弹出框 -->
 
-  <el-dialog title="新增队员" :visible.sync="dialogVisible" width="35%">
+  <el-dialog title="新增队员" :visible.sync="dialogVisible" width="35%" :lock-scroll="false">
 
     <div class="addteam">
       <img src="../../../../assets/值保商首页/icon_person_03.gif" alt="">
@@ -107,7 +110,7 @@
        <el-input v-model="email" class="emali"></el-input>
     </div>
     <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="dialogVisible = false" class="member">发送邀请邮件</el-button>
+      <el-button type="primary" @click="invte" class="member">发送邀请邮件</el-button>
       <el-button @click="dialogVisible = false" class="member">取 消</el-button>
     </span>
   </el-dialog>
@@ -115,7 +118,7 @@
   <!-- 删除队员弹出框 -->
 
 
-  <el-dialog title="删除队员" :visible.sync="centerDialogVisible" width="35%">
+  <el-dialog title="删除队员" :visible.sync="centerDialogVisible" width="35%" :lock-scroll="false">
     <div class="delterteam">
       <span class="el-icon-warning"></span>
       <span class="cvenjdhaslfsdh">请确定是否删除队员</span>
@@ -130,35 +133,32 @@
 
 <!-- 分配值保队弹出框 -->
 
-  <el-dialog title="分配值保队" :visible.sync="dialogVisibles" width="54%">
+  <el-dialog title="分配值保队" :visible.sync="dialogVisibles" width="54%" :lock-scroll="false">
     <div class="disalogs">
       <div class="disalogs-top" >
         <span class="yixuanz">已选择:</span>
         <div class="disasdhasition" v-show="disables">
           <img src="../../../../assets/5555.png" alt="">
-          <div class="zhibaoname">值保一队</div>
+          <div class="zhibaoname">{{player.team_name}}</div>
           <div class="datename">
-            <span>队员1</span>
-            <span>队员2</span>
-            <span>队员3</span>
+            <span v-for="(item,index) in player.players" :key="index" v-show="index < 3">{{item.real_name}} </span>
           </div>
         </div>
       </div>
       <div class="disalogs-center">
-        <li class="disalogs-center-li" ref="disali" @click="disali">
+        <li class="disalogs-center-li" ref="disali"  @click="disali(index,item.team_id)" v-for="(item,index) in playersList" :key="index">
             <img src="../../../../assets/5555.png" alt="">
-          <div class="zhibaonames">值保一队</div>
+          <div class="zhibaonames">{{item.team_name}}</div>
           <div class="datenames">
-            <span>队员1</span>
-            <span>队员2</span>
-            <span>队员3</span>
+            <span v-for="(items,indexs) in item.players" :key="indexs" v-show="indexs < 3">{{items.real_name}} </span>
           </div>
+          <span class="el-icon-success displaysert " ref="choice"></span>
         </li>
       </div>
     </div>
     <span slot="footer" class="dialog-footer">
       <el-button @click="dialogVisibles = false">取 消</el-button>
-      <el-button type="primary" @click="dialogVisibles = false">确 定</el-button>
+      <el-button type="primary" @click="tpteam">确 定</el-button>
     </span>
   </el-dialog>
 
@@ -185,7 +185,9 @@ export default {
       number: "",
       team_id: "",
       index: "",
-      team_ids: ""
+      team_ids: "",
+      playersList: [],
+      player: {}
     };
   },
   methods: {
@@ -203,7 +205,8 @@ export default {
       this.$refs.all.className = "activots";
       this.$refs.aoyuo.className = "";
       this.$refs.mengter.className = "";
-      this.settaem();
+      // this.settaem();
+      this.teamList = this.$store.getters.getbusinessteamAll;
     },
     aoyuo: function() {
       this.$refs.all.className = "";
@@ -216,7 +219,6 @@ export default {
       this.$refs.aoyuo.className = "";
       this.$refs.mengter.className = "activots";
       this.teamList = this.$store.getters.getbusinessundeployed;
-      console.log(this.teamList);
     },
     getprov: function(data) {
       this.ProvObj = data;
@@ -224,12 +226,9 @@ export default {
     },
     // 获取值保商id
     getuseid: function() {
-      this.id = this.$store.getters.getbusinessId;
-      if (this.id == "") {
-        const data = JSON.parse(window.localStorage.getItem("businessid"));
-        this.$store.commit("business", data);
-        this.id = this.$store.getters.getbusinessId;
-      }
+      this.id = window.sessionStorage.getItem("id");
+
+      console.log(this.id);
     },
     getTamadminstr: function() {
       this.$http
@@ -249,6 +248,7 @@ export default {
           console.log(res);
           if (res.data.code == 0) {
             this.setDatateam(res);
+            this.settaem();
           }
         });
     },
@@ -320,13 +320,89 @@ export default {
         this.$store.commit("removebusinessdeployed", this.index);
       }
     },
-    allocations: function() {
+    allocations: function(id) {
+      this.team_id = id;
+      this.gettenant();
       this.dialogVisibles = true;
     },
-    disali: function() {
-      console.log(this.$refs.disali);
-      this.$refs.disali.className = "disalogs-center-li disali";
+    disali: function(index, id) {
+      this.team_ids = id;
+      this.$refs.disali.forEach(e => {
+        e.className = "disalogs-center-li";
+      });
+      this.$refs.choice.forEach(e => {
+        e.className = "el-icon-success displaysert";
+      });
+      this.$refs.disali[index].className = "disalogs-center-li disali";
       this.disables = true;
+      this.$refs.choice[index].className = "el-icon-success choice";
+      this.player = this.playersList[index];
+    },
+    gettenant: function() {
+      this.$http
+        .post(
+          api.apihost + "ServiceTeamInfo",
+          {
+            action: 2,
+            reg_id: this.id
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res);
+          if (res.data.code == 0) {
+            this.playersList = res.data.attachment;
+          }
+        });
+    },
+    tpteam: function() {
+      this.$http
+        .post(
+          api.apihost + "ServiceTeamPlayer",
+          {
+            action: 0,
+            team_id: this.team_ids,
+            tp_reg_id: this.team_id
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res);
+          if (res.data.code == 0) {
+            this.getTamadminstr();
+          }
+        });
+      this.dialogVisibles = false;
+    },
+    // 邀请值保队
+    invte: function() {
+      this.$http
+        .post(
+          api.apihost + "SignUp",
+          {
+            pp_reg_id: this.id,
+            email_addr: this.email,
+            role: 3
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res);
+          this.email = "";
+        });
+      this.dialogVisible = false;
     }
   },
   components: {
@@ -335,12 +411,9 @@ export default {
   mounted() {
     this.getuseid();
     this.getTamadminstr();
-    this.settaem();
-  },
-  created() {
     this.teamList = this.$store.getters.getbusinessteamAll;
-  }
+    this.number = this.teamList.length;
+  },
+  created() {}
 };
 </script>
-
-

@@ -63,3 +63,13 @@ export const getbusinessdeployed = state => state.businessdeployed;
 // 获取值保商未分配值保队员信息
 
 export const getbusinessundeployed = state => state.businessundeployed;
+
+// 获取无人机数据
+
+export const getuavList = state => state.uavList;
+
+// 名字和头像
+
+export const getuseifon = state => state.getifon;
+
+export const getfiightpath = state => state.fiightpath;

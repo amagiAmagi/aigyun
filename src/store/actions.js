@@ -10,5 +10,9 @@ export default {
   // 用户名和id
   NameUser({ commit }, data) {
     commit("setuseifon", data);
+  },
+  // 删除地块
+  delUsers({ commit }, i) {
+    commit("setplotdels", i);
   }
 };

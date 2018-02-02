@@ -1,0 +1,125 @@
+.surveyreport {
+  width: 1200px;
+  /* height: 900px; */
+  margin: 0 auto;
+  padding-top: 70px;
+  /* overflow-x: hidden; */
+}
+.left {
+  width: 312px;
+  background-color: #4c5e70;
+  padding: 22px 14px;
+  position: fixed;
+  top: 70px;
+  height: 100%;
+}
+.povrtser {
+  width: 300px;
+  height: 310px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 0 6px;
+}
+.povrtser-top {
+  width: 300px;
+  height: 136px;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+.povrtser-top img {
+  margin-top: 10px;
+}
+.povrtser-top h5 {
+  margin: 0;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-left: -10px;
+}
+.povrtser-bottom {
+  width: 300px;
+  height: 174px;
+}
+.povrtser-bottom p {
+  margin: 0;
+  margin-top: 12px;
+}
+.povrtser-bottom p span {
+  display: inline-block;
+  width: 68px;
+  text-align: center;
+}
+.povrtser-bottom p span:first-of-type {
+  text-align: left;
+  width: 60px;
+}
+.lastntp {
+  color: #d4d9d8;
+}
+.surveyreport-center {
+  width: 850px;
+  /* height: 800px; */
+  margin-left: 350px;
+  /* background-color: red; */
+}
+.surveyreport-center-heder {
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #ccc;
+  font-size: 20px;
+}
+.surveyreport-form {
+  width: 800px;
+  padding-left: 50px;
+  padding-top: 14px;
+}
+.surveyreporttype {
+  margin-top: 22px;
+}
+.surveyretype {
+  width: 180px;
+  display: inline-block;
+  text-align: right;
+}
+.surveyretype i {
+  color: red;
+}
+.seluav {
+  width: 452px;
+}
+.seluav .el-scrollbar {
+  overflow: visible;
+  width: 452px;
+}
+.el-scrollbar .el-select-dropdown__wrap {
+  width: 100%;
+}
+.surveyreporttype input {
+  width: 450px;
+  height: 36px;
+}
+.block {
+  width: 452px;
+  position: relative;
+  display: inline-block;
+}
+.block .el-date-editor.el-input,
+.el-date-editor.el-input__inner {
+  width: 100%;
+}
+.updalteoap {
+  display: inline-block;
+}
+.wenbenyu {
+  width: 452px;
+  position: relative;
+  left: 180px;
+  top: -20px;
+}
+.presents {
+  width: 190px;
+  position: relative;
+  left: 180px;
+}
+.guard {
+  display: inline-block;
+}

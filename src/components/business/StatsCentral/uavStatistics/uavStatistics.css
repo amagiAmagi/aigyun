@@ -1,0 +1,262 @@
+.left {
+  width: 312px;
+  background-color: #4c5e70;
+  padding: 22px 14px;
+  position: fixed;
+  top: 70px;
+  height: 100%;
+}
+
+.left-uvasetver {
+  width: 260px;
+  height: 340px;
+  background-color: #fff;
+  padding: 0 26px;
+  border-radius: 10px;
+}
+
+.left-uvasetver-one {
+  height: 68px;
+  padding-top: 20px;
+}
+
+.left-uvasetver-one p {
+  margin: 0;
+  font-weight: 600;
+  color: #6a6f70;
+}
+
+.left-uvasetver-one .el-select {
+  width: 260px;
+  margin-top: 4px;
+}
+.left-uvasetver-one .el-input--suffix .el-input__inner {
+  width: 100%;
+}
+.dateoption {
+  width: 260px;
+  height: 64px;
+  margin-top: 20px;
+  color: #6a6f70;
+}
+
+.dateoption .el-range-editor.el-input__inner {
+  width: 260px;
+}
+
+.dateoption-heder {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.uvaprimary {
+  width: 110px;
+  height: 40px;
+}
+
+.uvaprimary.el-button {
+  margin: 0;
+  padding: 0;
+  margin-left: 70px;
+  margin-top: 20px;
+}
+.jobstatist {
+  width: 260px;
+  height: 328px;
+  padding: 0 26px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-top: 22px;
+}
+.jobstatist-heders {
+  height: 48px;
+  line-height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+.left-buttoms .left-buttom-li {
+  width: 128px;
+  height: 80px;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  float: left;
+  text-align: center;
+  padding-top: 2px;
+}
+
+.left-buttom-li:nth-of-type(2n) {
+  border-right: 0;
+}
+
+.footer {
+  border-bottom: 0;
+  font-size: 16px;
+}
+
+.left-buttom-li p {
+  margin: 0;
+  color: #838889;
+}
+
+.li-p-span span {
+  color: #0094ff;
+}
+
+.iconfion {
+  font-size: 36px;
+}
+
+.jobstatist .left-buttoms {
+  width: 260px;
+  height: 250px;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 12px;
+}
+
+.Uavjobstatisti {
+  width: 850px;
+  margin-left: 350px;
+  color: #6b7a88;
+}
+.Uavjobstatisti-heder {
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #ccc;
+  font-size: 20px;
+}
+.echeartss {
+  width: 850px;
+  box-shadow: 0 0 2px 2px #ccc;
+  position: relative;
+  border-radius: 4px;
+}
+
+.echearts-heder {
+  width: 850px;
+  height: 48px;
+}
+
+.echearts-heder-li {
+  float: left;
+  width: 92px;
+  height: 28px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  margin-left: 10px;
+  text-align: center;
+  line-height: 28px;
+  color: #86939e;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.hederlist {
+  background-color: #0094ff;
+  color: #fff;
+}
+
+.flightRecorders {
+  width: 826px;
+  /* height: 300px; */
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 2px 2px #ccc;
+  margin-top: 22px;
+  padding: 20px 12px;
+  margin-bottom: 60px;
+}
+.flight {
+  height: 60px;
+  line-height: 60px;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+}
+.flightRecorders-heder {
+  height: 30px;
+}
+.guiji {
+  height: 30px;
+  width: 94px;
+}
+.guiji.el-button {
+  padding: 0;
+  font-size: 12px;
+}
+.feixing {
+  width: 166px;
+}
+.setersdate .el-input__inner {
+  height: 30px;
+}
+.setersdate i {
+  margin-top: -5px;
+}
+.xunzshida {
+  font-weight: 600;
+  font-size: 14px;
+}
+.guiji:nth-of-type(1) {
+  margin-left: 20px;
+}
+.flightRecorders-top {
+  width: 826px;
+  height: 30px;
+  background-color: #d3dee3;
+  margin-top: 14px;
+}
+.flightRecorders-top span {
+  display: inline-block;
+  float: left;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  border-right: 1px solid #ccc;
+  text-align: center;
+  font-size: 14px;
+}
+
+.flightRecorders-top span:nth-of-type(5) {
+  width: 178px;
+}
+.flightRecorders-list {
+  width: 826px;
+}
+.flightRecorders-list-li {
+  width: 824px;
+  height: 44px;
+  border: 1px solid #ccc;
+  margin-top: 8px;
+}
+.flightRecorders-list-li span {
+  display: inline-block;
+  width: 100px;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  float: left;
+  font-size: 14px;
+}
+.flightRecorders-list-li span:nth-of-type(5) {
+  width: 180px;
+  overflow: hidden;
+  /* line-height: 20px; */
+}
+.flightRecorders-list-li span:nth-of-type(6) {
+  width: 240px;
+}
+.flightRecorders-list-li .recorders {
+  display: inline-block;
+  width: 120px;
+  height: 28px;
+  line-height: 28px;
+  background-color: #50b5fc;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 8px;
+  margin-left: 60px;
+}

@@ -1,6 +1,6 @@
 <template>
   <div class="busCenter">
-    我是农户统计中心
+    <router-view ></router-view>
   </div>
 </template>
 

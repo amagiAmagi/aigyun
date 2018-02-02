@@ -1,6 +1,6 @@
 <template>
   <div class="busCenter">
-    我是资产中心
+    <router-view ></router-view>
   </div>
 </template>
 
@@ -11,3 +11,4 @@
   padding-top: 70px;
 }
 </style>
+

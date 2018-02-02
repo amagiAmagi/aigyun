@@ -33,7 +33,7 @@
     <!-- 值保队 -->
     <div class="administration">
       <div class="administration-heder">
-          值保队管理( <span>{{stesasder}}</span>队 )
+          值保队管理( <span>{{stesasder == "" ? 0:stesasder}}</span>队 )
       </div>
       <div class="administration-center">
           <div class="administration-center-heder">
@@ -53,27 +53,19 @@
                       <h5>{{item.team_name}}</h5>
                       <span>{{item.team_num}}人</span>
                   </div>
-                  <p>服务范围:<span v-for="r in item.team_range">{{r}} </span></p>
-                  <div class="modeler" >
-                      <li class="modeler-li">
-                        <span ><i class="el-icon-info"></i> 王某某</span>
+                  <p>服务范围:<span v-for="(r,i) in item.team_range" :key="i">{{r}} </span></p>
+                  <div class="modeler">
+                    <span class="el-icon-caret-left" ref="icon_left" @click="lunbos(item.players,index)" v-show="iconnumber > iconnumbers"></span>
+                      <li class="modeler-li" v-for="(items,s) in item.players" :key="s" v-show="s<4">
+                        <span >{{items.real_name}}</span>
                       </li>
-                      <li class="modeler-li">
-                        <span ><i class="el-icon-info"></i> 王某某</span>
-                      </li>
-                      <li class="modeler-li">
-                        <span ><i class="el-icon-info"></i> 王某某</span>
-                      </li>
-                      <li class="modeler-li">
-                        <span ><i class="el-icon-info"></i> 王某某</span>
-                      </li>
-                      <span class="el-icon-caret-right"></span>
+                      <span class="el-icon-caret-right" v-if="item.players.length > 4" @click="lunbo(item.players,index)"></span>
                   </div>
-                    <el-button type="primary" class="plains" plain  @click="centerDialogVisible = true">添加</el-button>
-                    <el-button type="primary" class="plains" plain @click="centerDialogVisibles = true">删除</el-button>
+                    <el-button type="primary" class="plains" plain  @click="addplayers(item.team_id)">添加</el-button>
+                    <el-button type="primary" class="plains" plain @click="deltplay(item.team_id)">删除</el-button>
                     <div class="administration-center-mutation-upright-footer">
-                        <el-button type="primary" class="footer" @click="delteam(item.team_id,index)">删除值保队</el-button>
-                        <el-button type="primary" class="footer" @click="dialogFormVisible= true">修改信息</el-button>
+                        <el-button type="primary" class="footer" @click="delteam(item.team_id,index,item)">删除值保队</el-button>
+                        <el-button type="primary" class="footer" @click="amend(item.team_id)">修改信息</el-button>
                     </div>
               </li>
 
@@ -91,17 +83,14 @@
                     <span class="heder-heng-li-names-2"><span v-for="(r,indexs) in item.team_range" :key="indexs">{{r}} </span></span>
                     <span class="heder-heng-li-names-3">{{item.team_num}}</span>
                     <el-button type="primary" class="foote"  @click="delteam(item.team_id,index)">删除值保队</el-button>
-                    <el-button type="primary" class="foote" @click="dialogFormVisible= true">修改信息</el-button>
+                    <el-button type="primary" class="foote" @click="amend(item.team_id)">修改信息</el-button>
                   </div>
                   <div class="heder-heng-li-dy">
-                    <span>王某某</span>
-                    <span>王某某</span>
-                    <span>王某某</span>
-                    <span>王某某</span>
+                    <span v-for="(items,t) in item.players" :key="t">{{items.real_name}}&nbsp;</span>
                   </div>
                   <div class="heder-heng-li-right">
-                    <span class="el-icon-circle-plus" @click="centerDialogVisible = true">添加</span> |
-                    <span class="el-icon-circle-close" @click="centerDialogVisibles = true">删除</span>
+                    <span class="el-icon-circle-plus"  @click="addplayers(item.team_id)">添加</span> |
+                    <span class="el-icon-circle-close" @click="deltplay(item.team_id)">删除</span>
                   </div>
               </li>
           </div>
@@ -114,10 +103,10 @@
   </div>
 
 <!-- 新增值保队弹出来的模态框 -->
-  <el-dialog title="新增值保队信息" :visible.sync="dialogFormVisibles" width="45%">
+  <el-dialog title="新增值保队信息" :visible.sync="dialogFormVisibles" width="45%" :lock-scroll="false">
    <div class="xiahuaxian"></div>
-    <el-form>
-      <el-form-item label="队名">
+    <el-form style="width: 80%">
+      <el-form-item label="队名" style="width: 80%">
         <el-input placeholder="请输入队名" v-model="inputName2" clearable style="width: 80%">
         </el-input>
       </el-form-item>
@@ -127,13 +116,7 @@
           {{tag}}
         </el-tag>
       </el-form-item>
-      <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" :on-preview="handlePictureCardPreview"
-        :on-remove="handleRemove" :show-file-list="true" :limit="3">
-        <i class="el-icon-plus"></i>
-      </el-upload>
-      <el-dialog :visible.sync="dialogVisible" size="tiny">
-        <img width="100%" :src="dialogImageUrl" alt="">
-      </el-dialog>
+     <upaldimg></upaldimg>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button type="primary" @click="addbuiseness" class="primaryst">下一步</el-button>
@@ -142,10 +125,10 @@
 
 <!-- 修改值保队弹出来的框 -->
 
-  <el-dialog title="修改值保队信息" :visible.sync="dialogFormVisible" width="45%" >
+  <el-dialog title="修改值保队信息" :visible.sync="dialogFormVisible" width="45%" :lock-scroll="false">
    <div class="xiahuaxian"></div>
-    <el-form>
-      <el-form-item label="队名">
+    <el-form style="width: 80%">
+      <el-form-item label="队名" style="width: 80%">
         <el-input placeholder="请输入队名" v-model="inputName" clearable style="width: 80%">
         </el-input>
       </el-form-item>
@@ -155,22 +138,16 @@
           {{tag}}
         </el-tag>
       </el-form-item>
-      <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" :on-preview="handlePictureCardPreview"
-        :on-remove="handleRemove" :show-file-list="true" :limit="3">
-        <i class="el-icon-plus"></i>
-      </el-upload>
-      <el-dialog :visible.sync="dialogVisible" size="tiny">
-        <img width="100%" :src="dialogImageUrl" alt="">
-      </el-dialog>
+      <imagesr></imagesr>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="dialogFormVisible = false" class="primaryst">发布</el-button>
+      <el-button type="primary" @click="revamp" class="primaryst">确定</el-button>
     </div>
   </el-dialog>
 
 <!-- 值保地区选择弹出框 -->
 
-  <el-dialog title="选择值保范围" :visible.sync="dialogVisibles" width="45%">
+  <el-dialog title="选择值保范围" :visible.sync="dialogVisibles" width="45%" :lock-scroll="false">
     <div class="xiahuaxian"></div>
     <div  class="elcitytag">
        <el-tag v-for="(tag,index) in checkedCities" :key="index" closable @close="handleCloses(index)">
@@ -194,12 +171,12 @@
 
 <!-- 删除值保队弹出框 -->
 
-  <el-dialog title="删除值保队" :visible.sync="dialogVisibless" width="45%">
+  <el-dialog title="删除值保队" :visible.sync="dialogVisibless" width="45%" :lock-scroll="false">
    <div class="xiahuaxian"></div>
     <div close="delter">
       <span class="el-icon-circle-close delrefet"></span>
       <h4 class="titles">请确定是否删除值保队</h4>
-      <span style="font-size: 20px;margin-left: 40px;font-weight: 700">值保一队</span>
+      <span style="font-size: 20px;margin-left: 40px;font-weight: 700">{{name}}</span>
     </div>
     <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="remotaem" class="footer-left">确 定</el-button>
@@ -208,20 +185,14 @@
       </span>
   </el-dialog>
 
-<!-- 新增队员弹出框 -->
+<!-- 新增值保队添加队员弹出框 -->
 
-  <el-dialog title="添加值保队员" :visible.sync="centerDialogVisible" width="45%">
+  <el-dialog title="添加值保队员" :visible.sync="centerDialogVisible" width="45%" :lock-scroll="false">
     <div class="xiahuaxian"></div>
     <div class="center-top">
       <div class="titerlser">已选择:</div>
-      <div class="tags">
-        <img src="../../../../assets/值保商首页/icon_person_03.gif" alt=""><span>王某某</span><i class="el-icon-circle-close rightdelr"></i>
-      </div>
-      <div class="tags">
-        <img src="../../../../assets/值保商首页/icon_person_03.gif" alt=""><span>王某某</span><i class="el-icon-circle-close rightdelr"></i>
-      </div>
-      <div class="tags">
-        <img src="../../../../assets/值保商首页/icon_person_03.gif" alt=""><span>王某某</span><i class="el-icon-circle-close rightdelr"></i>
+      <div class="tags" v-for="(item,index) in pullteantList" :key="index">
+        <img src="../../../../assets/值保商首页/icon_person_03.gif" alt=""><span>{{item.real_name}}</span><i class="el-icon-circle-close rightdelr" @click="deltepulltean(index)"></i>
       </div>
     </div>
     <div class="center-dyxz">
@@ -232,40 +203,38 @@
            <i class="el-icon-search sous"></i>
       </div>
       <div class="center-dyxz-center">
-        <li class="center-dyxz-center-li">
+        <li class="center-dyxz-center-li" v-for="(item,index) in TeanminstrList" :key="index" @click="teanmistr(index,item.tp_reg_id,item)" >
           <div class="center-dyxz-center-li-top">
             <img src="../../../../assets/值保商首页/icon_person_03.gif" alt="">
             <div  class="center-dyxz-center-li-right">
-              <span>张某某</span><br>
-            <span>男<span>27</span>岁</span>
+              <span>{{item.real_name}}</span><br>
+            <span>{{item.sex == 0?"男":"女"}}<span>{{item.age}}</span>岁</span>
             </div>
           </div>
-          <p><span>加入时间:</span>2017-11-21</p>
-          <p>广东省深圳市南山区特发信息港A栋8楼</p>
-          <span class="el-icon-circle-check bottom"></span>
+          <p><span>加入时间:</span>{{item.reg_time|time}}</p>
+          <p>{{item.reg_country +"-"+ item.reg_prov+"-"+item.reg_city}}</p>
+          <div class="pullteant" ref="asteantList">
+            <span class="el-icon-circle-check bottom"></span>
+          </div>
+          <div class="asteant" ref="asteantListss">
+            <span class="el-icon-circle-plus bottom"></span>
+          </div>
         </li>
 
       </div>
     </div>
     <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="centerDialogVisible = false" class="quedibng">发布</el-button>
+      <el-button type="primary" @click="quedibng" class="quedibng">确定</el-button>
     </span>
   </el-dialog>
 
-<!-- 删除队员弹出框 -->
-
-  <el-dialog title="删除值保队员" :visible.sync="centerDialogVisibles" width="45%">
-   <div class="xiahuaxian"></div>
+<!-- 新增队员弹出框 -->
+  <el-dialog title="添加值保队员" :visible.sync="centerDialogVisibless" width="45%" :lock-scroll="false">
+    <div class="xiahuaxian"></div>
     <div class="center-top">
       <div class="titerlser">已选择:</div>
-      <div class="tags">
-        <img src="../../../../assets/值保商首页/icon_person_03.gif" alt=""><span>王某某</span><i class="el-icon-circle-close rightdelr"></i>
-      </div>
-      <div class="tags">
-        <img src="../../../../assets/值保商首页/icon_person_03.gif" alt=""><span>王某某</span><i class="el-icon-circle-close rightdelr"></i>
-      </div>
-      <div class="tags">
-        <img src="../../../../assets/值保商首页/icon_person_03.gif" alt=""><span>王某某</span><i class="el-icon-circle-close rightdelr"></i>
+      <div class="tags" v-for="(item,index) in pullteantList" :key="index">
+        <img src="../../../../assets/值保商首页/icon_person_03.gif" alt=""><span>{{item.real_name}}</span><i class="el-icon-circle-close rightdelr" @click="deltepullteans(index)"></i>
       </div>
     </div>
     <div class="center-dyxz">
@@ -276,17 +245,54 @@
            <i class="el-icon-search sous"></i>
       </div>
       <div class="center-dyxz-center">
-        <li class="center-dyxz-center-li">
+        <li class="center-dyxz-center-li" v-for="(item,index) in TeanminstrList" :key="index" @click="teanmistrs(index,item.tp_reg_id,item)" >
           <div class="center-dyxz-center-li-top">
             <img src="../../../../assets/值保商首页/icon_person_03.gif" alt="">
             <div  class="center-dyxz-center-li-right">
-              <span>张某某</span><br>
-            <span>男<span>27</span>岁</span>
+              <span>{{item.real_name}}</span><br>
+            <span>{{item.sex == 0?"男":"女"}}<span>{{item.age}}</span>岁</span>
             </div>
           </div>
-          <p><span>加入时间:</span>2017-11-21</p>
-          <p>广东省深圳市南山区特发信息港A栋8楼</p>
-          <span class="el-icon-circle-check bottom"></span>
+          <p><span>加入时间:</span>{{item.reg_time|time}}</p>
+          <p>{{item.reg_country +"-"+ item.reg_prov+"-"+item.reg_city}}</p>
+          <div class="pullteant" ref="asteantLists">
+            <span class="el-icon-circle-check bottom"></span>
+          </div>
+          <div class="asteant" ref="asteantListss">
+            <span class="el-icon-circle-plus bottom"></span>
+          </div>
+        </li>
+
+      </div>
+    </div>
+    <span slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="quedibngs" class="quedibng">确定</el-button>
+    </span>
+  </el-dialog>
+<!-- 删除队员弹出框 -->
+
+  <el-dialog title="删除值保队员" :visible.sync="centerDialogVisibles" width="45%" :lock-scroll="false">
+   <div class="xiahuaxian"></div>
+
+    <div class="center-dyxz">
+      <div class="center-dyxz-top">
+          <el-button type="primary prim">全部</el-button>
+           <el-input placeholder="请输入内容" v-model="input3" class="input3">
+           </el-input>
+           <i class="el-icon-search sous"></i>
+      </div>
+      <div class="center-dyxz-center">
+        <li class="center-dyxz-center-li" v-for="(item,index) in playersList" :key="index">
+          <div class="center-dyxz-center-li-top">
+            <img src="../../../../assets/值保商首页/icon_person_03.gif" alt="">
+            <div  class="center-dyxz-center-li-right">
+              <span>{{item.real_name}}</span><br>
+            <span>{{item.sex == 0?"男":"女"}}<span>{{item.age}}</span>岁</span>
+            </div>
+          </div>
+          <p><span>加入时间:</span>{{item.reg_time|time}}</p>
+          <p>{{item.reg_country +"-"+ item.reg_prov+"-"+item.reg_city}}</p>
+          <span class="el-icon-error bottom" @click="deleret(item.tp_reg_id,index)"></span>
         </li>
 
       </div>
@@ -301,11 +307,20 @@
 <script>
 import "./tenant.css";
 import api from "../../../common/api.js";
+import upaldimg from "../../../common/upladimg.vue";
+import imagesr from "../../../common/image.vue";
 export default {
   data() {
     return {
+      iconnumbers: 0,
+      tp_reg_id: "",
+      playersList: [],
+      tp_reg_idList: [],
+      pullteantList: [],
+      TeanminstrList: [],
       checkges: false,
       centerDialogVisibles: false,
+      centerDialogVisibless: false,
       input3: "",
       centerDialogVisible: false,
       dialogFormVisibles: false,
@@ -409,7 +424,11 @@ export default {
       businessprotectList: [],
       stesasder: "",
       teamId: "",
-      indexs: ""
+      indexs: "",
+      namelist: [],
+      names: [],
+      iconnumber: 0,
+      name: ""
     };
   },
   methods: {
@@ -434,11 +453,9 @@ export default {
       this.dialogVisible = true;
     },
     handleClose(index) {
-      console.log(index);
       this.checkedCities.splice(index, 1);
     },
     handleCheckedCitiesChange(val) {
-      console.log(val);
       for (var i = 0; i < val.length; i++) {
         if (val[i] == undefined) {
           val.splice(i, 1);
@@ -446,7 +463,6 @@ export default {
       }
     },
     checkcity(val) {
-      console.log(this.checkges);
       if (val == true) {
         this.checkedCities = ["全国"];
       } else {
@@ -494,7 +510,6 @@ export default {
       ];
     },
     hansdsefertfd(index) {
-      console.log(index);
       this.index = index;
       this.num++;
       switch (index) {
@@ -601,62 +616,44 @@ export default {
         .then(res => {
           console.log(res);
           if (res.data.code == 0) {
-            // 将值保队信息存入到vuex中
-            this.$store.commit("businessprotectList", res.data.attachment);
-            // 将信息存到本地
-            window.sessionStorage.setItem(
-              "businessprotectList",
-              JSON.stringify(res.data.attachment)
-            );
+            this.businessprotectList = res.data.attachment;
+            this.stesasder = this.businessprotectList.length;
           }
+          console.log(this.businessprotectList);
         });
     },
     // 获取值保商id
     getuseid: function() {
-      this.id = this.$store.getters.getbusinessId;
-      if (this.id == "") {
-        const data = JSON.parse(window.localStorage.getItem("businessid"));
-        this.$store.commit("business", data);
-        this.id = this.$store.getters.getbusinessId;
-      }
+      this.id = window.sessionStorage.getItem("id");
     },
-    // 新增值保队
     addbuiseness: function() {
-      // this.$http
-      //   .post(
-      //     api.apihost + "ServiceTeamInfo",
-      //     {
-      //       action: 0,
-      //       team_name: this.inputName2,
-      //       reg_id: this.id,
-      //       team_range: this.checkedCities
-      //     },
-      //     {
-      //       headers: {
-      //         "Content-Type": "application/x-www-form-urlencoded"
-      //       }
-      //     }
-      //   )
-      //   .then(res => {
-      //     console.log(res);
-      //   });
+      this.$http
+        .post(
+          api.apihost + "ServicePlayerManager",
+          {
+            reg_id: this.id,
+            action: 2
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          if (res.data.code == 0) {
+            this.TeanminstrList = res.data.attachment.undeployed;
+          }
+        });
       this.dialogFormVisibles = false;
       this.centerDialogVisible = true;
+      this.tp_reg_idList = [];
+      this.pullteantList = [];
     },
-    // 获取值保队信息映射到视图
-    getbusinessprotectList: function() {
-      this.businessprotectList = this.$store.getters.getbusinessprotectList;
-      if (this.businessprotectList.length == 0) {
-        const busList = JSON.parse(
-          window.sessionStorage.getItem("businessprotectList")
-        );
-        this.$store.commit("businessprotectList", busList);
-      }
-      this.businessprotectList = this.$store.getters.getbusinessprotectList;
-      this.stesasder = this.businessprotectList.length;
-      console.log(this.businessprotectList);
-    },
-    delteam: function(id, index) {
+
+    delteam: function(id, index, item) {
+      console.log(item);
+      this.name = item.team_name;
       this.dialogVisibless = true;
       this.teamId = id;
       this.indexs = index;
@@ -679,31 +676,245 @@ export default {
         .then(res => {
           console.log(res);
           if (res.data.code == 0) {
-            // 删除vuex中的数据
-            this.$store.commit("removebusinessprotectList", this.indexs);
-            // 删除存储在本地的数据
-            const req = JSON.parse(
-              window.sessionStorage.getItem("businessprotectList")
-            );
-
-            const reqs = req.splice(this.indexs, 1);
-            window.sessionStorage.setItem(
-              "businessprotectList",
-              JSON.stringify(req)
-            );
-            this.businessprotectList = this.$store.getters.getbusinessprotectList;
-            this.stesasder = this.businessprotectList.length;
+            this.businessprotectList.splice(this.indexs, 1);
+            this.getuseifonData();
           }
         });
       this.dialogVisibless = false;
+    },
+    teanmistr: function(index, id, item) {
+      this.$refs.asteantListss[index].className = "pullteant";
+      this.$refs.asteantList[index].className = "pullteant asteant";
+
+      this.tp_reg_idList.push(id);
+      this.pullteantList.push(this.TeanminstrList[index]);
+    },
+    deltepulltean: function(index) {
+      for (let i = 0; i < this.TeanminstrList.length; i++) {
+        if (this.tp_reg_idList[index] == this.TeanminstrList[i].tp_reg_id) {
+          this.$refs.asteantList[i].className = "pullteant";
+          // this.$refs.asteantLists[i].className = "pullteant";
+          this.$refs.asteantListss[i].className = "asteant";
+        }
+      }
+      this.pullteantList.splice(index, 1);
+      this.tp_reg_idList.splice(index, 1);
+    },
+    teanmistrs: function(index, id, item) {
+      if (this.$refs.asteantLists[index].className == "pullteant asteant") {
+        this.$refs.asteantLists[index].className = "pullteant ";
+        this.$refs.asteantListss[index].className = "pullteant asteant";
+        for (let i = 0; i < this.pullteantList.length; i++) {
+          if (this.pullteantList[i] == item) {
+            this.pullteantList.splice(i, 1);
+          }
+        }
+      } else {
+        this.$refs.asteantLists[index].className = "pullteant asteant";
+        this.$refs.asteantListss[index].className = "pullteant";
+        this.tp_reg_idList.push(id);
+        this.pullteantList.push(this.TeanminstrList[index]);
+      }
+    },
+    deltepullteans: function(index) {
+      for (let i = 0; i < this.TeanminstrList.length; i++) {
+        if (this.tp_reg_idList[index] == this.TeanminstrList[i].tp_reg_id) {
+          // this.$refs.asteantList[i].className = "pullteant";
+          this.$refs.asteantLists[i].className = "pullteant";
+          this.$refs.asteantListss[i].className = "asteant";
+        }
+      }
+      this.pullteantList.splice(index, 1);
+      this.tp_reg_idList.splice(index, 1);
+    },
+    quedibng: function() {
+      this.$http
+        .post(
+          api.apihost + "ServiceTeamInfo",
+          {
+            action: 0,
+            team_name: this.inputName2,
+            reg_id: this.id,
+            team_range: this.checkedCities,
+            tp_reg_ids: this.tp_reg_idList
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          if (res.data.code == 0) {
+            this.$message({
+              message: "值保队新增成功",
+              type: "success"
+            });
+            this.getuseifonData();
+          } else {
+            this.$message.error("值保队新增失败");
+          }
+        });
+      this.centerDialogVisible = false;
+    },
+    // 新增队员
+    addplayers: function(id) {
+      this.teamId = id;
+      this.$http
+        .post(
+          api.apihost + "ServicePlayerManager",
+          {
+            reg_id: this.id,
+            action: 2
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          if (res.data.code == 0) {
+            this.TeanminstrList = res.data.attachment.undeployed;
+          }
+        });
+      this.centerDialogVisibless = true;
+      this.tp_reg_idList = [];
+      this.pullteantList = [];
+    },
+    // 新增值保队值保队员
+    quedibngs: function() {
+      this.$http
+        .post(
+          api.apihost + "ServiceTeamPlayer",
+          {
+            action: 0,
+            team_id: this.teamId,
+            tp_reg_ids: this.tp_reg_idList
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          if (res.data.code == 0) {
+            this.getuseifonData();
+            this.$message({
+              message: "值保队新增成功",
+              type: "success"
+            });
+          }
+        });
+      this.centerDialogVisibless = false;
+    },
+    deltplay: function(id) {
+      this.teamId = id;
+      this.$http
+        .post(
+          api.apihost + "ServiceTeamInfo",
+          {
+            action: 2,
+            team_id: id
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          if (res.data.code == 0) {
+            this.playersList = res.data.attachment[0].players;
+          }
+        });
+      this.centerDialogVisibles = true;
+    },
+    amend: function(id) {
+      this.dialogFormVisible = true;
+      this.teamId = id;
+    },
+    revamp: function() {
+      this.$http
+        .post(
+          api.apihost + "ServiceTeamInfo",
+          {
+            action: 3,
+            team_name: this.inputName,
+            team_id: this.teamId,
+            team_range: this.checkedCities
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          if (res.data.code == 0) {
+            this.getuseifonData();
+          }
+        });
+      this.dialogFormVisible = false;
+    },
+    deleret: function(id, index) {
+      this.$http
+        .post(
+          api.apihost + "ServiceTeamPlayer",
+          {
+            action: 1,
+            team_id: this.teamId,
+            tp_reg_id: id
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          if (res.data.code == 0) {
+            this.playersList.splice(index, 1);
+            this.getuseifonData();
+          }
+        });
+    },
+    lunbo: function(arr, idnex) {
+      if (this.iconnumber == 0) {
+        this.names = arr;
+      }
+      const arrs = this.names.slice(4 * this.iconnumber + 4);
+
+      this.businessprotectList[idnex].players = arrs;
+
+      this.$refs.icon_left[idnex].className = "el-icon-caret-left icon_left";
+      this.iconnumber++;
+      console.log(this.iconnumber);
+    },
+    lunbos: function(arr, index) {
+      console.log(this.iconnumber);
+      this.iconnumber--;
+      console.log(this.iconnumber);
+      const arrs = this.names.slice(4 * this.iconnumber);
+      this.businessprotectList[index].players = arrs;
+      if (arrs.length == this.names.length) {
+        this.$refs.icon_left[index].className = "el-icon-caret-left";
+      }
+
+      if (this.iconnumber == 0) {
+        this.getuseifonData();
+      }
+      console.log(this.iconnumber);
     }
   },
   mounted() {
     this.getuseid();
     this.getuseifonData();
-    this.getbusinessprotectList();
+  },
+  components: {
+    upaldimg,
+    imagesr
   }
 };
 </script>
-
-

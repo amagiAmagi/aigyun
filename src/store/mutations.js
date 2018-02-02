@@ -150,5 +150,17 @@ export default {
   removebusinessundeployed: function(state, index) {
     state.businessundeployed.splice(index, 1);
     console.log(state.businessundeployed);
+  },
+  // 获取无人机数据
+  setuavList: function(state, data) {
+    state.uavList = data;
+    console.log(state.uavList);
+  },
+  getuseifon: function(state, data) {
+    state.getifon[0] = data;
+  },
+
+  setfiightpath: function(state, data) {
+    state.fiightpath = data;
   }
 };

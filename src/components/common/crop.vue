@@ -20,8 +20,8 @@ export default {
   data() {
     return {
       ruleForm: {
-        value: "",
-        city: "",
+        value: "无",
+        city: "无",
         options: [
           {
             value: "0",
@@ -46,6 +46,10 @@ export default {
           {
             value: "5",
             label: "其他作物"
+          },
+          {
+            value: "6",
+            label: "无"
           }
         ],
         cityOptions: []
@@ -237,6 +241,9 @@ export default {
           { value: "21", label: "椰子" },
           { value: "22", label: "龙舌兰麻" }
         ];
+      }
+      if (val == 6) {
+        this.ruleForm.cityOptions = [{ value: "0", label: "无" }];
       }
     },
     croptify: function() {

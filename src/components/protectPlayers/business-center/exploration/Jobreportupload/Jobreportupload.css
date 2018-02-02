@@ -1,0 +1,118 @@
+.Jobreportupload {
+  width: 1200px;
+  /* height: 900px; */
+  margin: 0 auto;
+  padding-top: 70px;
+  /* overflow-x: hidden; */
+}
+.left {
+  width: 312px;
+  background-color: #4c5e70;
+  padding: 22px 14px;
+  position: fixed;
+  top: 70px;
+  height: 100%;
+}
+.povrtser {
+  width: 300px;
+  height: 310px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 0 6px;
+}
+.povrtser-top {
+  width: 300px;
+  height: 136px;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+.povrtser-top img {
+  margin-top: 10px;
+}
+.povrtser-top h5 {
+  margin: 0;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-left: -10px;
+}
+.povrtser-bottom {
+  width: 300px;
+  height: 174px;
+}
+.povrtser-bottom p {
+  margin: 0;
+  margin-top: 12px;
+}
+.povrtser-bottom p span {
+  display: inline-block;
+  width: 68px;
+  text-align: center;
+}
+.povrtser-bottom p span:first-of-type {
+  text-align: left;
+  width: 60px;
+}
+.lastntp {
+  color: #d4d9d8;
+}
+.survey {
+  width: 850px;
+  /* height: 800px;
+  background-color: red; */
+  margin-left: 350px;
+}
+.survey-heder {
+  height: 60px;
+  line-height: 60px;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+}
+.survey-center {
+  width: 782px;
+  padding-left: 68px;
+  padding-top: 20px;
+}
+.povrstype {
+  margin-top: 20px;
+}
+.porvs {
+  display: inline-block;
+  width: 166px;
+  text-align: right;
+}
+.porvs i {
+  color: red;
+}
+.checkboxst {
+  display: inline-block;
+  position: relative;
+}
+.checkboxst input {
+  width: 100px;
+  position: absolute;
+  right: -120px;
+  top: -14px;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  height: 30px;
+}
+.inpuer {
+  width: 448px;
+  height: 36px;
+}
+.wenbenyu {
+  width: 452px;
+  position: relative;
+  left: 166px;
+  top: -20px;
+}
+.poveupdate {
+  position: relative;
+  left: 166px;
+  top: -20px;
+}
+.presents {
+  width: 190px;
+  position: relative;
+  left: 166px;
+}

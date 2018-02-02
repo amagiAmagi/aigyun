@@ -1,18 +1,19 @@
 <template>
 
   <div>
-    <select v-model="prov" @change="provs" >
+    <select v-model="prov" @change="provs" class="selectlast">
   		<option v-for="(option,index) in arr" :value="option.name" :key="index">
   			{{ option.name }}
   		</option>
     </select>
     -
-    <select v-model="city" @change="citys">
+    <select v-model="city" @change="citys" class="selectlast">
   		<option v-for="(option,index) in cityArr" :value="option.name" :key="index">
   			{{ option.name }}
   		</option>
-  	</select>
-    <select v-model="district" v-if="district" class="selectlast" @change="districts" v-show="false">
+    </select>
+    -
+    <select v-model="district" v-if="district" class="selectlast" @change="districts" >
   		<option v-for="(option,index) in districtArr" :value="option.name" :key="index">
   			{{ option.name }}
   		</option>
@@ -22,16 +23,16 @@
 </template>
 
 <style>
-select {
-  width: 116px;
+.selectlast {
+  width: 76px;
   height: 40px;
   font-size: 14px;
   border-radius: 5px;
 }
-.selectlast {
+/* .selectlast {
   width: 244px;
   margin-top: 10px;
-}
+} */
 </style>
 <script>
 import arrAll from "../../../../common/cityProv.js";

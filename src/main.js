@@ -7,7 +7,7 @@ import App from "./App";
 import router from "./router";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
-// import $ from 'jquery'
+import $ from "jquery";
 Vue.use(ElementUI);
 import "vue-event-calendar/dist/style.css"; //1.1.10之后的版本，css被放在了单独的文件中，方便替换
 import vueEventCalendar from "vue-event-calendar";

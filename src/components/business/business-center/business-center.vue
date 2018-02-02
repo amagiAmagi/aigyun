@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="busCenter">
        <router-view></router-view>
   </div>
 </template>

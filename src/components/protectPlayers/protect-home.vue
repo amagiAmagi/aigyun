@@ -3,7 +3,7 @@
     <div class="left">
       <gsxx></gsxx>
       <day></day>
-        <div class="tianqi">
+        <div class="tianqiss">
           <iframe allowtransparency="true" frameborder="0" width="312" height="96" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=1&z=1&t=0&v=0&d=2&bd=0&k=&f=&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=59493&w=312&h=96&align=center"></iframe>
         </div>
     </div>
@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style>
-.tianqi {
+.tianqiss {
   width: 312px;
   background-color: #fff;
   border-radius: 10px;

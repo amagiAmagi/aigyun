@@ -1,177 +1,148 @@
 <template>
-    <div class="register">
-      <div class="reg">
-        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="110px" class="demo-ruleForm">
-              <el-form-item prop="resource">
-                <!-- <div class="tatelt">
-                  请选择注册类型
-                </div> -->
-                <span v-show="ruleForm.role" class="role">*&nbsp;请选择注册类型</span>
-                  <ul class="audio">
-                    <li class="audio-n" @click="bdtwo1" ref="list1">
-                      <!-- <img src="../../assets/11.png" alt=""> -->
-                     <i class="el-icon-goods"></i>  农户
-                    </li>
-                     <!-- <li class="audio-n" @click="bdtwo2" ref="list2">
-                     <i class="el-icon-goods"></i>  值保队员
-                    </li> -->
-                     <li class="audio-n" @click="bdtwo3" ref="list3">
-                      <!-- <img src="../../assets/33.png" alt=""> -->
-                     <i class="el-icon-goods"></i> 值保商
-                    </li>
-                  </ul>
-              </el-form-item>
-               <el-form-item label="用户名" class="names">
-                   <el-input  placeholder="手机号/邮箱" v-model="ruleForm.name"></el-input>
-              </el-form-item>
 
-               <el-form-item label="密码" prop="pass" class="names">
-    <el-input type="password" v-model="ruleForm.pass" auto-complete="off"></el-input>
-  </el-form-item>
-  <el-form-item label="确认密码" prop="checkPass" class="names">
-    <el-input type="password" v-model="ruleForm.checkPass" auto-complete="off"></el-input>
-  </el-form-item>
-   <el-form-item label="验证码" prop="name" class="shortt">
-        <el-input placeholder="验证码" ref="short" v-model="ruleForm.verify"></el-input>
-                <el-button type="success" class="auths" ref="auth"  @click="yanzheng">获取验证码</el-button>
-      </el-form-item>
-        <el-form-item>
-           <el-button type="primary" class="shortss" @click="enroll">注册账号</el-button>
-           <el-button type="info" plain class="zhuces" @click="login">返回登录</el-button>
-        </el-form-item>
-        </el-form>
+  <div class="register">
+    <div class="bg">
+      <div>
+        <table cellspacing="0" cellpadding="0">
+          <tr>
+            <td>
+              <img src="../../assets/bg-login.png" alt="" />
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
+    <div class="wrap">
+      <div class="logo">
+        <img src="../../assets/logo-login.png" />
+      </div>
+      <div class="signup">
+        <div class="title">
+          <span class="t01 action" ref="t01" @click="t01">农户</span>
+          <span class="t01" ref="t02" @click="t02">植保商</span>
+        </div>
+        <ul class="signup-ul">
+          <li class="signup-ul-li">
+            <label for="username">用户名：</label>
+            <input type="text" id="username" placeholder="邮箱／手机号" v-model="ruleForm.name">
+          </li>
+          <li class="signup-ul-li">
+            <label for="password">密码：</label>
+            <input type="password" id="password" placeholder="请输入密码" v-model="ruleForm.pass">
+          </li>
+          <li class="signup-ul-li">
+            <label for="passwordagain">确认密码：</label>
+            <input type="password" id="passwordagain" placeholder="请再次输入密码" v-model="ruleForm.checkPass">
+          </li>
+          <li class="signup-ul-li">
+            <label for="discode">验证码：</label>
+            <input type="text" id="discode" placeholder="验证码" ref="short" v-model="ruleForm.verify">
+            <span class="code" ref="auth" @click="yanzheng">发送验证码</span>
+          </li>
+          <li class="signup-ul-li">
+            <el-button type="primary" class="signupbutton" @click="enroll">注册账号</el-button>
+            <el-button class="signupbutton" @click="login">返回登录</el-button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
 
 </template>
 
 <script>
 // import { Message } from "element-ui";
 import "./register.css";
+import api from "../common/api.js";
 export default {
   data() {
-    var validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
-      } else {
-        if (this.ruleForm.checkPass !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
-        }
-        callback();
-      }
-    };
-    var validatePass2 = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.pass) {
-        callback(new Error("两次输入密码不一致!"));
-      } else {
-        callback();
-      }
-    };
     return {
       ruleForm: {
         resource: "",
         pass: "",
         checkPass: "",
-        id: 0,
+        id: 1,
         name: "",
         role: false,
         verify: "",
         yanz: ""
-      },
-      rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }]
       }
+      // rules: {
+      //   pass: [{ validator: validatePass, trigger: "blur" }],
+      //   checkPass: [{ validator: validatePass2, trigger: "blur" }]
+      // }
     };
   },
   methods: {
     login: function() {
       location.href = "#/login";
     },
-    bdtwo1: function() {
-      this.$refs.list1.className = "audio-n active";
-      this.$refs.list3.className = "audio-n";
-      this.ruleForm.id = 1;
-      this.ruleForm.role = false;
-    },
-    bdtwo3: function() {
-      this.$refs.list3.className = "audio-n active";
-      this.$refs.list1.className = "audio-n";
-      this.ruleForm.id = 2;
-      this.ruleForm.role = false;
-      console.log(this.ruleForm.id);
-    },
     enroll: function() {
-      const _this = this;
-      if (this.ruleForm.id == 0) {
-        this.ruleForm.role = true;
+      if (this.ruleForm.name.indexOf("@") > 0) {
+        if (this.ruleForm.pass == this.ruleForm.checkPass) {
+          this.$http
+            .post(
+              api.apihost + "SignUp",
+              {
+                role: this.ruleForm.id,
+                phone_num: "",
+                email_addr: this.ruleForm.name,
+                password: this.ruleForm.pass
+              },
+              {
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded"
+                }
+              }
+            )
+            .then(fres => {
+              console.log(res);
+              if (res.data.code == 0) {
+                this.$message({
+                  message: "恭喜你,注册成功",
+                  type: "success"
+                });
+              } else {
+                this.$message.error("注册失败");
+              }
+            })
+            .catch(function(err) {
+              console.log(err);
+            });
+        }
       } else {
-        this.ruleForm.role = false;
-        if (this.ruleForm.name.indexOf("@") > 0) {
-          if (this.ruleForm.pass == this.ruleForm.checkPass) {
-            this.$http
-              .post(
-                "http://10.10.3.32:8080/AigyunWeb/SignUp",
-                {
-                  role: this.ruleForm.id,
-                  phone_num: "",
-                  email_addr: this.ruleForm.name,
-                  password: this.ruleForm.pass
-                },
-                {
-                  headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                  }
+        if (this.ruleForm.pass == this.ruleForm.checkPass) {
+          var string1 = this.ruleForm.name.replace(/\s/g, "");
+          this.$http
+            .post(
+              api.apihost + "SignUp",
+              {
+                role: this.ruleForm.id,
+                phone_num: string1,
+                password: this.ruleForm.pass,
+                email_addr: ""
+              },
+              {
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded"
                 }
-              )
-              .then(function(res) {
-                console.log(res);
-                if (res.data.code == 0) {
-                  _this.$message({
-                    message: "恭喜你,注册成功",
-                    type: "success"
-                  });
-                } else {
-                }
-              })
-              .catch(function(err) {
-                console.log(err);
-              });
-          }
-        } else {
-          if (this.ruleForm.pass == this.ruleForm.checkPass) {
-            var string1 = this.ruleForm.name.replace(/\s/g, "");
-            this.$http
-              .post(
-                "http://10.10.3.32:8080/AigyunWeb/SignUp",
-                {
-                  role: this.ruleForm.id,
-                  phone_num: string1,
-                  password: this.ruleForm.pass,
-                  email_addr: ""
-                },
-                {
-                  headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                  }
-                }
-              )
-              .then(function(res) {
-                console.log(res);
-                if (res.data.code == 0) {
-                  _this.$message({
-                    message: "恭喜你，注册成功",
-                    type: "success"
-                  });
-                } else {
-                }
-              })
-              .catch(function(err) {
-                console.log(err);
-              });
-          }
+              }
+            )
+            .then(res => {
+              console.log(res);
+              if (res.data.code == 0) {
+                this.$message({
+                  message: "恭喜你，注册成功",
+                  type: "success"
+                });
+              } else {
+              }
+            })
+            .catch(function(err) {
+              console.log(err);
+            });
         }
       }
     },
@@ -206,7 +177,7 @@ export default {
         if (this.ruleForm.pass == this.ruleForm.checkPass) {
           this.$http
             .post(
-              "http://10.10.3.32:8080/AigyunWeb/SendVerifyCode",
+              api.apihost + "SendVerifyCode",
               {
                 phone_num: "",
                 email_addr: this.ruleForm.name,
@@ -234,7 +205,7 @@ export default {
           var string1 = this.ruleForm.name.replace(/\s/g, "");
           this.$http
             .post(
-              "http://10.10.3.32:8080/AigyunWeb/SendVerifyCode",
+              api.apihost + "SendVerifyCode",
               {
                 phone_num: string1,
                 type: 0,
@@ -258,6 +229,16 @@ export default {
             });
         }
       }
+    },
+    t01: function() {
+      this.$refs.t01.className = "t01 action";
+      this.$refs.t02.className = "t01";
+      this.ruleForm.id = 1;
+    },
+    t02: function() {
+      this.$refs.t02.className = "t01 action";
+      this.$refs.t01.className = "t01";
+      this.ruleForm.id = 2;
     }
   },
   beforeUpdate() {

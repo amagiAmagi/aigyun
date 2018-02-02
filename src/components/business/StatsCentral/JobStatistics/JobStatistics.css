@@ -1,0 +1,292 @@
+.left {
+  width: 312px;
+  background-color: #4c5e70;
+  padding: 22px 14px;
+  position: fixed;
+  top: 70px;
+  height: 100%;
+}
+
+.left-heder {
+  width: 260px;
+  height: 380px;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 0 26px;
+}
+
+.left-heder-top {
+  height: 46px;
+  border-bottom: 1px solid #ccc;
+  line-height: 46px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.dateoption {
+  width: 260px;
+  height: 64px;
+  margin-top: 20px;
+  color: #6a6f70;
+}
+
+.dateoption .el-range-editor.el-input__inner {
+  width: 260px;
+}
+
+.dateoption-heder {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.porvlot {
+  width: 100%;
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.uvaprimary {
+  width: 110px;
+  height: 40px;
+}
+
+.uvaprimary.el-button {
+  margin: 0;
+  padding: 0;
+  margin-left: 70px;
+  margin-top: 20px;
+}
+
+.left-buttom {
+  width: 286px;
+  height: 250px;
+  background-color: #fff;
+  margin-top: 20px;
+  border-radius: 5px;
+  padding: 12px;
+}
+
+.left-buttom-li {
+  width: 142px;
+  height: 80px;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  float: left;
+  text-align: center;
+  padding-top: 2px;
+}
+
+.left-buttom-li:nth-of-type(2n) {
+  border-right: 0;
+}
+
+.footer {
+  border-bottom: 0;
+  font-size: 16px;
+}
+
+.left-buttom-li p {
+  margin: 0;
+  color: #838889;
+}
+
+.li-p-span span {
+  color: #0094ff;
+}
+
+.iconfion {
+  font-size: 36px;
+}
+
+.jobmessage {
+  width: 850px;
+  /* height: 900px; */
+  /* background-color: red; */
+  margin-left: 350px;
+}
+
+.jobmessage-heder {
+  width: 850px;
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #ccc;
+  font-size: 20px;
+  color: #86939e;
+}
+
+.echeartss {
+  width: 850px;
+  box-shadow: 0 0 2px 2px #ccc;
+  position: relative;
+}
+
+.echearts-heder {
+  width: 850px;
+  height: 48px;
+}
+
+.echearts-heder-li {
+  float: left;
+  width: 92px;
+  height: 28px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  margin-left: 10px;
+  text-align: center;
+  line-height: 28px;
+  color: #86939e;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.hederlist {
+  background-color: #0094ff;
+  color: #fff;
+}
+
+.dates {
+  width: 850px;
+  margin-top: 10px;
+  padding-left: 15px;
+  position: absolute;
+  z-index: 1;
+}
+
+.dates span {
+  cursor: pointer;
+}
+
+.date {
+  color: #0094ff;
+}
+
+.echearts-right {
+  width: 108px;
+  height: 76px;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 2px 2px #ccc;
+  right: 20px;
+  top: 110px;
+  padding: 24px 0;
+}
+
+.echearts-right span {
+  display: inline-block;
+  width: 108px;
+  text-align: center;
+  font-size: 14px;
+  color: #6b7a86;
+}
+
+.echearts-right span:nth-of-type(1) {
+  color: #000;
+  font-weight: 600;
+}
+
+.echearts-right span:nth-of-type(2) {
+  color: #0094ff;
+}
+
+.echearts-bottom {
+  margin-top: 20px;
+  display: flex;
+}
+
+#main {
+  box-shadow: 0 0 2px 2px #ccc;
+  float: left;
+}
+
+#pieright {
+  box-shadow: 0 0 2px 2px #ccc;
+  float: left;
+  margin-left: 20px;
+}
+
+.selectporvt {
+  height: 300px;
+  border-top: 1px solid #ccc;
+  margin-top: -30px;
+  padding: 0 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.selectporvt-li {
+  width: 156px;
+  height: 88px;
+  box-shadow: 0 0 2px 2px #ccc;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-right: 30px;
+  float: left;
+  padding: 6px;
+  position: relative;
+  cursor: pointer;
+}
+
+.selectporvt-li img {
+  width: 74px;
+  height: 58px;
+  border-radius: 8px;
+}
+
+.selectporvt-li-right {
+  width: 78px;
+  height: 58px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.selectporvt-li-right h5 {
+  margin: 0;
+  width: 78px;
+  height: 30px;
+  line-height: 16px;
+  margin-top: 10px;
+  color: #000;
+}
+
+.selectporvt-li-bottom {
+  font-size: 16px;
+  text-align: center;
+}
+
+.list {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 168px;
+  height: 100px;
+  border-radius: 10px;
+}
+.checks {
+  font-size: 60px;
+  color: #0094ff;
+  position: absolute;
+  top: 16px;
+  left: 60px;
+}
+.leisst {
+  width: 0;
+  height: 0;
+  display: none;
+}
+.taggo {
+  position: absolute;
+  right: 140px;
+  top: 60px;
+  z-index: 2;
+}
+.taggo img {
+  cursor: pointer;
+}

@@ -1,0 +1,143 @@
+.left {
+  width: 312px;
+  background-color: #4c5e70;
+  padding: 22px 14px;
+  position: fixed;
+  top: 70px;
+  height: 100%;
+}
+.being {
+  width: 312px;
+  height: 162px;
+  background-color: #fff;
+  border-radius: 6px;
+}
+.actives {
+  font-size: 20px;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 40px;
+  margin-left: 110px;
+}
+.gopper {
+  width: 100px;
+  height: 32px;
+}
+.gopper.el-button {
+  padding: 0;
+  margin-top: 10px;
+  margin-left: 106px;
+}
+.processs {
+  width: 850px;
+  margin-left: 350px;
+  color: #6c7c86;
+}
+.process-heders {
+  height: 60px;
+  line-height: 60px;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+}
+.process-orders {
+  width: 826px;
+  padding: 20px 12px;
+  box-shadow: 0 0 2px 2px #ccc;
+  padding-bottom: 0;
+  border-radius: 10px;
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.process-order-li {
+  width: 256px;
+  height: 246px;
+  margin-bottom: 28px;
+  float: left;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-right: 26px;
+}
+.process-order-li:nth-of-type(3n) {
+  margin-right: 0;
+}
+.process-order-li-heder {
+  height: 30px;
+  background-color: #d3dee3;
+  position: relative;
+}
+.process-order-li-heder span {
+  display: inline-block;
+  line-height: 30px;
+  font-size: 12px;
+  text-align: center;
+}
+.process-order-li-heder span:nth-of-type(1) {
+  width: 72px;
+  border-right: 1px solid #ccc;
+  height: 30px;
+  overflow: hidden;
+}
+.process-order-li-heder span:nth-of-type(2) {
+  width: 178px;
+  height: 30px;
+  position: absolute;
+}
+.process-order-li-center {
+  width: 216px;
+  padding: 20px;
+  height: 176px;
+  position: relative;
+}
+.process-order-li-center img {
+  width: 98px;
+  height: 74px;
+  border-radius: 8px;
+}
+.process-order-li-center-right {
+  width: 106px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+.process-order-li-center-right span {
+  display: inline-block;
+  line-height: 20px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+.croptare {
+  width: 214px;
+  height: 30px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+}
+.croptare span {
+  display: inline-block;
+  width: 104px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 14px;
+}
+.croptare span:first-child {
+  border-right: 1px solid #ccc;
+}
+.foutersgdhgdfe {
+  margin-top: 10px;
+}
+.foutersgdhgdfe img {
+  width: 40px;
+  height: 40px;
+  margin-left: 30px;
+}
+.ckshihi {
+  width: 110px;
+  height: 32px;
+  position: relative;
+  top: -16px;
+  left: 10px;
+}
+.ckshihi.el-button {
+  padding: 0;
+}

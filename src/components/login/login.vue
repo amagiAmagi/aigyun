@@ -1,38 +1,46 @@
 <template>
   <div class="login" ref="div">
-    <div class="aigyun">
-      <img src="../../assets/微信图片_20171124152421.png" alt="">
-    </div>
-    <div class="loginto">
-       <ul ref="ul" class="loginUl">
-       <li class="dl">
-    <el-form status-icon  label-width="100px" class="demo-ruleForm">
-      <el-form-item label="用户名" prop="name">
-        <el-input placeholder="账号/手机号/邮箱" v-model="name"></el-input>
-      </el-form-item>
-      <el-form-item label="密码" prop="pass" class="short">
-        <el-input type="password" placeholder="密码" auto-complete="off" v-model="pswd"></el-input>
-      </el-form-item>
-      <el-form-item label="验证码" prop="name" class="short">
-        <el-input placeholder="验证码" ref="short"></el-input>
-        <p class="pand" v-show="pand">* 验证码不正确</p>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" class="shorts"  @click="loginTo" v-loading="loading" >登录</el-button>
-      </el-form-item>
-      <el-button type="danger" class="forget">忘记密码？</el-button>
-      <el-button type="success" class="auth" ref="auth" @click="authTo">{{map}}</el-button>
-      <el-button type="info" plain class="zhuce" @click="register">注册账号</el-button>
-    </el-form>
-   </li>
-   <li class="dl">
-   <img src="../../assets/二维码.png"  alt="">
-   </li>
-   </ul>
-   <div class="mark" @click="cut" v-show="false">
-      <img src="../../assets/角标.png" alt="">
-    </div>
-    </div>
+    <!--  背景图片  -->
+	<div class="bg">
+	    <div>
+	        <table cellspacing="0" cellpadding="0">
+	            <tr>
+	                <td>
+	                    <img src="../../assets/bg-login.png" alt=""/>
+	                </td>
+	            </tr>
+	        </table>
+	    </div>
+  </div>
+  <!-- content -->
+	<div class="wrap">
+		<div class="logo">
+			<img src="../../assets/logo-login.png" />
+		</div>
+		<div class="loginto">
+      <ul class="loginto-ul">
+        <li class="loginto-ul-li">
+          <span><img src="../../assets/用户.png" alt=""></span><input type="text" placeholder="邮箱/用户名"  v-model="name">
+        </li>
+        <li class="loginto-ul-li">
+          <span><img src="../../assets/密码.png" alt=""></span><input type="password" placeholder="密码" v-model="pswd">
+        </li>
+        <li class="loginto-ul-li">
+          <span><img src="../../assets/验证码.png" alt=""></span><input type="text" placeholder="验证码" v-model="short"><span class="code" @click="authTo" ref="auth"> {{ map}}</span>
+        </li>
+        <el-button type="primary" class="loginbutton"  @click="loginTo" :disabled="disavled">登 录</el-button>
+        <img src="../../assets/loading.gif" alt="" class="login-loading" v-show="disavled">
+      </ul>
+			<div class="text">
+        <router-link to="/retrieve">找回密码</router-link>
+        <!-- <span class="textspan" @click="retrieve">找回密码</span> -->
+				<span> | </span>
+        <router-link to="/register">注册账号</router-link>
+        <!-- <span class="textspan" @click="register">注册账号</span> -->
+			</div>
+		</div>
+	</div>
+
 
   </div>
 </template>
@@ -42,6 +50,7 @@ import api from "../common/api.js";
 import post from "../../axios/post.js";
 import { mapMutations } from "vuex";
 import "./login.css";
+// import "../../assets/css/font_541692_2jubbhqzsfoxyldi/iconfont.css";
 export default {
   data() {
     return {
@@ -52,16 +61,24 @@ export default {
       name: "",
       loading: false,
       useifon: {},
-      dataIfon: []
+      dataIfon: [],
+      short: "",
+      disavled: false
     };
   },
   mounted() {
     this.authTo();
   },
   created() {
-    this.hashchange();
+    // this.hashchange();
   },
   methods: {
+    // register: function() {
+    //   location.href = "#/register";
+    // },
+    // retrieve: function() {
+    //   location.href = "#/retrieve";
+    // },
     //获取验证码
     authTo: function() {
       this.map = Math.floor(Math.random() * 10000);
@@ -72,12 +89,9 @@ export default {
         console.log(11111111111);
         console.log(this.map);
       }
-      this.$refs.auth.$el.innerText = this.map;
+      this.$refs.auth.innerHTML = this.map;
     },
-    //注册
-    register: function() {
-      location.href = "#/register";
-    },
+
     cut: function() {
       this.num++;
       if (this.num % 2 != 0) {
@@ -88,15 +102,13 @@ export default {
       }
     },
     loginTo: function() {
-      const val = this.$refs.short.$el.childNodes[1].value;
+      const val = this.short;
       const http = this.$http;
       const _this = this;
       if (val == this.map) {
         this.pand = false;
-        this.loading = true;
+        this.disavled = true;
         if (this.name.indexOf("@") > 0) {
-          this.loading = false;
-
           this.$http
             .post(
               api.apihost + "Login",
@@ -111,140 +123,37 @@ export default {
                 }
               }
             )
-            .then(function(res) {
-              console.log(res.data);
+            .then(res => {
+              this.disavled = false;
+              console.log(res);
               if (res.data.code == 0) {
+                window.sessionStorage.setItem("role", res.data.attachment.role);
+                window.sessionStorage.setItem("id", res.data.attachment.reg_id);
                 if (res.data.attachment.role == 1) {
-                  // location.href = "#/peasant";
+                  location.href = "#/peasant";
                 }
                 if (res.data.attachment.role == 2) {
                   // 将值保商id存入到vuex中
-                  _this.$store.commit("business", res.data.attachment.reg_id);
+                  this.$store.commit("business", res.data.attachment.reg_id);
                   // 将值保商id存入loacl中
-                  window.localStorage.setItem(
-                    "businessid",
+                  window.sessionStorage.setItem(
+                    "id",
                     res.data.attachment.reg_id
                   );
 
-                  // 获取值保商首页信息
-
-                  _this.$http
-                    .post(
-                      api.apihost + "GetUserIndexInfo",
-                      {
-                        reg_id: res.data.attachment.reg_id
-                      },
-                      {
-                        headers: {
-                          "Content-Type": "application/x-www-form-urlencoded"
-                        }
-                      }
-                    )
-                    .then(res => {
-                      console.log(res);
-                      // 将值保商头像和名字存入vuex中
-                      const useifon = {
-                        avatar_url: res.data.attachment.avatar_url,
-                        ppsp_name: res.data.attachment.ppsp_name,
-                        name_leader: res.data.attachment.real_name_leader
-                      };
-                      _this.$store.commit("businessnameuse", useifon);
-                      // 将值保商头像和名字存入loacl中
-                      window.localStorage.setItem(
-                        "ifon",
-                        JSON.stringify(useifon)
-                      );
-                      // 将值保商的值保队数据存入vuex中
-                      _this.$store.commit(
-                        "businessprasData",
-                        res.data.attachment.service_teams
-                      );
-                      // 将值保商的值保队数据存入loacl中
-                      window.localStorage.setItem(
-                        "businessprasData",
-                        JSON.stringify(res.data.attachment.service_teams)
-                      );
-                      // 将值保商的质保队员数据存入vuex中
-                      _this.$store.commit(
-                        "businessteam",
-                        res.data.attachment.service_players
-                      );
-                      // 将值保商的值保队数据存入loacl中
-                      window.localStorage.setItem(
-                        "businessteam",
-                        JSON.stringify(res.data.attachment.service_players)
-                      );
-                      // 将值保商订单状态存入vuex中
-                      _this.$store.commit(
-                        "businesstasks",
-                        res.data.attachment.tasks
-                      );
-                      // 将值保商订单状态存入loacl中
-                      window.localStorage.setItem(
-                        "businesstasks",
-                        JSON.stringify(res.data.attachment.tasks)
-                      );
-                      // 将值保商无人机状态存入vuex中
-                      _this.$store.commit(
-                        "businessuavs",
-                        res.data.attachment.uavs
-                      );
-                      // 将值保商无人机状态存入loacl中
-                      window.localStorage.setItem(
-                        "businessuavs",
-                        JSON.stringify(res.data.attachment.uavs)
-                      );
-                      // 将值保商总面积存入vuex中
-                      _this.$store.commit(
-                        "businesswork_ares",
-                        res.data.attachment.work_ares
-                      );
-                      // 将值保商总面积存入loacl中
-                      window.localStorage.setItem(
-                        "businesswork_ares",
-                        JSON.stringify(res.data.attachment.work_ares)
-                      );
-                      // 将值保商总飞行距离存入vuex中
-                      _this.$store.commit(
-                        "businesswork_length",
-                        res.data.attachment.work_length
-                      );
-                      // 将值保商总飞行距离存入loacl中
-                      window.localStorage.setItem(
-                        "businesswork_length",
-                        JSON.stringify(res.data.attachment.work_length)
-                      );
-                      // 将值保商无人机总数存入vuex中
-                      _this.$store.commit(
-                        "num_uavs",
-                        res.data.attachment.num_uavs
-                      );
-                      // 将值保商无人机总数距离存入loacl中
-                      window.localStorage.setItem(
-                        "num_uavs",
-                        JSON.stringify(res.data.attachment.num_uavs)
-                      );
-                      // 将值保商评分总数存入vuex中
-                      _this.$store.commit("rate", res.data.attachment.rate);
-                      // 将值保商评分距离存入loacl中
-                      window.localStorage.setItem(
-                        "rate",
-                        JSON.stringify(res.data.attachment.rate)
-                      );
-                      location.href = "#/business";
-                    });
+                  location.href = "#/business";
                 }
                 if (res.data.attachment.role == 3) {
-                  // location.href = "#/protect";
+                  location.href = "#/protect";
                 }
               } else {
+                this.$message.error("登录失败");
               }
             })
             .catch(function(err) {
               console.log(err);
             });
         } else {
-          this.loading = false;
           var string1 = this.name.replace(/\s/g, "");
           this.$http
             .post(
@@ -260,97 +169,33 @@ export default {
                 }
               }
             )
-            .then(function(res) {
+            .then(res => {
+              this.disavled = false;
               console.log(res);
               if (res.data.code == 0) {
+                window.sessionStorage.setItem("id", res.data.attachment.reg_id);
+                window.sessionStorage.setItem("role", res.data.attachment.role);
                 // 将农户id存储在vuex
-                _this.useifon = {
+                this.useifon = {
                   reg_id: res.data.attachment.reg_id
                 };
-                _this.$store.commit("setuseifon", _this.useifon);
-                // /将id存储在localStorage;
-                window.localStorage.setItem(
-                  "id",
-                  JSON.stringify(_this.useifon)
-                );
+                this.$store.commit("setuseifon", this.useifon);
+                // /将id存储在sessionStorage;
+                window.sessionStorage.setItem("id", res.data.attachment.reg_id);
+
                 if (res.data.attachment.role == 1) {
-                  http
-                    .post(
-                      api.apihost + "GetUserIndexInfo",
-                      {
-                        reg_id: res.data.attachment.reg_id
-                      },
-                      {
-                        headers: {
-                          "Content-Type": "application/x-www-form-urlencoded"
-                        }
-                      }
-                    )
-                    .then(res => {
-                      console.log(res.data);
-                      // 将农户地块数量存到vuex
-                      _this.$store.commit("peasant", res.data.num_fields);
-                      // 将农户地块数量存到loacl
-                      // window.localStorage.setItem("num", res.data.num_fields);
-                      window.localStorage.num = res.data.attachment.num_fields;
-                      // 将农户地块信息存储vuex;
-                      _this.dataIfon = res.data.attachment.fields;
-                      _this.$store.commit("setusepolt", _this.dataIfon);
-                      // 存到loacl去
-                      const list = JSON.stringify(res.data.attachment.fields);
-                      window.localStorage.setItem("peasantList", list);
-                      // 将农户头像和名字存储vuex
-                      _this.$store.commit("setuseifon", {
-                        url: res.data.attachment.avatar_url,
-                        name: res.data.attachment.real_name
-                      });
-                      // _this.types.SET_USEIFON({
-                      //   url: res.data.attachment.avatar_url,
-                      //   name: res.data.attachment.real_name
-                      // });
-                      // 将农户头像和名字存储到loacl;
-                      window.localStorage.setItem(
-                        "name",
-                        JSON.stringify({
-                          url: res.data.attachment.avatar_url,
-                          name: res.data.attachment.real_name
-                        })
-                      );
-
-                      // 将农户值保统计信息存储在vuex中;
-                      _this.$store.commit(
-                        "setuseindex",
-                        res.data.attachment.stats
-                      );
-                      // _this.types.SET_USEINDEX({
-                      //   stats: res.data.attachment.stats,
-                      //   num_stats: res.data.attachment.num_stats
-                      // });
-
-                      // 将农户值保流程数据信息存储在vuex中;
-                      _this.$store.commit("setplresee", {
-                        num_tasks: res.data.attachment.num_tasks,
-                        tasks: res.data.attachment.tasks
-                      });
-                      // _this.types.SET_USEPROCESSPLOT({
-                      //   num_tasks: res.data.attachment.num_tasks,
-                      //   tasks: res.data.attachment.tasks
-                      // });
-
-                      // 跳转到农户首页
-                      if (res.data.code == 0) {
-                        location.href = "#/peasant";
-                      }
-                    });
+                  window.location.href = "#/peasant";
                 }
                 if (res.data.attachment.role == 2) {
                   console.log(res);
-                  // location.href = "/business";
+                  location.href = "#/business";
                 }
                 if (res.data.attachment.role == 3) {
-                  // location.href = "#/protect";
+                  console.log(res);
+                  location.href = "#/protect";
                 }
               } else {
+                this.$message.error("登录失败");
               }
             })
             .catch(function(err) {
@@ -392,7 +237,7 @@ export default {
       window.history.forward(1);
     }
   },
-  beforeUpdate() {
+  Update() {
     if (/^1[3|4|5|8|9|7]/.test(this.name)) {
       this.downkey();
     }

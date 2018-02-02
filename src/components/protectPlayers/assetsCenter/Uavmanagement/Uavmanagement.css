@@ -1,0 +1,341 @@
+.left {
+  width: 312px;
+  background-color: #4c5e70;
+  padding: 22px 14px;
+  position: fixed;
+  top: 70px;
+  height: 100%;
+}
+
+.left-wrjgls {
+  width: 260px;
+  background-color: #fff;
+  padding: 26px;
+  border-radius: 10px;
+  height: 372px;
+  position: absolute;
+}
+
+.left-wrjgls-top {
+  width: 100%;
+  height: 140px;
+  border-bottom: 2px solid #ccc;
+}
+
+.addxxh {
+  width: 174px;
+  height: 114px;
+}
+
+.addxxh.el-button {
+  border-radius: 10px;
+  margin-left: 42px;
+  font-size: 20px;
+}
+
+.addxxh i {
+  font-size: 50px;
+}
+
+.left-wrjgls-center {
+  width: 260px;
+  height: 180px;
+}
+
+.left-wrjgls-center li {
+  width: 128px;
+  height: 58px;
+  border-bottom: 2px solid #ccc;
+  /* border-right: 1px solid #ccc; */
+  float: left;
+  text-align: center;
+  line-height: 26px;
+}
+
+.left-wrjgls-center li:nth-of-type(2n) {
+  border-right: 0;
+  /* border-left: 1px solid #ccc; */
+}
+
+.feierrs {
+  font-size: 26px;
+}
+
+.management {
+  width: 850px;
+  margin-left: 350px;
+  height: 100%;
+}
+
+.management-top {
+  height: 60px;
+  line-height: 60px;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 22px;
+}
+
+.management-center {
+  width: 826px;
+  height: 100%;
+  box-shadow: 0 0 2px 2px #ccc;
+  padding: 0 12px;
+  overflow: auto;
+}
+
+.management-center-top {
+  height: 28px;
+  padding-top: 20px;
+}
+
+.management-center-top span {
+  display: inline-block;
+  width: 80px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: #a4afb4;
+  margin-right: 10px;
+}
+
+.management-center-top .actionser {
+  background-color: #0094ff;
+  color: #fff;
+}
+
+.management-center-list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.management-center-list-add {
+  text-align: center;
+  line-height: 288px;
+}
+
+.management-center-list li {
+  width: 256px;
+  height: 288px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  margin-top: 15px;
+  margin-right: 29px;
+  float: left;
+  position: relative;
+}
+
+.management-center-list li:nth-of-type(3n) {
+  margin-right: 0;
+}
+
+.adders {
+  font-size: 100px;
+  color: #0094ff;
+}
+
+.addmouder {
+  position: absolute;
+  top: 40px;
+  left: 80px;
+  font-size: 20px;
+  font-weight: 700;
+  height: 80px;
+}
+
+.management-center-list-li-heder {
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  width: 100%;
+  font-weight: 600;
+}
+
+.management-center-list-li {
+  padding: 0 20px;
+}
+
+.management-center-list-li-images {
+  height: 76px;
+}
+
+.management-center-list-li-images img {
+  width: 98px;
+  height: 76px;
+  border-radius: 10px;
+  float: left;
+}
+
+.management-center-list-li-images-right {
+  width: 100px;
+  height: 76px;
+  float: right;
+}
+
+.management-center-list-li-images-right p {
+  font-weight: 600;
+}
+
+.TUBIAO {
+  color: #0094ff;
+  font-size: 16px;
+}
+
+.TUBIAOs {
+  display: inline-block;
+  color: #0094ff;
+  font-size: 16px;
+}
+.service {
+  font-size: 14px;
+}
+
+.rightsert {
+  margin-left: 20px;
+  display: inline-block;
+  width: 110px;
+  white-space: nowrap;
+  /* overflow: hidden;
+  text-overflow: ellipsis; */
+  height: 16px;
+}
+
+.leftsfertrt {
+  display: inline-block;
+
+  width: 70px;
+}
+
+.deltplane {
+  width: 94px;
+  height: 28px;
+}
+
+.deltplane.el-button {
+  padding: 0;
+  margin-left: 60px;
+  margin-top: 8px;
+}
+
+.sexsex {
+  width: 480px;
+  overflow: hidden;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 340px;
+}
+.adderters {
+  border-top: 1px solid #ccc;
+  height: 160px;
+  margin-top: -30px;
+  padding: 50px 10%;
+}
+.inputxinghao {
+  width: 100%;
+  margin-bottom: 30px;
+  position: relative;
+}
+.inputxinghao i {
+  position: absolute;
+  left: -10px;
+  top: 6px;
+  color: red;
+}
+.inputxinghao span {
+  width: 20%;
+  font-size: 16px;
+}
+.inputxinghao input {
+  width: 76%;
+  margin-left: 4%;
+  height: 30px;
+}
+.inputxinghaos {
+  width: 100%;
+  margin-bottom: 30px;
+  position: relative;
+}
+.wurenjleix {
+  display: inline-block;
+  width: 20%;
+}
+
+.inputxinghaos i {
+  position: absolute;
+  left: -10px;
+  top: 6px;
+  color: red;
+}
+.wancehng {
+  width: 174px;
+  height: 36px;
+  position: relative;
+  right: 37%;
+  top: -20px;
+}
+.wurenji {
+  border-top: 1px solid #ccc;
+  height: 440px;
+  margin-top: -30px;
+}
+.wurenjibianhao {
+  width: 100%;
+  margin-top: 30px;
+  text-align: center;
+}
+.wurenjibianhao .xing {
+  color: red;
+  position: relative;
+  right: 4px;
+  top: 4px;
+}
+.wurenjibianhao input {
+  height: 30px;
+  margin-left: 10px;
+  width: 30%;
+}
+.wurenjibianhao span {
+  font-size: 16px;
+}
+.wurenjibianhao .selects {
+  width: 30%;
+}
+.wurenjibianhao .el-input--suffix .el-input__inner {
+  width: 100%;
+  height: 34px;
+}
+.updeter {
+  margin-top: 30px;
+}
+.updeter span {
+  font-size: 16px;
+  margin-left: 19%;
+}
+.updeter .el-upload--picture-card {
+  position: relative;
+  left: 44%;
+}
+.cvenjdhaslfsdh {
+  font-size: 26px;
+  font-weight: 700;
+  display: inline-block;
+  position: relative;
+  top: -30px;
+  left: 20px;
+}
+.el-icon-warning {
+  font-size: 70px;
+  color: #0094ff;
+}
+.cvenjdhaslfsdhs {
+  font-size: 20px;
+  font-weight: 700;
+  display: inline-block;
+  position: relative;
+  top: -10px;
+  left: 100px;
+}

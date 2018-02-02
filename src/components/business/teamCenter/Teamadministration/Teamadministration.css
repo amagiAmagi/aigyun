@@ -297,14 +297,21 @@
   top: 70px;
   height: 100%;
 }
-.left .left-top {
-  width: 248px;
+.searchs {
+  font-size: 30px;
+  position: absolute;
+  right: 14px;
+  top: 28px;
+}
+.left .left-tops {
+  width: 260px;
   background-color: #fff;
-  padding: 10px 32px;
+  padding: 10px 26px;
   border-radius: 10px;
 }
 .left-top-mu {
   margin-top: 6px;
+  width: 100%;
 }
 .left-top-mu span {
   font-size: 14px;
@@ -471,4 +478,14 @@
   bottom: 16px;
   width: 148px;
   font-size: 16px;
+}
+.choice {
+  color: #0094ff;
+  position: absolute;
+  right: 20px;
+  top: 40px;
+  font-size: 20px;
+}
+.displaysert {
+  color: transparent;
 }

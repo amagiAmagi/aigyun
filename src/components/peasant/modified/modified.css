@@ -1,0 +1,347 @@
+.modified {
+  width: 850px;
+  margin: 0 auto;
+  padding-top: 70px;
+  /* color: #4b5f6d; */
+  position: relative;
+  left: 160px;
+}
+
+.modified-top {
+  font-size: 20px;
+  width: 850px;
+  height: 72px;
+  border-bottom: 1px solid #ccc;
+  line-height: 92px;
+  margin-bottom: 36px;
+}
+
+.institution {
+  width: 578px;
+  height: 40px;
+  margin-top: 18px;
+  font-size: 16px;
+  line-height: 40px;
+}
+
+.organization {
+  display: inline-block;
+  width: 120px;
+  text-align: right;
+}
+
+.institution input {
+  width: 452px;
+  height: 36px;
+}
+
+.provers {
+  display: inline-block;
+  position: relative;
+}
+/*
+.address {
+  width: 452px;
+  height: 96px;
+  border: 1px solid #ccc;
+  margin-top: 18px;
+  margin-left: 120px;
+} */
+
+.ihpone {
+  width: 578px;
+  height: 40px;
+  margin-top: 18px;
+  font-size: 16px;
+  line-height: 40px;
+  position: relative;
+}
+
+.ihpone input {
+  width: 376px;
+  height: 36px;
+}
+
+.change {
+  position: absolute;
+  right: 16px;
+  top: 6px;
+  transform: rotate(90deg);
+  font-size: 30px;
+  color: #fff;
+}
+
+.chasger {
+  width: 64px;
+  height: 40px;
+  background-color: #0094ff;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 4px;
+}
+
+.Logo {
+  width: 578px;
+  /* height: 40px; */
+  margin-top: 18px;
+  font-size: 16px;
+  line-height: 40px;
+}
+
+.updloads {
+  position: relative;
+  left: 120px;
+  top: -20px;
+}
+
+.introduction {
+  width: 578px;
+  /* height: 40px; */
+  margin-top: 18px;
+  font-size: 16px;
+  line-height: 40px;
+}
+
+.buttonfortsr {
+  width: 456px;
+  margin-top: 60px;
+  margin-left: 120px;
+  margin-bottom: 60px;
+}
+
+.approve {
+  width: 190px;
+  height: 40px;
+}
+
+.moderl {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.replacement {
+  width: 652px;
+  height: 434px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -251px;
+  margin-left: -360px;
+  padding: 34px;
+}
+
+.replacement-heder {
+  font-size: 20px;
+  font-weight: 600;
+  height: 42px;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+}
+
+.clickser {
+  position: absolute;
+  right: 0;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.Progress {
+  width: 100%;
+  height: 124px;
+  position: relative;
+  padding-top: 36px;
+}
+
+.row {
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  background-color: #0095ff;
+  opacity: 0.2;
+  border-radius: 50%;
+  left: 0;
+  top: 36px;
+}
+
+.row-noer {
+  width: 36px;
+  height: 50px;
+  position: absolute;
+  background-color: #0094ff;
+  border-radius: 50%;
+  top: 43px;
+  left: 7px;
+  font-size: 40px;
+  line-height: 50px;
+  color: #fff;
+  padding-left: 14px;
+}
+
+.row-noer span {
+  display: inline-block;
+  position: absolute;
+  font-size: 16px;
+  top: 50px;
+  color: #0094ff;
+  width: 86px;
+  left: -10px;
+}
+
+.xiaoyuandain {
+  width: 224px;
+  height: 2px;
+  border-top: 2px dotted #ccc;
+  position: absolute;
+  top: 64px;
+  left: 70px;
+}
+
+.row-noers {
+  width: 36px;
+  height: 50px;
+  position: absolute;
+  background-color: #dcdfdf;
+  border-radius: 50%;
+  top: 43px;
+  left: 306px;
+  font-size: 40px;
+  line-height: 50px;
+  color: #fff;
+  padding-left: 14px;
+}
+
+.xiaoyuandains {
+  width: 224px;
+  height: 2px;
+  border-top: 2px dotted #ccc;
+  position: absolute;
+  top: 64px;
+  left: 364px;
+}
+
+.row-noerss {
+  width: 36px;
+  height: 50px;
+  position: absolute;
+  background-color: #dcdfdf;
+  border-radius: 50%;
+  top: 43px;
+  left: 600px;
+  font-size: 40px;
+  line-height: 50px;
+  color: #fff;
+  padding-left: 14px;
+}
+
+.cor {
+  display: inline-block;
+  position: absolute;
+  font-size: 16px;
+  top: 50px;
+  color: #dcdfdf;
+  width: 86px;
+  left: -10px;
+}
+
+.verification {
+  width: 470px;
+  height: 40px;
+  margin-top: 48px;
+  margin-left: 90px;
+}
+
+.verification input {
+  width: 176px;
+  height: 36px;
+  margin-right: 8px;
+}
+
+.approves {
+  width: 118px;
+  height: 40px;
+}
+
+.approvears {
+  width: 190px;
+  height: 40px;
+  position: relative;
+  top: 50px;
+}
+
+.approvears.el-button {
+  /* margin-top: 70px; */
+  margin-left: 240px;
+}
+.verifications {
+  width: 470px;
+  height: 40px;
+  margin-top: 28px;
+  margin-left: 90px;
+  line-height: 40px;
+}
+.verificationsSpan {
+  display: inline-block;
+  width: 146px;
+  text-align: right;
+}
+.verifications input {
+  width: 176px;
+  height: 36px;
+  margin-right: 20px;
+}
+.verifications .xinshoujihao {
+  width: 318px;
+  margin-right: 0;
+}
+.rows {
+  left: 300px;
+}
+.corlros {
+  background-color: #0094ff;
+}
+.corlro {
+  border-top: 2px dotted #0094ff;
+}
+.corlr {
+  color: #0094ff;
+}
+.rowss {
+  left: 593px;
+}
+.success {
+  width: 300px;
+  height: 120px;
+  position: relative;
+  left: 300px;
+}
+.success span {
+  display: inline-block;
+  position: absolute;
+  left: -80px;
+  bottom: 0;
+}
+
+.textarea .el-textarea__inner {
+  width: 452px;
+  margin-top: 18px;
+  margin-left: 120px;
+}
+/* .textareas .el-textarea__inner {
+  width: 452px;
+  margin-left: 120px;
+  position: relative;
+  top: -36px;
+} */
+.textareass .el-textarea__inner {
+  width: 452px;
+  margin-left: 120px;
+  position: relative;
+  /* top: -6px; */
+  margin-top: 18px;
+}

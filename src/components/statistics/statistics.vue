@@ -1,25 +1,33 @@
 <template>
  <div>
-    <div class="zbszytj">
-          <span>值保商作业统计</span>
-          <div class="zbckgd">
-            <router-link to="/business/StatsCentral">查看更多>></router-link>
-          </div>
-        </div>
-        <schart :canvasId="canvasId" :type="type" :width="width"
-    :height="height" :data="data" :options="options" :defaultFontSize="fonstsize" ref="canvas"></schart>
+   <div class="zbszytj" v-if="role == 1">
+    <span>值保作业统计</span>
+    <div class="zbckgd">
+      <router-link to="/peasant/peasantStats">查看更多>></router-link>
+    </div>
+  </div>
+
+  <div class="zbszytj" v-if="role == 2">
+    <span>值保商作业统计</span>
+    <div class="zbckgd">
+      <router-link to="/business/StatsCentral">查看更多>></router-link>
+    </div>
+  </div>
+
+    <!-- <schart :canvasId="canvasId" :type="type" :width="width"
+    :height="height" :data="data" :options="options" ref="canvas"></schart> -->
+    <div id="statistics" style="width: 850px;height: 460px;">
+
+    </div>
         <div class="jrbzby">
-           <p><span @click="day" ref="day">日</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-           <span class="date" @click="week" ref="week">周</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+           <p><span @click="day" ref="day" class="date">日</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+           <span  @click="week" ref="week">周</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
            <span @click="month" ref="month">月</span></p>
         </div>
 
  </div>
 </template>
 <style>
-#myCanvas {
-  font-size: 16px;
-}
 .zbszytj {
   height: 56px;
   border-bottom: 2px solid #e0e6ec;
@@ -59,39 +67,24 @@
 .date {
   color: #0094ff;
 }
+.actions {
+  text-align: center;
+  font-size: 20px;
+}
 </style>
 <script>
 import Schart from "vue-schart";
+import echarts from "echarts";
+import api from "../common/api";
 export default {
   data() {
     return {
       dataList: [],
-      canvasId: "myCanvas",
-      type: "bar",
-      width: 850,
-      height: 460,
-      fonstsize: 18,
-      data: [
-        { name: "星期一", value: 1342 },
-        { name: "星期二", value: 2123 },
-        { name: "星期三", value: 1654 },
-        { name: "星期四", value: 1795 },
-        { name: "星期五", value: 2123 },
-        { name: "星期六", value: 1654 },
-        { name: "星期天", value: 1795 }
-      ],
-      options: {
-        padding: 50, // canvas 内边距
-        bgColor: "#FFFFFF", // 默认背景颜色
-        title: "", // 图表标题
-        titleColor: "#000000", // 图表标题颜色
-        titlePosition: "top", // 图表标题位置: top / bottom
-        yEqual: 5, // y轴分成5等分
-        fillColor: "#1E9FFF", // 默认填充颜色
-        contentColor: "#eeeeee", // 内容横线颜色
-        axisColor: "#666666", // 坐标轴颜色
-        axisFontSize: 16
-      }
+      data: [],
+      datas: [],
+      myBar: null,
+      daylist: [],
+      role: ""
     };
   },
   methods: {
@@ -99,56 +92,115 @@ export default {
       this.$refs.day.className = "date";
       this.$refs.week.className = "";
       this.$refs.month.className = "";
-      this.data = [
-        { name: "1号", value: 1342 },
-        { name: "2号", value: 2123 },
-        { name: "3号", value: 1654 },
-        { name: "4号", value: 1795 },
-        { name: "5号", value: 2123 },
-        { name: "6号", value: 1654 },
-        { name: "7号", value: 1795 }
-      ];
+      this.datas = this.dataList[0].data.ares;
+      const date = [];
+      this.dataList[0].data.date.forEach(e => {
+        date.push(e.month + "月" + e.date + "日");
+      });
+      this.data = date.reverse();
+      this.getBar();
     },
     week: function() {
       this.$refs.day.className = "";
       this.$refs.week.className = "date";
       this.$refs.month.className = "";
-      this.data = [
-        { name: "星期一", value: 1342 },
-        { name: "星期二", value: 2123 },
-        { name: "星期三", value: 1654 },
-        { name: "星期四", value: 1795 },
-        { name: "星期五", value: 2123 },
-        { name: "星期六", value: 1654 },
-        { name: "星期天", value: 1795 }
-      ];
+      this.datas = this.dataList[1].data.ares;
+      const date = [];
+      this.dataList[1].data.date.forEach(e => {
+        date.push(e.year + "年" + e.week + "周");
+      });
+      this.data = date.reverse();
+      this.getBar();
     },
     month: function() {
       this.$refs.day.className = "";
       this.$refs.week.className = "";
       this.$refs.month.className = "date";
-      this.data = [
-        { name: "1月", value: 1342 },
-        { name: "2月", value: 2123 },
-        { name: "3月", value: 1654 },
-        { name: "4月", value: 1795 },
-        { name: "5月", value: 2123 },
-        { name: "6月", value: 1654 },
-        { name: "7月", value: 1795 }
-      ];
+      this.datas = this.dataList[2].data.ares;
+      const date = [];
+      this.dataList[2].data.date.forEach(e => {
+        date.push(e.year + "年" + e.month + "月");
+      });
+      this.data = date.reverse();
+      this.getBar();
+    },
+    // 初始化图
+    getBar: function() {
+      this.myBar = echarts.init(document.getElementById("statistics"));
+      this.myBar.setOption({
+        color: ["#3398DB"],
+        tooltip: {
+          trigger: "axis"
+        },
+        grid: {
+          left: "3%",
+          right: "4%",
+          bottom: "3%",
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: "category",
+            data: this.data,
+            axisTick: {
+              alignWithLabel: true
+            }
+          }
+        ],
+        yAxis: [
+          {
+            type: "value"
+          }
+        ],
+        series: [
+          {
+            name: "作业面积（亩）",
+            type: "bar",
+            barWidth: "60%",
+            data: this.datas
+          }
+        ]
+      });
+    },
+    getuesstetseitis: function() {
+      const id = window.sessionStorage.getItem("id");
+      this.$http
+        .post(
+          api.apihost + "GetUserIndexInfo",
+          {
+            reg_id: id
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res);
+          this.dataList = res.data.attachment.stats;
+          this.datas = this.dataList[0].data.ares;
+          const date = [];
+          this.dataList[0].data.date.forEach(e => {
+            date.push(e.month + "月" + e.date + "日");
+          });
+          this.data = date.reverse();
+          console.log(this.data);
+        });
+    },
+    getrole: function() {
+      this.role = window.sessionStorage.getItem("role");
+      console.log(this.role);
     }
   },
-  created() {
-    const data = this.$store.getters.getPenasntStats[0];
-    this.dataList = data;
-    console.log(this.dataList);
-  },
-  components: {
-    Schart
-  },
+  created() {},
   mounted() {
-    this.$refs.canvas.$el.style.fontSize = 16;
-    console.log(this.$refs.canvas.$el.style.fontSize);
+    this.getuesstetseitis();
+    this.getBar();
+    setTimeout(res => {
+      this.day();
+    }, 500);
+    this.getrole();
   }
 };
 </script>

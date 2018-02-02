@@ -307,3 +307,10 @@
 .left-center-button i {
   font-size: 100px;
 }
+.selecteders {
+  width: 600px;
+}
+.modification {
+  position: relative;
+  right: 40%;
+}

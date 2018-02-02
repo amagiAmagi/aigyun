@@ -44,7 +44,11 @@ const state = {
   // 已分配值保队的队员信息
   businessdeployed: [],
   // 未分配值保队的队员信息
-  businessundeployed: []
+  businessundeployed: [],
+  // 无人机数量
+  uavList: [],
+  getifon: [],
+  fiightpath: {}
 };
 // import * as types from "./mutations-types.js";
 import mutations from "./mutations.js";

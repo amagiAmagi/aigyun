@@ -1,83 +1,114 @@
-.register {
-  width: 100%;
+html,
+body,
+.register,
+.bg,
+.bg table,
+.bg td {
   height: 100%;
-  background: url("../../assets/back.jpg") no-repeat;
-  background-size: 100%;
-  position: relative;
-}
-.reg {
-  width: 540px;
-  background-color: rgba(255, 255, 255, 0.5);
-  position: absolute;
-  padding: 50px 0;
-  height: 360px;
-  top: 50%;
-  margin-top: -245px;
-  left: 50%;
-  margin-left: -270px;
-  border-radius: 10px;
-}
-.shortt {
-  width: 360px;
-}
-.demo-ruleForm .names {
-  width: 480px;
-  margin-left: 0px;
-  border: 0;
-}
-.auths {
-  position: absolute;
-  right: -120px;
-  top: 0;
-}
-.shortss {
-  width: 250px;
-}
-.el-form .demo-ruleform {
   width: 100%;
+  /* overflow: hidden; */
 }
-.el-radio + .el-radio {
-  margin-left: 10px;
+.bg {
+  position: fixed;
 }
-.audio {
-  margin: 0;
-  width: 400px;
-  height: 40px;
-  padding: 0;
-  border-bottom: 2px solid #0094ff;
-  margin-left: -20px;
+.bg div {
+  height: 200%;
+  left: -50%;
+  position: absolute;
+  top: -50%;
+  width: 200%;
 }
-.audio-n {
-  float: left;
-  width: 200px;
-  height: 40px;
-  box-sizing: border-box;
+.bg td {
   text-align: center;
+  vertical-align: middle;
+}
+.bg img {
+  margin: 0 auto;
+  min-height: 50%;
+  min-width: 50%;
+}
+.signup {
+  width: 368px;
+  height: 390px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  margin-top: 28px;
+  padding: 30px 28px;
+}
+.signup .title {
+  width: 160px;
+  height: 38px;
+  margin: 0 auto;
   cursor: pointer;
 }
-.tatelt {
-  width: 110px;
-  position: absolute;
-  left: -100px;
-  top: 20px;
-}
-.active {
-  background-color: #0094ff;
-}
-.zhuces {
-  width: 110px;
-  position: absolute;
-}
 
-.el-form .el-form-item {
-  margin-bottom: 8px;
+.t01 {
+  margin-right: 40px;
+  padding-bottom: 8px;
+  font-size: 22px;
+  color: #4c5e70;
 }
-.el-form-item__content {
-  margin-bottom: 10px;
+.signup-ul {
+  margin: 0;
+  padding: 0;
+  margin-top: 36px;
+  width: 368px;
+  height: 294px;
 }
-.role {
+.signup-ul-li {
+  width: 368px;
+  height: 40px;
+  margin-bottom: 16px;
+  position: relative;
+}
+.signup-ul-li label {
+  width: 84px;
+  height: 38px;
+  line-height: 38px;
+  float: left;
+  text-align: right;
+  font-size: 16px;
+  color: #4c5e70;
+}
+.signup-ul-li input {
+  width: 270px;
+  height: 40px;
+  padding-left: 8px;
+  outline: none;
   position: absolute;
-  left: -70px;
-  top: -30px;
-  color: #f40;
+  right: 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+.signup-ul-li .code {
+  position: absolute;
+  right: 0;
+  display: inline-block;
+  width: 88px;
+  height: 40px;
+  background-color: #0094ff;
+  line-height: 40px;
+  padding: 0 6px;
+  border-radius: 4px;
+  letter-spacing: 2px;
+  font-size: 15px;
+  color: #ffffff;
+  cursor: pointer;
+}
+.signup-ul-li:nth-of-type(4) input {
+  width: 160px;
+  right: 110px;
+}
+.signupbutton {
+  width: 176px;
+  height: 40px;
+}
+.signup-ul-li:nth-of-type(5) {
+  margin-top: 48px;
+}
+.action {
+  color: #0094ff;
+  border-bottom: 2px solid #0094ff;
+  box-sizing: border-box;
 }

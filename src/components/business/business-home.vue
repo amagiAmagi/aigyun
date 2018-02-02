@@ -7,7 +7,7 @@
     <div class="conter">
      <!-- 欢迎语 -->
       <div class="teates">
-        <div class="name">您好！{{useifon.name_leader}}</div>
+        <div class="name">您好！{{name}}</div>
         <p>欢迎登录爱极云，请检查您最新项目和代办事情</p>
       </div>
       <!-- 值保流程 -->
@@ -19,27 +19,27 @@
             <li>
               <img src="../../assets/值保商首页/15.png" alt="">
               <span>待接订单数</span>
-              <span class="figure">{{businesstasksList[0]}}</span>
+              <span class="figure">{{businesstasksList[0] == ""?0:businesstasksList[0]}}</span>
             </li>
              <li>
               <img  src="../../assets/值保商首页/16.png" alt="">
               <span>待分配订单数</span>
-              <span class="figure">{{businesstasksList[1]}}</span>
+              <span class="figure">{{businesstasksList[1]== ""?0:businesstasksList[1]}}</span>
             </li>
              <li>
               <img src="../../assets/值保商首页/18.png" alt="">
               <span>施工中订单数</span>
-              <span class="figure">{{businesstasksList[2]}}</span>
+              <span class="figure">{{businesstasksList[2]== ""?0:businesstasksList[2]}}</span>
             </li>
              <li>
               <img  src="../../assets/值保商首页/19.png" alt="">
               <span>待确认订单数</span>
-              <span class="figure">{{businesstasksList[3]}}</span>
+              <span class="figure">{{businesstasksList[3]== ""?0:businesstasksList[3]}}</span>
             </li>
              <li>
               <img  src="../../assets/值保商首页/20.png" alt="">
               <span>已完成订单数</span>
-              <span class="figure">{{businesstasksList[4]}}</span>
+              <span class="figure">{{businesstasksList[4]== ""?0:businesstasksList[4]}}</span>
             </li>
              <li>
               <img src="../../assets/值保商首页/21.png" alt="">
@@ -56,7 +56,7 @@
             <li>
               <div class="ztlc-li-top">
                 <img src="../../assets/值保商首页/icon_gk.png" alt="">
-                <p>{{useifon.ppsp_name}}</p>
+                <p>{{useifon}}</p>
               </div>
               <div class="ztlc-li-center">
                 <p>
@@ -293,18 +293,21 @@ import statistics from "../statistics/statistics.vue";
 import news from "../news/news.vue";
 import hello from "../helloMiss/hello.vue";
 import weather from "../day/weather.vue";
+import api from "../common/api.js";
 export default {
   data() {
     return {
       value5: 0,
       businesstasksList: [],
-      useifon: {},
+      useifon: "",
+      name: "",
       businessprasDataList: {},
       businessteamList: {},
       businessuavsList: [],
       work_ares: "",
       work_length: "",
-      num_uavs: ""
+      num_uavs: "",
+      id: ""
     };
   },
   components: {
@@ -315,113 +318,51 @@ export default {
     weather
   },
   methods: {
-    // 订单状态
-    getbusinesstasks: function() {
-      this.businesstasksList = this.$store.getters.getbusinesstasks;
-      if (this.businesstasksList.length == 0) {
-        const businesstasks = JSON.parse(
-          window.localStorage.getItem("businesstasks")
-        );
-        this.$store.commit("businesstasks", businesstasks);
-        this.businesstasksList = this.$store.getters.getbusinesstasks;
-      }
-    },
     getbusinessnameuse: function() {
-      // 从vuex中获取用户名和头像
-      this.useifon = this.$store.getters.getbusinessnameuse;
-      // 从vuex中获取id
-      const id = this.$store.getters.getbusinessId;
-      const ifom = [];
-      ifom.push(this.useifon);
-      ifom.push(id);
-      if (ifom[1] == "") {
-        const use = JSON.parse(window.localStorage.getItem("ifon"));
-        this.$store.commit("businessnameuse", use);
-        this.useifon = this.$store.getters.getbusinessnameuse;
-      }
+      this.id = window.sessionStorage.getItem("id");
+      console.log(this.id);
     },
-    // 值保商值保队信息
-    getbusinessprasData: function() {
-      this.businessprasDataList = this.$store.getters.getbusinessprasData;
-      if (this.businessprasDataList.num_idle_service_teams == undefined) {
-        const data = JSON.parse(
-          window.localStorage.getItem("businessprasData")
-        );
-        this.$store.commit("businessprasData", data);
-        this.businessprasDataList = this.$store.getters.getbusinessprasData;
-      }
-    },
-    // 值保商值保队员信息
-    getbusinessteam: function() {
-      this.businessteamList = this.$store.getters.getbusinessteam;
-      if (this.businessteamList.num_idle_service_players == undefined) {
-        const data = JSON.parse(window.localStorage.getItem("businessteam"));
-        this.$store.commit("businessteam", data);
-        this.businessteamList = this.$store.getters.getbusinessteam;
-      }
-    },
-    // 获取值保商无人机状态
-    getbusinessuavs: function() {
-      this.businessuavsList = this.$store.getters.getbusinessuavs;
-      if (this.businessuavsList.length == 0) {
-        const data = JSON.parse(window.localStorage.getItem("businessuavs"));
-        this.$store.commit("businessuavs", data);
-        this.businessuavsList = this.$store.getters.getbusinessuavs;
-      }
-    },
-    // 获取值保商作业总面积
-    getwork_ares: function() {
-      this.work_ares = this.$store.getters.getwork_ares;
-      if (this.work_ares == "") {
-        const data = JSON.parse(
-          window.localStorage.getItem("businesswork_ares")
-        );
-        this.$store.commit("businesswork_ares", data);
-        this.work_ares = this.$store.getters.getwork_ares;
-      }
-    },
-    // 获取值保商飞行总距离
-    getwork_length: function() {
-      this.work_length = this.$store.getters.getwork_length;
-      if (this.work_length == "") {
-        const data = JSON.parse(
-          window.localStorage.getItem("businesswork_length")
-        );
-        this.$store.commit("businesswork_length", data);
-        this.work_length = this.$store.getters.getwork_length;
-      }
-    },
-    // 获取值保商无人机总数
-    getnum_uavs: function() {
-      this.num_uavs = this.$store.getters.getnum_uavs;
-      if (this.num_uavs == "") {
-        const data = JSON.parse(window.localStorage.getItem("num_uavs"));
-        this.$store.commit("num_uavs", data);
-        this.num_uavs = this.$store.getters.getnum_uavs;
-      }
-    },
-    // 获取值保商评分
-
-    getrole: function() {
-      const value = this.$store.getters.getrate;
-      this.value5 = this.$store.getters.getrate;
-      if (value == "") {
-        const data = JSON.parse(window.localStorage.getItem("rate"));
-        this.$store.commit("rate", data);
-        this.value5 = this.$store.getters.getrate;
-      }
+    businessHoem: function() {
+      this.$http
+        .post(
+          api.apihost + "GetUserIndexInfo",
+          {
+            reg_id: this.id
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res);
+          if (res.data.code == 0) {
+            this.businesstasksList = res.data.attachment.tasks;
+            this.businessprasDataList = res.data.attachment.service_teams;
+            this.businessteamList = res.data.attachment.service_players;
+            this.businessuavsList = res.data.attachment.uavs;
+            this.work_ares = res.data.attachment.work_ares;
+            this.work_length = res.data.attachment.work_length;
+            this.num_uavs = res.data.attachment.num_uavs;
+            this.value5 = res.data.attachment.rate;
+            this.useifon = res.data.attachment.ppsp_name;
+            this.name = res.data.attachment.real_name_leader;
+          }
+        });
     }
   },
   mounted() {
-    this.getbusinesstasks();
     this.getbusinessnameuse();
-    this.getbusinessprasData();
-    this.getbusinessteam();
-    this.getbusinessuavs();
-    this.getwork_ares();
-    this.getwork_length();
-    this.getnum_uavs();
-    this.getrole();
+    this.businessHoem();
+    // this.getbusinesstasks();
+    // this.getbusinessprasData();
+    // this.getbusinessteam();
+    // this.getbusinessuavs();
+    // this.getwork_ares();
+    // this.getwork_length();
+    // this.getnum_uavs();
+    // this.getrole();
   }
 };
 </script>

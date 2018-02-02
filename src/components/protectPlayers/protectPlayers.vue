@@ -5,43 +5,49 @@
      <div class="min-logon">
        <img src="../../assets/小logo.gif" alt="">
      </div>
-      <div class="tab-centers">
-            <!-- <router-link to="/business/busCenter">值保中心</router-link> -->
-
-              <li class="subTab home activ" @click="sublist1" ref="sublist1">
-               <router-link to="/protect/peasantHome"><i class="el-icon-delete"></i>值保队员首页</router-link><span class="jiange">|</span>
-              </li>
-               <li class="subTab" @click="sublist2" ref="sublist2">
-               <router-link to="/protect/protectBotany"><i class="el-icon-delete"></i>值保中心</router-link><span class="jiange">|</span>
-              </li>
-               <li class="subTab" @click="sublist3" ref="sublist3">
-               <router-link to="/protect/protectTeam"><i class="el-icon-delete"></i>团队中心</router-link><span class="jiange">|</span>
-              </li>
-               <li class="subTab" @click="sublist4" ref="sublist4">
-               <router-link to="/protect/protectMoney"><i class="el-icon-delete"></i>资产中心</router-link><span class="jiange">|</span>
-              </li>
-               <li class="subTab" @click="sublist5" ref="sublist5">
-               <router-link to="/protect/protectStats"><i class="el-icon-delete"></i>统计中心</router-link>
-              </li>
-
-      </div>
-      <div class="search">
-          <input type="text" class="searchInpt">
-          <i class="el-icon-search"></i>
+      <div class="tab-centersprot">
+         <ul class="tab-centersprot-ul">
+           <li class="tab-centersprot-ul-li home" @click="home" ref="home"><img src="../../assets/047.png" alt="" style="position: relative;top: 4px;"> 队员首页</li>
+           <li class="tab-centersprot-ul-li" ref="statuscenter"><img src="../../assets/049.png" alt="" style="position: relative;top: 4px;"> 值保中心 <img src="../../assets/005.png" alt="" style="position: relative;top: -3px;">
+              <ul class="oriented">
+                <li class="oriented-li" @click="mybusot">我的订单</li>
+                <li class="oriented-li" @click="plugis">发布订单</li>
+                <li class="oriented-li" @click="exploration">工勘中心</li>
+                <li class="oriented-li" @click="assignment">作业中心</li>
+                <li @click="receiving" class="oriented-li">接单中心</li>
+                <li class="oriented-li" @click="affirm">确认订单</li>
+                <li class="oriented-li" @click="evaluate">评价订单</li>
+              </ul>
+           </li>
+           <li class="tab-centersprot-ul-li" @click="botany" ref="botany"><img src="../../assets/002.png" alt="" style="position: relative;top: 3px;"> 地块中心</li>
+           <li class="tab-centersprot-ul-li" @click="management" ref="management"><img src="../../assets/051.png" alt=""> 资产中心 <img src="../../assets/005.png" alt="" style="position: relative;top: -3px;">
+              <ul class="oriented">
+                <li class="oriented-li" @click="management">无人机管理</li>
+              </ul>
+           </li>
+           <li class="tab-centersprot-ul-li" ref="protectStats"><img src="../../assets/001.png" alt=""> 统计中心 <img src="../../assets/005.png" alt="" style="position: relative;top: -3px;">
+              <ul class="oriented">
+                <li class="oriented-li" @click="jobmessage">作业统计</li>
+                <li class="oriented-li" @click="process">飞行轨迹</li>
+              </ul>
+           </li>
+         </ul>
       </div>
       <div class="personal">
         <div class="personal-left">
-          <i class="el-icon-question" style="font-size: 20px"></i>
+          <i class="el-icon-bell" style="font-size: 20px"></i>
           <span class="shu"></span>
         </div>
         <div class="personal-right">
-            <span>夏先生</span>
-            <i class="xiala">
+            <span>{{name}}</span>
+            <i class="xialass">
               <img src="../../assets/Down 2.png" alt="">
             </i>
-            <img src="../../assets/头像.png" alt="">
-            <div class="xgzl">
+            <img :src="pic_url_1" alt="" class="pic_url_1">
+            <div class="xgzls">
               <p @click="open">修改资料</p>
+              <p @click="amendpassword">修改密码</p>
+              <p @click="write">注销</p>
             </div>
         </div>
       </div>
@@ -51,11 +57,16 @@
 </div>
 </template>
 <style>
+.home {
+  box-sizing: border-box;
+  border-bottom: 2px solid #0094ff;
+}
 .centers {
   width: 1200px;
   margin: 0 auto;
   height: 100%;
 }
+
 .left {
   width: 312px;
   background-color: #4c5e70;
@@ -63,6 +74,11 @@
   position: fixed;
   top: 70px;
   height: 100%;
+}
+.pic_url_1 {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
 }
 .conter {
   padding-top: 70px;
@@ -85,23 +101,7 @@
   left: 50%;
   margin-left: -600px;
 }
-.search {
-  width: 142px;
-  height: 24px;
-  position: absolute;
-  left: 886px;
-  top: 23px;
-  border-radius: 10px;
-}
-.search .searchInpt {
-  width: 142px;
-  height: 22px;
-  border: 0;
-  border-radius: 10px;
-  margin: 0;
-  padding: 0;
-  font-size: 12px;
-}
+
 .personal {
   width: 170px;
   height: 70px;
@@ -113,12 +113,14 @@
 .personal-left {
   width: 50px;
   position: relative;
+  right: 40px;
 }
 .personal-right {
-  width: 120px;
+  width: 150px;
   position: absolute;
   right: 0;
   top: 0;
+  cursor: pointer;
 }
 .personal-right img {
   position: absolute;
@@ -131,34 +133,19 @@
   left: 15px;
   top: 25px;
 }
-.xiala {
+.xialass {
   position: absolute;
-  left: 70px;
+  left: 100px;
   top: 20px;
 }
-.el-icon-question {
+.el-icon-bell {
   line-height: 70px;
   margin-left: 15px;
-}
-.el-icon-search {
   position: absolute;
   right: 5px;
-  top: 3px;
+  top: 0px;
 }
-.xgzl {
-  position: absolute;
-  font-size: 12px;
-  width: 60px;
-  height: 80px;
-  top: 48px;
-  left: 14px;
-  background-color: #0094ff;
-  border-radius: 5px;
-  text-align: center;
-  display: none;
-  color: #fff;
-  padding-top: 10px;
-}
+
 .shu {
   width: 1px;
   height: 26px;
@@ -172,98 +159,221 @@
   height: 70px;
   padding: 5px 120px;
 }
-.tab-centers {
-  width: 540px;
+.tab-centersprot {
+  width: 600px;
   position: relative;
-  top: -70px;
+  top: -80px;
   height: 70px;
   left: 340px;
   /* background-color: red; */
 }
-.subTab {
-  float: left;
-  line-height: 60px;
-  height: 60px;
-  width: 20%;
-  text-align: center;
-  position: relative;
-  font-size: 14px;
+a {
+  color: #000;
 }
+.xgzls {
+  position: absolute;
+  font-size: 12px;
+  width: 120px;
+  height: 0px;
+  top: 70px;
+  left: 0px;
+  background-color: #d5dde4;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+.personal-right:hover .xgzls {
+  transition: all 0.5s;
+  height: 120px;
+}
+.xgzls p {
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
+}
+.xgzls p:hover {
+  color: #0094ff;
+  background-color: #e3edf6;
+}
+
 .jiange {
   position: absolute;
   right: 0;
   color: #000;
 }
-.subTab:hover {
-  box-sizing: border-box;
-  border-bottom: 3px solid #0094ff;
-  color: #0094ff;
+.tab-centersprot-ul {
+  margin: 0;
+  padding: 0;
 }
-.activ {
-  box-sizing: border-box;
-  border-bottom: 3px solid #0094ff;
-  color: #0094ff;
+.tab-centersprot-ul-li {
+  width: 120px;
+  height: 70px;
+  float: left;
+  line-height: 70px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
 }
-a {
-  display: inline-block;
+.oriented {
+  width: 120px;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  z-index: 2;
+  background-color: #d5dde4;
+  padding: 0;
 }
-.router-link-active {
+.tab-centersprot-ul-li:nth-of-type(2):hover .oriented {
+  transition: all 0.5s;
+  height: 280px;
+}
+.tab-centersprot-ul-li:nth-of-type(4):hover .oriented {
+  transition: all 0.5s;
+  height: 40px;
+}
+.tab-centersprot-ul-li:nth-of-type(5):hover .oriented {
+  transition: all 0.5s;
+  height: 80px;
+}
+.oriented-li {
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #d5dde4;
+  text-align: center;
+}
+.oriented-li:hover {
   color: #0094ff;
+  background-color: #e3edf6;
 }
 </style>
 <script>
+import api from "../common/api";
 export default {
   data() {
-    return {};
+    return {
+      id: "",
+      name: "",
+      pic_url_1: ""
+    };
   },
   created() {},
   methods: {
-    sublist1: function() {
-      this.$refs.sublist1.className = "subTab activ";
-      this.$refs.sublist2.className = "subTab";
-      this.$refs.sublist3.className = "subTab";
-      this.$refs.sublist4.className = "subTab";
-      this.$refs.sublist5.className = "subTab";
-    },
-    sublist2: function() {
-      this.$refs.sublist2.className = "subTab activ";
-      this.$refs.sublist1.className = "subTab";
-      this.$refs.sublist3.className = "subTab";
-      this.$refs.sublist4.className = "subTab";
-      this.$refs.sublist5.className = "subTab";
-    },
-    sublist3: function() {
-      this.$refs.sublist3.className = "subTab activ";
-      this.$refs.sublist1.className = "subTab";
-      this.$refs.sublist4.className = "subTab";
-      this.$refs.sublist5.className = "subTab";
-      this.$refs.sublist2.className = "subTab";
-    },
-    sublist4: function() {
-      this.$refs.sublist4.className = "subTab activ";
-      this.$refs.sublist3.className = "subTab";
-      this.$refs.sublist1.className = "subTab";
-      this.$refs.sublist5.className = "subTab";
-      this.$refs.sublist2.className = "subTab";
-    },
-    sublist5: function() {
-      this.$refs.sublist5.className = "subTab activ";
-      this.$refs.sublist4.className = "subTab";
-      this.$refs.sublist3.className = "subTab";
-      this.$refs.sublist1.className = "subTab";
-      this.$refs.sublist2.className = "subTab";
-    },
     open() {
-      this.$alert("这是一段内容", "标题名称", {
-        confirmButtonText: "确定",
-        callback: action => {
-          this.$message({
-            type: "info",
-            message: `action: ${action}`
-          });
-        }
-      });
+      location.href = "#/protect/Profile";
+    },
+    home: function() {
+      location.href = "#/protect/peasantHome";
+      this.$refs.botany.className = "tab-centersprot-ul-li";
+      this.$refs.home.className = "tab-centersprot-ul-li home";
+      this.$refs.management.className = "tab-centersprot-ul-li";
+      this.$refs.protectStats.className = "tab-centersprot-ul-li";
+      this.$refs.statuscenter.className = "tab-centersprot-ul-li";
+    },
+    botany: function() {
+      this.$refs.botany.className = "tab-centersprot-ul-li home";
+      this.$refs.home.className = "tab-centersprot-ul-li";
+      this.$refs.management.className = "tab-centersprot-ul-li";
+      this.$refs.protectStats.className = "tab-centersprot-ul-li";
+      this.$refs.statuscenter.className = "tab-centersprot-ul-li";
+      location.href = "#/protect/statuscenter";
+    },
+    management: function() {
+      this.$refs.management.className = "tab-centersprot-ul-li home";
+      this.$refs.botany.className = "tab-centersprot-ul-li";
+      this.$refs.home.className = "tab-centersprot-ul-li";
+      location.href = "#/protect/protectMoney/management";
+      this.$refs.protectStats.className = "tab-centersprot-ul-li";
+      this.$refs.statuscenter.className = "tab-centersprot-ul-li";
+    },
+    process: function() {
+      this.$refs.protectStats.className = "tab-centersprot-ul-li home";
+      this.$refs.management.className = "tab-centersprot-ul-li";
+      this.$refs.botany.className = "tab-centersprot-ul-li";
+      this.$refs.home.className = "tab-centersprot-ul-li";
+      this.$refs.statuscenter.className = "tab-centersprot-ul-li";
+      location.href = "#/protect/protectStats/process";
+    },
+    jobmessage: function() {
+      this.$refs.protectStats.className = "tab-centersprot-ul-li home";
+      this.$refs.management.className = "tab-centersprot-ul-li";
+      this.$refs.botany.className = "tab-centersprot-ul-li";
+      this.$refs.home.className = "tab-centersprot-ul-li";
+      this.$refs.statuscenter.className = "tab-centersprot-ul-li";
+      location.href = "#/protect/protectStats/jobmessage";
+    },
+    mybusot: function() {
+      location.href = "#/protect/protectBotany/mybusot";
+      this.statuscenter();
+    },
+    receiving: function() {
+      location.href = "#/protect/protectBotany/receiving";
+      this.statuscenter();
+    },
+    plugis: function() {
+      location.href = "#/protect/protectBotany/pullsetplayers";
+      this.statuscenter();
+    },
+    exploration: function() {
+      location.href = "#/protect/protectBotany/exploration";
+      this.statuscenter();
+    },
+    assignment: function() {
+      location.href = "#/protect/protectBotany/assignment";
+      this.statuscenter();
+    },
+    affirm: function() {
+      location.href = "#/protect/protectBotany/affirmss";
+      this.statuscenter();
+    },
+    evaluate: function() {
+      location.href = "#/protect/protectBotany/evaluatess";
+      this.statuscenter();
+    },
+    statuscenter: function() {
+      this.$refs.statuscenter.className = "tab-centersprot-ul-li home";
+      this.$refs.protectStats.className = "tab-centersprot-ul-li";
+      this.$refs.management.className = "tab-centersprot-ul-li";
+      this.$refs.botany.className = "tab-centersprot-ul-li";
+      this.$refs.home.className = "tab-centersprot-ul-li";
+    },
+    write: function() {
+      location.href = "#/login";
+      window.sessionStorage.removeItem("id");
+    },
+    amendpassword: function() {
+      location.href = "#/protect/amendpassword";
+    },
+    getuseid: function() {
+      this.id = window.sessionStorage.getItem("id");
+      console.log(this.id);
+    },
+    getuseifon: function() {
+      this.$http
+        .post(
+          api.apihost + "GetUserIndexInfo",
+          {
+            reg_id: this.id
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);
+          if (res.data.code == 0) {
+            this.name = res.data.attachment.real_name;
+            this.pic_url_1 = res.data.attachment.pic_url_1;
+          }
+        });
     }
+  },
+  mounted() {
+    this.getuseid();
+    this.getuseifon();
   }
 };
 </script>
