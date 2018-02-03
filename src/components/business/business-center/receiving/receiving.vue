@@ -61,12 +61,12 @@
               </li> -->
                <li class="order-card-li" v-show="select" v-for="(item,index) in MyorderList" :key="index">
                   <div class="order-card-li-heder">
-                     <span class="order-card-li-heder-left">{{item.state == 1? "自由发布":"待分配"}}</span><span class="order-card-li-heder-right">订单号：1710221411932</span>
+                     <span class="order-card-li-heder-left">{{item.demand_type == 1? "用户发布":"待分配"}}</span><span class="order-card-li-heder-right">订单号：{{item.task_id}}</span>
                   </div>
                   <div class="order-card-li-center">
                     <img src="../../../../assets/5555.png" alt="">
                     <div class="order-card-li-center-right">
-                        <h5>田地一号</h5>
+                        <h5>{{item.farmer_name == ""?"-":item.farmer_name}}</h5>
                         <span>发布：{{item.demand_time |time}}</span><br>
                         <span>作业：{{item.task_time |time}}</span>
                     </div>
@@ -74,16 +74,15 @@
                     <div class="tetale">
                       <span>{{item.task_ares}}亩</span><span>{{item.crops_name}}</span><span>{{item.task_type ==1?"防治":(item.task_type == 2 ?"杀虫灭菌":(item.task_type == 3?"施肥":(item.task_type == 4? "授粉":(item.task_type == 5 ?"脱叶":(item.task_type == 6 ? "消杀免疫":(item.task_type == 7?"除草":(item.task_type == 8?"其他":item.task_type)))))))}}</span><span>{{item.task_prices}}元/亩</span>
                     </div>
-                    <p>-</p>
+                    <p>{{item.team_name == "" ?"-":item.team_name}}</p>
                       <div class="feelot">
-                        <el-button type="primary" class="selectss oraders lefysef" v-if="item.demand_type == 1" @click="dialogVisible=true">接单</el-button>
-                        <el-button type="primary" class="selectss oraders" v-else @click="getuseifonData">分配值保队</el-button>
-                        <el-button type="primary" class="selectss oraders lefysef"><router-link to="/business/checkojb">查看</router-link></el-button>
+                        <!-- <el-button type="primary" class="selectss oraders lefysef" v-if="item.demand_type == 1" @click="dialogVisible=true">接单</el-button> -->
+                        <el-button type="primary" class="selectss oraders"  @click="getuseifonData(item.task_id)" >分配值保队</el-button>
+                        <el-button type="primary" class="selectss oraders lefysef" v-if="item.demand_type == 1"><router-link to="/business/checkojb" >查看</router-link></el-button>
                       </div>
                   </div>
               </li>
               <!-- 横版 -->
-
               <div class="order-spers order-sper-li" v-show="!select">
                 <div v-show="!select" class="order-sper-heders">
                   <span class="sper-titela namesss">名称</span>
@@ -100,23 +99,23 @@
                  <div class="across" v-for="(item,index) in MyorderList" :key="index">
                    <img src="../../../../assets/5555.png" alt="">
                    <div class="order-sper-tops">
-                     <span>田地一号 &nbsp;2017.11.22 &nbsp;2017.11.22</span>
-                     <span class="aerss">广东省深圳市南山区特发信息港A栋8楼</span>
-                     <span class="mianjise">120亩</span>
-                     <span class="rice">水稻</span>
-                     <span class="shif">施肥</span>
-                     <span class="jiasheridfashjfg">10元/亩</span>
-                     <el-button type="primary" class="selectss oraders lefysef" v-if="item.demand_type == 1" @click="dialogVisible=true">接单</el-button>
-                        <el-button type="primary" class="selectss oraders" v-else @click="getuseifonData">分配值保队</el-button>
+                     <span>{{item.farmer_name == ""?"-":item.farmer_name}} &nbsp;{{item.demand_time |time}} &nbsp;{{item.task_time |time}}</span>
+                     <span class="aerss">{{item.task_addr}}</span>
+                     <span class="mianjise">{{item.task_ares}}亩</span>
+                     <span class="rice">{{item.crops_name}}</span>
+                     <span class="shif">{{item.task_type ==1?"防治":(item.task_type == 2 ?"杀虫灭菌":(item.task_type == 3?"施肥":(item.task_type == 4? "授粉":(item.task_type == 5 ?"脱叶":(item.task_type == 6 ? "消杀免疫":(item.task_type == 7?"除草":(item.task_type == 8?"其他":item.task_type)))))))}}</span>
+                     <span class="jiasheridfashjfg">{{item.task_prices}}元/亩</span>
+                     <!-- <el-button type="primary" class="selectss oraders lefysef" v-if="item.demand_type == 1" @click="dialogVisible=true">接单</el-button> -->
+                        <el-button type="primary" class="selectss oraders lefysefssss"  @click="getuseifonData(item.task_id)">分配值保队</el-button>
                    </div>
                    <div class="wireas"></div>
                    <div class="order-sper-bottoms">
-                     <span>订单号：1710221411932</span>
-                     <span>接单中</span>
-                     <span>高科新农公司</span>
-                     <span>值保一队</span>
+                     <span>订单号：{{item.task_id}}</span>
+                     <span>{{item.demand_type == 1? "用户发布":"待分配"}}</span>
+                     <span>{{item.ppsp_name == ""? "-":item.ppsp_name}}</span>
+                     <span>{{item.team_name == ""? "-":item.team_name}}</span>
                      <el-button type="primary" class="primar quxiaoS" @click="dialogFormVisible = true" v-show="false">拒绝</el-button>
-                     <el-button type="primary" class="selectss oraders lefysefss"><router-link to="/business/checkojb">查看</router-link></el-button>
+                     <el-button type="primary" class="selectss oraders lefysefss" v-if="item.demand_type == 1"><router-link to="/business/checkojb">查看</router-link></el-button>
                    </div>
                  </div>
               </div>
@@ -250,8 +249,41 @@ export default {
         e.className = "order-center-tops-li";
       });
       this.$refs.all[index].className = "order-center-tops-li actionsColr";
+      this.getMyorderLists(index);
     },
-
+    // demand_type_1: [],
+    // demand_type_not_1: []
+    getMyorderLists: function(index) {
+      this.$http
+        .post(
+          api.apihost + "TaskManager",
+          {
+            reg_id: this.red_id,
+            action: 2
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          if (res.data.code == 0) {
+            this.getuseindex(res, index);
+          }
+        });
+    },
+    getuseindex: function(res, index) {
+      if (index == 0) {
+        this.MyorderList = res.data.attachment.type_0;
+      }
+      if (index == 1) {
+        this.MyorderList = res.data.attachment.demand_type_1;
+      }
+      if (index == 2) {
+        this.MyorderList = res.data.attachment.demand_type_not_1;
+      }
+    },
     getMyorderList: function() {
       this.$http
         .post(
@@ -268,8 +300,10 @@ export default {
         )
         .then(res => {
           console.log(res);
-          this.MyorderList = res.data.attachment.type_0;
-          this.num = this.MyorderList.length;
+          if (res.data.code == 0) {
+            this.MyorderList = res.data.attachment.type_0;
+            this.num = this.MyorderList.length;
+          }
         });
     },
     disali: function(index, id) {
@@ -293,7 +327,9 @@ export default {
           api.apihost + "TaskManager",
           {
             action: 3,
-            team_id: this.team_ids
+            team_id: this.team_ids,
+            reg_id: this.red_id,
+            task_id: this.task_id
             // tp_reg_id: this.team_id
           },
           {
@@ -305,6 +341,7 @@ export default {
         .then(res => {
           console.log(res);
           if (res.data.code == 0) {
+            this.all(0);
             this.$message({
               message:
                 "值保队分配成功，小妹下海码代码不容易，麻烦各位哥哥给个五星好评",
@@ -317,7 +354,8 @@ export default {
       this.dialogVisibles = false;
     },
     // 获取值保队
-    getuseifonData: function() {
+    getuseifonData: function(id) {
+      this.task_id = id;
       this.$http
         .post(
           api.apihost + "ServiceTeamInfo",

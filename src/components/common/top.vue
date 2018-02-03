@@ -13,7 +13,7 @@
                 <li class="insurance-li" @click="Myord">我的订单</li>
                 <li class="insurance-li" @click="pubsh">发布订单</li>
                 <li class="insurance-li" @click="receivings">接单中心</li>
-                <li class="insurance-li" @click="affim">确认订单</li>
+                <!-- <li class="insurance-li" @click="affim">确认订单</li> -->
                 <li class="insurance-li" @click="evauat">评价订单</li>
             </ul>
           </li>
@@ -109,7 +109,7 @@
 }
 .poityrhome-ul-li:nth-of-type(2):hover .insurance {
   transition: all 0.5s;
-  height: 200px;
+  height: 160px;
 }
 .poityrhome-ul-li:nth-of-type(4):hover .teamcenter {
   transition: all 0.5s;

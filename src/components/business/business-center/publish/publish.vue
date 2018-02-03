@@ -138,11 +138,11 @@
   <el-dialog title="值保机构选择" :visible.sync="outerVisible" :lock-scroll="false">
     <div class="dialog-top">
       <h3>选择系统推荐值保商：</h3>
-      <div class="zbsxz"  ref="dialogbusi" v-for="(item,index) in busisilist" @click="busisilists(item,item.pp_reg_id,index)" :key="index" v-on:mouseover="heedr(index)">
+      <div class="zbsxz"  ref="dialogbusi" v-for="(item,index) in busisilist" @click="busisilists(item,item.pp_reg_id,index,item.team_id)" :key="index" v-on:mouseover="heedr(index)">
         <p><span>值保商:</span>&nbsp;&nbsp;<span>{{item.ppsp_name}}</span></p>
         <p><span>人数:</span>&nbsp;&nbsp;<span>{{item.num_players}}</span></p>
         <p><span>值保范围:</span>&nbsp;&nbsp;<span>{{item.range[0]}}</span></p>
-        <p><span>评价:</span>&nbsp;&nbsp;<span> <el-rate :value="item.rate"></el-rate></span></p>
+        <p><span>评价:</span>&nbsp;&nbsp;<span> <el-rate :value="item.rate" disabled></el-rate></span></p>
         <div class="iconcheckesarch" ref="iconche">
           <span class="el-icon-check checkss"></span>
         </div>
@@ -197,7 +197,8 @@ import upaldimg from "../../../common/upladimg.vue";
 export default {
   data() {
     return {
-      demand_type: "",
+      team_id: "",
+      demand_type: 1,
       pp_reg_id: "",
       busisilist: [],
       cytype: "",
@@ -323,6 +324,9 @@ export default {
           e.className = "zbsxz";
         });
       }
+      this.team_id = this.currentRow.team_id;
+      this.pp_reg_id = this.currentRow.pp_reg_id;
+      this.getdemand_types();
     },
     reset() {
       this.form = {};
@@ -362,7 +366,9 @@ export default {
             task_price: this.ruleForm.price,
             task_introduce: this.ruleForm.desc,
             task_addr: this.ruleForm.site,
-            demand_type: 1
+            demand_type: this.demand_type,
+            pp_teg_id: this.pp_reg_id,
+            team_id: this.team_id
           },
           {
             headers: {
@@ -706,7 +712,6 @@ export default {
     getplayers: function() {
       this.$http.get(api.apihost + "GetServiceTeam").then(res => {
         console.log(res);
-        const lisy = [];
         const playerslist = res.data.attachment;
         playerslist.forEach(e => {
           const obj = {
@@ -714,17 +719,31 @@ export default {
             name: e.team_name,
             address: e.team_num,
             addr: e.team_range,
-            ress: "好评"
+            ress: "好评",
+            pp_reg_id: e.pp_reg_id,
+            team_id: e.team_id
           };
           this.tableData.push(obj);
         });
-        console.log(lisy);
         this.getServiceProvider();
       });
     },
     getServiceProvider: function() {
       this.$http.get(api.apihost + "GetServiceProvider").then(res => {
         console.log(res);
+        const list = res.data.attachment;
+        list.forEach(e => {
+          const obj = {
+            date: e.ppsp_name == "" ? "-" : e.ppsp_name,
+            name: "-",
+            address: e.num_players,
+            addr: e.team_range == "" ? "全国" : e.team_range,
+            ress: "好评",
+            pp_reg_id: e.pp_reg_id,
+            team_id: e.team_id
+          };
+          this.tableData.push(obj);
+        });
       });
     },
     // 获取值保商
@@ -736,10 +755,10 @@ export default {
       this.getplayers();
       this.outerVisible = true;
     },
-    busisilists: function(item, id, index) {
+    busisilists: function(item, id, index, team_id) {
       this.pp_reg_id = id;
-      console.log(id);
-
+      this.team_id = team_id;
+      console.log(id, team_id);
       this.$refs.dialogbusi.forEach(e => {
         e.className = "zbsxz";
       });
@@ -748,9 +767,31 @@ export default {
         e.className = "iconcheckesarch";
       });
       this.$refs.iconche[index].className = "iconche";
+      this.getdemand_type();
     },
     getdemand_type: function() {
-      this.demand_type = 1;
+      if (this.pp_reg_id == 0) {
+      } else {
+        if (this.team_id == 0) {
+          this.demand_type = 2;
+          console.log("您未选择");
+        } else {
+          this.demand_type = 3;
+        }
+      }
+      console.log(this.pp_reg_id, this.team_id);
+    },
+    getdemand_types: function() {
+      if (this.pp_reg_id == undefined) {
+      } else {
+        if (this.team_id == undefined) {
+          this.demand_type = 4;
+          console.log("您未选择");
+        } else {
+          this.demand_type = 5;
+        }
+      }
+      console.log(this.pp_reg_id, this.team_id);
     },
     heedr: function(index) {
       // this.$refs.iconche.forEach(e => {

@@ -93,12 +93,12 @@
 .caozuoss {
   margin-left: 40px;
 }
-/* .jigouss {
+.jigouss {
   margin-left: 8px;
   position: absolute;
-  right: -100px;
+  right: 4px;
   top: 0;
-} */
+}
 .bodys p {
   display: inline-block;
   position: absolute;
@@ -369,4 +369,33 @@
 }
 .actions {
   color: #0094ff;
+}
+.evaluatedialog {
+  width: 100%;
+  border-top: 1px solid #ccc;
+  margin-top: -30px;
+  padding-top: 30px;
+  position: relative;
+}
+.evaluatedialog-left {
+  width: 10%;
+  height: 200px;
+  padding: 0 5%;
+  display: inline-block;
+}
+.evaluatedialog-right {
+  width: 80%;
+  height: 200px;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+}
+.ratetop {
+  display: inline-block;
+  position: relative;
+  top: -4px;
+}
+.rate-input {
+  height: 40px;
+  width: 60%;
 }

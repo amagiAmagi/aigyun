@@ -33,7 +33,7 @@
         <!-- 展示订单信息的tab -->
       <div class="order-center">
           <ul class="order-center-tops-ul" ref="allss">
-            <li class="order-center-tops-li actionsColr" ref="all" @click="all" v-show="false">全部</li>
+            <!-- <li class="order-center-tops-li actionsColr" ref="all" @click="all" v-show="false">全部</li> -->
             <!-- <li class="order-center-tops-li" @click="order" ref="order">接单中</li>
             <li class="order-center-tops-li" @click="Inorder" ref="Inorder">已接单</li>
             <li class="order-center-tops-li" @click="Operation" ref="Operation">作业中</li>
@@ -43,30 +43,30 @@
           </ul>
             <div class="order-card">
                <!-- 竖版 -->
-              <li class="order-card-li" v-show="select">
+              <li class="order-card-li" v-show="select" v-for="(item,index) in MyorderList" :key="index">
                   <div class="order-card-li-heder">
-                     <span class="order-card-li-heder-left">待评价</span><span class="order-card-li-heder-right">订单号：1710221411932</span>
+                     <span class="order-card-li-heder-left">待评价</span><span class="order-card-li-heder-right">订单号：{{item.task_id}}</span>
                   </div>
                   <div class="order-card-li-center">
                     <img src="../../../../assets/5555.png" alt="">
                     <div class="order-card-li-center-right">
-                        <h5>田地一号</h5>
-                        <span>发布：2017.10.22</span><br>
-                        <span>作业：2017.10.22</span>
+                        <h5>{{item.farmer_name == ""?"-":item.farmer_name}}</h5>
+                        <span>发布：{{item.demand_time |time}}</span><br>
+                        <span>作业：{{item.task_time |time}}</span>
                     </div>
-                    <p>广东省深圳市南山区特发信息港A栋8楼</p>
+                    <p>{{item.task_addr}}</p>
                     <div class="tetale">
-                      <span>120亩</span><span>水稻</span><span>施肥</span><span>10元/亩</span>
+                      <span>{{item.task_ares}}亩</span><span>{{item.crops_name}}</span><span>{{item.task_type ==1?"防治":(item.task_type == 2 ?"杀虫灭菌":(item.task_type == 3?"施肥":(item.task_type == 4? "授粉":(item.task_type == 5 ?"脱叶":(item.task_type == 6 ? "消杀免疫":(item.task_type == 7?"除草":(item.task_type == 8?"其他":item.task_type)))))))}}</span><span>{{item.task_prices}}元/亩</span>
                     </div>
-                    <p>高科新农值保一队</p>
+                    <p>{{item.team_name == "" ?"-":item.team_name}}</p>
                       <div class="feelot">
-                        <el-button type="primary" class="select">评价</el-button>  <el-button type="primary" class="select cancel" @click="checkojb">查看订单</el-button>
+                        <el-button type="primary" class="select" @click="evalustyes(item.task_id,item.reg_id)">评价</el-button>  <el-button type="primary" class="select cancel" @click="checkojb">查看订单</el-button>
                       </div>
                   </div>
               </li>
               <!-- 横版 -->
 
-              <div class="order-spers order-sper-li" v-show="!select">
+              <div class="order-spers order-sper-li" v-show="!select" >
                 <div v-show="!select" class="order-sper-heders">
                   <span class="sper-titela namesss">名称</span>
                   <span class="sper-titela fbsjss">发布时间</span>
@@ -79,23 +79,24 @@
                   <span class="sper-titela caozuoss">操作</span>
                 </div>
                 <!-- 横版 -->
-                 <div class="across">
+                 <div class="across" v-for="(item,index) in MyorderList" :key="index">
                    <img src="../../../../assets/5555.png" alt="">
                    <div class="order-sper-tops">
-                     <span>田地一号 &nbsp;2017.11.22 &nbsp;2017.11.22</span>
-                     <span class="aerss">广东省深圳市南山区特发信息港A栋8楼</span>
-                     <span class="mianjise">120亩</span>
-                     <span class="rice">水稻</span>
-                     <span class="shif">施肥</span>
-                     <span class="jiasheridfashjfg">10元/亩</span>
-                     <el-button type="primary" class="primar jigouss">确认完成</el-button>
+                     <span>{{item.farmer_name == ""?"-":item.farmer_name}} &nbsp;{{item.demand_time |time}} &nbsp;{{item.task_time |time}}</span>
+                     <span class="aerss">{{item.task_addr}}</span>
+                     <span class="mianjise">{{item.task_ares}}亩</span>
+                     <span class="rice">{{item.crops_name}}</span>
+                     <span class="shif">{{item.task_type ==1?"防治":(item.task_type == 2 ?"杀虫灭菌":(item.task_type == 3?"施肥":(item.task_type == 4? "授粉":(item.task_type == 5 ?"脱叶":(item.task_type == 6 ? "消杀免疫":(item.task_type == 7?"除草":(item.task_type == 8?"其他":item.task_type)))))))}}</span>
+                     <span class="jiasheridfashjfg">{{item.task_prices}}元/亩</span>
+                     <!-- <el-button type="primary" class="primar jigouss">确认完成</el-button> -->
+                     <el-button type="primary" class="primar jigouss" @click="evalustyes(item.task_id,item.reg_id)">评价</el-button>
                    </div>
                    <div class="wireas"></div>
                    <div class="order-sper-bottoms">
-                     <span>订单号：1710221411932</span>
-                     <span>接单中</span>
-                     <span>高科新农公司</span>
-                     <span>值保一队</span>
+                     <span>订单号：primar jigouss</span>
+                     <span>待评价</span>
+                     <span>{{item.ppsp_name == ""? "-":item.ppsp_name}}</span>
+                     <span>{{item.team_name == ""? "-":item.team_name}}</span>
                      <el-button type="primary" class="primar quxiaoS" @click="checkojb">查看订单</el-button>
                    </div>
                  </div>
@@ -111,6 +112,32 @@
 
     </div>
 
+<!-- 评价订单 -->
+
+  <el-dialog title="评价订单" :visible.sync="dialogVisible" width="40%" :lock-scroll="false">
+    <div class="evaluatedialog">
+      <div class="evaluatedialog-left">
+        <img src="../../../../assets/015.png" alt="">
+      </div>
+      <div class="evaluatedialog-right">
+        <h4>请评价本次作业的农户</h4>
+        <p>
+  <el-rate v-model="value5"  text-color="#ff9900" score-template="{value}" class="ratetop">
+  </el-rate>
+</p>
+<p><input type="text" class="rate-input" v-model="provider"></p>
+        <!-- <p>{{teamname == ""?"-":teamname}}
+  <el-rate v-model="value4"  text-color="#ff9900" score-template="{value}" class="ratetop">
+  </el-rate>
+</p>
+<p><input type="text" class="rate-input" v-model="team"></p> -->
+      </div>
+    </div>
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="dialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="dialogs">确 定</el-button>
+    </span>
+  </el-dialog>
 
 
   </div>
@@ -128,12 +155,16 @@ export default {
       input2: "",
       value: "",
       select: true,
-      dialogTableVisible: false,
-      dialogFormVisible: false,
       type: [],
       neirong: "",
       MyorderList: [],
-      red_id: ""
+      red_id: "",
+      dialogVisible: false,
+      value5: 0,
+      taskid: "",
+      provider: "",
+      team: "",
+      id: ""
     };
   },
   methods: {
@@ -150,75 +181,21 @@ export default {
       this.$refs.menu.className = "el-icon-menu";
       this.$refs.tickets.className = "el-icon-tickets actions";
     },
-    all: function() {
-      this.$refs.all.className = "order-center-tops-li actionsColr";
-      this.$refs.order.className = "order-center-tops-li";
-      this.$refs.Inorder.className = "order-center-tops-li";
-      this.$refs.Operation.className = "order-center-tops-li";
-      this.$refs.confirmed.className = "order-center-tops-li";
-      this.$refs.evaluated.className = "order-center-tops-li";
-      this.$refs.accomplish.className = "order-center-tops-li";
-    },
-    order: function() {
-      this.$refs.all.className = "order-center-tops-li ";
-      this.$refs.order.className = "order-center-tops-li actionsColr";
-      this.$refs.Inorder.className = "order-center-tops-li";
-      this.$refs.Operation.className = "order-center-tops-li";
-      this.$refs.confirmed.className = "order-center-tops-li";
-      this.$refs.evaluated.className = "order-center-tops-li";
-      this.$refs.accomplish.className = "order-center-tops-li";
-    },
-    Inorder: function() {
-      this.$refs.all.className = "order-center-tops-li ";
-      this.$refs.order.className = "order-center-tops-li";
-      this.$refs.Inorder.className = "order-center-tops-li  actionsColr";
-      this.$refs.Operation.className = "order-center-tops-li";
-      this.$refs.confirmed.className = "order-center-tops-li";
-      this.$refs.evaluated.className = "order-center-tops-li";
-      this.$refs.accomplish.className = "order-center-tops-li";
-    },
-    Operation: function() {
-      this.$refs.all.className = "order-center-tops-li ";
-      this.$refs.order.className = "order-center-tops-li";
-      this.$refs.Inorder.className = "order-center-tops-li ";
-      this.$refs.Operation.className = "order-center-tops-li  actionsColr";
-      this.$refs.confirmed.className = "order-center-tops-li";
-      this.$refs.evaluated.className = "order-center-tops-li";
-      this.$refs.accomplish.className = "order-center-tops-li";
-    },
-    confirmed: function() {
-      this.$refs.all.className = "order-center-tops-li ";
-      this.$refs.order.className = "order-center-tops-li";
-      this.$refs.Inorder.className = "order-center-tops-li ";
-      this.$refs.Operation.className = "order-center-tops-li";
-      this.$refs.confirmed.className = "order-center-tops-li  actionsColr";
-      this.$refs.evaluated.className = "order-center-tops-li";
-      this.$refs.accomplish.className = "order-center-tops-li";
-    },
-    evaluated: function() {
-      this.$refs.all.className = "order-center-tops-li ";
-      this.$refs.order.className = "order-center-tops-li";
-      this.$refs.Inorder.className = "order-center-tops-li ";
-      this.$refs.Operation.className = "order-center-tops-li";
-      this.$refs.confirmed.className = "order-center-tops-li ";
-      this.$refs.evaluated.className = "order-center-tops-li  actionsColr";
-      this.$refs.accomplish.className = "order-center-tops-li";
-    },
-    accomplish: function() {
-      this.$refs.all.className = "order-center-tops-li ";
-      this.$refs.order.className = "order-center-tops-li";
-      this.$refs.Inorder.className = "order-center-tops-li ";
-      this.$refs.Operation.className = "order-center-tops-li";
-      this.$refs.confirmed.className = "order-center-tops-li ";
-      this.$refs.evaluated.className = "order-center-tops-li ";
-      this.$refs.accomplish.className = "order-center-tops-li  actionsColr";
-    },
+    // all: function() {
+    //   this.$refs.all.className = "order-center-tops-li actionsColr";
+    //   this.$refs.order.className = "order-center-tops-li";
+    //   this.$refs.Inorder.className = "order-center-tops-li";
+    //   this.$refs.Operation.className = "order-center-tops-li";
+    //   this.$refs.confirmed.className = "order-center-tops-li";
+    //   this.$refs.evaluated.className = "order-center-tops-li";
+    //   this.$refs.accomplish.className = "order-center-tops-li";
+    // },
     getMyorderList: function() {
       this.$http
         .post(
           api.apihost + "TaskManager",
           {
-            reg_id: this.red_id.reg_id,
+            reg_id: this.red_id,
             action: 2
           },
           {
@@ -227,12 +204,51 @@ export default {
             }
           }
         )
-        .then(function(res) {
+        .then(res => {
           console.log(res);
+          if (res.data.code == 0) {
+            this.MyorderList = res.data.attachment.rating;
+            console.log(this.MyorderList);
+          }
         });
     },
     checkojb: function() {
       location.href = "#/business/checkojb";
+    },
+    // 评价
+    evalustyes: function(id, ids) {
+      this.taskid = id;
+      this.id = ids;
+      console.log(this.id);
+      this.dialogVisible = true;
+    },
+    // 确认评价
+    dialogs: function() {
+      this.$http
+        .post(
+          api.apihost + "TaskRateInfo",
+          {
+            action: 0,
+            task_id: this.taskid,
+            reg_id: this.id,
+            service_provider_rate: this.input5,
+            service_team_rate: this.input4,
+            service_provider_comments: this.provider,
+            service_team_comments: this.team,
+            pp_reg_id: this.red_id
+          },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res);
+          if (res.data.code == 0) {
+            this.dialogVisible = false;
+          }
+        });
     }
   },
   created() {

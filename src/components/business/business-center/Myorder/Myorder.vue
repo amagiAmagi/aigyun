@@ -52,12 +52,12 @@
                     <div class="tetale">
                       <span>{{item.task_ares}}亩</span><span>{{item.crops_name}}</span><span>{{item.task_type ==1?"防治":(item.task_type == 2 ?"杀虫灭菌":(item.task_type == 3?"施肥":(item.task_type == 4? "授粉":(item.task_type == 5 ?"脱叶":(item.task_type == 6 ? "消杀免疫":(item.task_type == 7?"除草":(item.task_type == 8?"其他":item.task_type)))))))}}</span><span>{{item.task_prices}}元/亩</span>
                     </div>
-                    <p>-</p>
+                    <p>{{item.team_name == "" ?"-":item.team_name}}</p>
                       <div class="feelot">
-                        <el-button type="primary" class="select" v-if="item.state == 1" @click="getuseifonData(item.task_id)">分配值保队</el-button>
-                        <el-button type="primary" class="select" v-if="item.state == 15">确认完成</el-button>
+                        <el-button type="primary" class="select" v-if="item.state == 1 && (item.demand_type == 2 || item.demand_type == 4)" @click="getuseifonData(item.task_id)">分配值保队</el-button>
+                        <!-- <el-button type="primary" class="select" v-if="item.state == 15">确认完成</el-button> -->
                         <el-button type="primary" class="select" v-if="item.state == 16">评价</el-button>
-                        <el-button type="primary" class="select" v-if="item.state == ( 16 || 15 ||1)">查看</el-button>
+                        <el-button type="primary" class="select" v-if="(item.demand_type != 2 && item.demand_type != 4)"><router-link to="/business/checkojb">查看</router-link></el-button>
                         <!-- <el-button type="primary" class="select cancel" @click="dialogFormVisible = true">取消</el-button> -->
                         <el-button type="primary" class="select cancel"  v-if="item.state == 15"><router-link to="/business/checkojb" >查看</router-link></el-button>
                       <el-button type="primary" class="select cancel" v-if="item.state == 16"><router-link to="/business/checkojb" >查看</router-link></el-button>
